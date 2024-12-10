@@ -298,6 +298,19 @@ var AdNetworkFactory = {
     }
   }
 };
+
+var Mintegral = mintegralAdNetwork;
+var Meta = metaAdNetwork;
+var Tiktok = tiktokAdNetwork;
+var Ironsource = ironsourceAdNetwork;
+var Vungle = vungleAdNetwork;
+var Google = googleAdNetwork;
 export {
-  AdNetworkFactory
+  AdNetworkFactory,
+  Google,
+  Ironsource,
+  Meta,
+  Mintegral,
+  Tiktok,
+  Vungle
 };

@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import { networkPlugin } from "../networkPlugin.js";
+import { networkPlugin, adStart, adEnd, adClose, adRetry } from "../networkPlugin.js";
 import { config } from "../config.js";
 
 export class EndCard extends Scene {
@@ -123,5 +123,7 @@ createMapMovement(map, sequence, gameWidth, gameHeight, positions) {
 
   create() {
     this.editorCreate();
+    adEnd();
+    adClose();
   }
 }

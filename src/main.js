@@ -34,7 +34,7 @@ function setupGameInitialization(adNetworkType) {
   if (mraidAdNetworks.has(adNetworkType)) {
     networkPlugin.initMraid(() => game);
   } else {
-    // vungle, google ads, facebook, ironsource, tiktok, mintegral
+    // vungle, google ads, facebook, ironsource, tiktok
     return game;
   }
 }

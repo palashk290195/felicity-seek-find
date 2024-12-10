@@ -14,6 +14,7 @@ import star from "../../public/assets/star.png";
 import pixel_sprite from "../../public/assets/pixel.png";
 import pixel_json from "../../public/assets/pixel.json";
 import toArrayBuffer from "to-array-buffer";
+import { adReady } from "../networkPlugin";
 
 
 export class Preloader extends Scene {
@@ -22,6 +23,9 @@ export class Preloader extends Scene {
   }
 
   init() {
+    this.load.on("complete", () => {
+      adReady();
+    });
   }
 
   preload() {

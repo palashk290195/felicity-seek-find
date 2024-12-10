@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import { networkPlugin } from "../networkPlugin.js";
+import { networkPlugin, adStart, adEnd, adClose, adRetry } from "../networkPlugin.js";
 import { config } from "../config.js";
 
 export class Game extends Scene {
@@ -12,6 +12,10 @@ export class Game extends Scene {
     this.ducksFound = 0;
     this.gameTimer = null;
     this.headerHeight = 0;
+  }
+
+  init() {
+    adStart();
   }
 
   editorCreate() {

@@ -29,6 +29,13 @@ const addNetworkInjection = () => {
         injectTo: "head"
 
       };
+    case "mintegral":
+      return {
+        name: "Mintegral",
+        type: "raw",
+        path: "./src/injections/mintegral.html",
+        injectTo: "head"
+      };
     case "mraid":
       return {
         name: "Mraid",
