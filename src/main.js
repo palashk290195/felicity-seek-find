@@ -1,3 +1,4 @@
+//src/Preloader.js
 import { Preloader } from "./scenes/Preloader";
 import { Game } from "./scenes/Game";
 import { EndCard } from "./scenes/EndCard";

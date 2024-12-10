@@ -1,3 +1,4 @@
+//src/networkPlugin.js
 import { AdNetworkFactory, Mintegral } from "./lib/ad-network-plugin.js";
 import { config } from "./config.js";
 

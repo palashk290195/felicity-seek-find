@@ -1,3 +1,4 @@
+//src/scenes/Preloader.js
 import { Scene } from "phaser";
 import map_outlined_HQ from "../../public/assets/map_outlined_HQ.png";
 import duck_colored from "../../public/assets/duck_colored.png";

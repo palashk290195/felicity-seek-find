@@ -1,3 +1,4 @@
+//src/scenes/Game.js
 import { Scene } from "phaser";
 import { networkPlugin, adStart, adEnd, adClose, adRetry } from "../networkPlugin.js";
 import { config } from "../config.js";

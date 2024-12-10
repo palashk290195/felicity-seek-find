@@ -1,3 +1,4 @@
+//src/Preloader.js
 export const config = {
   adNetworkType: "mintegral",
   googlePlayStoreLink:
