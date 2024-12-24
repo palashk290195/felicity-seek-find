@@ -1,43 +1,44 @@
-//src/Preloader.js
-import { Preloader } from "./scenes/Preloader";
-import { Game } from "./scenes/Game";
-import { EndCard } from "./scenes/EndCard";
-import { MidCard } from "./scenes/MidCard.js";
+import * as Phaser from './phaser/phaser-3.87.0-core.js';
 
-import { config } from "./config.js";
-import { networkPlugin, mraidAdNetworks } from "./networkPlugin.js";
+import { mraidAdNetworks, networkPlugin } from './networkPlugin.js';
 
-//  Find out more information about the Game Config at:
-//  https://newdocs.phaser.io/docs/3.80.0/Phaser.Types.Core.GameConfig
+import { Game } from './scenes/Game';
+import { Preloader } from './scenes/Preloader';
+import { config } from './config.js';
+
 const gameConfig = {
-  type: Phaser.AUTO,
-  parent: "game-container",
-  backgroundColor: "#028af8",
-  audio: {
-    disableWebAudio: false
-  },
-  scale: {
-    mode: Phaser.Scale.FIT,
-    width: window.innerWidth,
-    height: window.innerHeight,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-  },
-  scene: [Preloader, Game, MidCard, EndCard],
+    type: Phaser.AUTO,
+    parent: 'ad-container',
+    width: 411,
+    height: 731,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+    scene: [
+        Preloader,
+        Game
+    ]
 };
 
-function initializePhaserGame() {
-  return new Phaser.Game(gameConfig);
+function initializePhaserGame ()
+{
+    return new Phaser.Game(gameConfig);
 }
-
-function setupGameInitialization(adNetworkType) {
-  const game = initializePhaserGame();
   
-  if (mraidAdNetworks.has(adNetworkType)) {
-    networkPlugin.initMraid(() => game);
-  } else {
-    // vungle, google ads, facebook, ironsource, tiktok
-    return game;
-  }
-}
+function setupGameInitialization (adNetworkType)
+{
+    const game = initializePhaserGame();
 
+    if (mraidAdNetworks.has(adNetworkType))
+    {
+        networkPlugin.initMraid(() => game);
+    }
+    else
+    {
+        // vungle, google ads, facebook, ironsource, tiktok
+        return game;
+    }
+}
+  
 setupGameInitialization(config.adNetworkType);

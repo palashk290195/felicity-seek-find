@@ -1,130 +1,257 @@
-# Phaser Unified Playable Ads Template
+# Meta Playable Ads Phaser 3 Template
 
-This is a sample Phaser 3 project that includes our Unified Playable Ads Network Plugin. This plugin allows you to easily integrate and test your playable ads across multiple ad networks.
+**Updated 20th December 2024**
 
-If you look in `main.js` and `config.js` you'll see the way the plugin has been included. This isn't a standard Phaser plugin, so you can just import it like a regular ESM module and hook into it directly from your Phaser code.
+This is a Phaser 3 Template that uses the Phaser Playable Ads Plugin and two custom Vite configs. These templates will create both the inlined html single-file build and the chunked index + asset 5MB zip build, suitable for Meta Playable Ads.
 
-`config.js` contains the configuration for the plugin. You can set the ad network type and store links here. The type of the ad network can be any one of the following:
+For fully in-lined 2MB ads you can test at https://developers.facebook.com/tools/playable-preview/
 
-- 'google'
-- 'meta'
-- 'mintegral'
-- 'tiktok'
-- 'ironsource'
-- 'vungle'
-- 'unityads'
-- 'applovin'
-- 'adcolony'
-- 'kayzen'
+For chunked 5MB zips you need to test via the Meta AdManager.
 
-Inside your Phaser Scenes, import the networkPlugin:
+![](meta-preview.png)
 
-```js
-import { networkPlugin } from "../networkPlugin.js";
+## How to Use
+
+Meta Playable Ads only support base64 encoded media. In order to support this we use a two-step process:
+
+1. All media is encoded into base64 js files.
+2. This is then `import`ed into the Preloader, or elsewhere in the Phaser code and depending on the media type, you use one of the provided special-case loaders in order to process it.
+
+## Encoding Media
+
+All of your assets should go in the `public/assets` folder. In this template you'll find we created sub-folders to make this easier to manage, but this isn't a requirement. It will work fine with all files in the `assets` folder too.
+
+To encode them, do `npm run base64`.
+
+This will run our conversion script. The output files will be saved into the `media` folder. This folder is cleared on each run, so don't save work files in there.
+
+The process will also create the file `media/imports.txt`. Open this in VSCode to easily be able to copy and paste the `import` statements. For example, here is what the file looks like in this template:
+
+```
+import { relaxingMusicMP3 } from '../../media/audio_relaxing-music.mp3.js';
+import { soundFxMP3 } from '../../media/audio_sound_fx.mp3.js';
+import { iceicebabyPNG } from '../../media/fonts_iceicebaby.png.js';
+import { iceicebabyXML } from '../../media/fonts_iceicebaby.xml.js';
+import { calvinPNG } from '../../media/images_calvin.png.js';
+import { spaceyJPG } from '../../media/images_spacey.jpg.js';
+import { sukasukaPNG } from '../../media/images_sukasuka.png.js';
+import { atlas1ATLAS } from '../../media/spine_atlas1.atlas.js';
+import { atlas1PNG } from '../../media/spine_atlas1.png.js';
+import { demosJSON } from '../../media/spine_demos.json.js';
 ```
 
-Then you can use the plugin to call the ad network API:
+Now the media is encoded to base64 you can load it into Phaser.
+
+## Phaser Preloader
+
+Inside the Phaser Preloader Scene make sure you import the `Base64Manager`:
 
 ```js
-networkPlugin.ctaPressed();
+import { Base64Manager } from '../utils/Base64Manager.js';
 ```
 
-For Unity Ads, Applovin, Ad Colony and Kayzen we need to specify store links to our call:
+You should call this as the first thing you do inside the `preload` method:
 
 ```js
-import { config } from "../config.js";
-
-networkPlugin.ctaPressed(config.googlePlayStoreLink, config.appleStoreLink);
+Base64Manager(this, () => this.base64LoaderComplete());
 ```
 
-The rest of this document details how to use the template:
+It takes two parameters: The current Scene and the callback to invoke once the loading has finished. In this case, we're calling `this.base64LoaderComplete()`.
 
-## Available Commands
+Now you've created the manager, you can load assets.
 
-| Command         | Description                                    |
-| --------------- | ---------------------------------------------- |
-| `npm install`   | Install project dependencies                   |
-| `npm run dev`   | Launch a development web server                |
-| `npm run build` | Create a production build in the `dist` folder |
+### Loading Images
 
-## Template Project Structure
-
-We have provided a default project structure to get you started. This is as follows:
-
-- `index.html` - A basic HTML page to contain the game.
-- `src` - Contains the game source code.
-- `src/main.js` - The main entry point. This contains the game configuration and starts the game.
-- `src/scenes/` - The Phaser Scenes are in this folder.
-- `src/lib/` - Contains ad network API libraries.
-- `public/assets` - Contains the static assets used by the game.
-
-## Testing on Ad Networks
-
-- Facebook: Facebook Playable Ad tester is not working in case you try with it. You should upload your playable directly to [Facebook Ads Manager](https://adsmanager.facebook.com/adsmanager/) to test.
-- Unity Ads:
-  - [Android](https://play.google.com/store/apps/details?id=com.unity3d.auicreativetestapp)
-  - [iOS](https://apps.apple.com/sk/app/ad-testing/id1463016906)
-- [AppLovin](https://p.applov.in/playablePreview?create=1&qr=1)
-- [Mintegral](https://www.mindworks-creative.com/review/)
-- IronSource: Testing tool is deprecated. You can only test it directly on [IronSource dashboard](https://developers.is.com/ironsource-mobile/general/html-upload/)
-- Google: Testing tool is not available. You can only test it directly on [Google Ads Manager](https://ads.google.com/).
-- [TikTok](https://ads.tiktok.com/help/article/playable-ads?lang=en#anchor-20)
-- [Vungle](https://vungle.com/creative-verifier/)
-- [Ad Colony](https://console.fyber.com/)
-- Kayzen: They don't have testing tool. You need to test through their dashboard.
-
-## Handling Assets
-
-Vite supports loading assets via JavaScript module `import` statements.
-
-This template provides support for both embedding assets and also loading them from a static folder. To embed an asset, you can import it at the top of the JavaScript file you are using it in:
+These can be handled via the normal Phaser loader. So, import the images you want:
 
 ```js
-import logoImg from "./assets/logo.png";
+import { spaceyJPG } from '../../media/images_spacey.jpg.js';
+import { sukasukaPNG } from '../../media/images_sukasuka.png.js';
 ```
 
-To load static files such as audio files, videos, etc place them into the `public/assets` folder. Then you can use this path in the Loader calls within Phaser:
+and then load them as usual in the `preload` method:
 
 ```js
-preload();
+this.load.image('bg', spaceyJPG);
+this.load.image('suka', sukasukaPNG);
+```
+
+Note that we're importing the encoded `js` files from the `media` folder. Not the actual assets.
+
+This is all you need to do for images.
+
+### Loading Audio
+
+Import the helper function:
+
+```js
+import { LoadBase64Audio } from '../utils/LoadBase64Audio.js';
+```
+
+Then import the audio files as created by the encoder:
+
+```js
+import { soundFxMP3 } from '../../media/audio_sound_fx.mp3.js';
+```
+
+Finally, invoke the function within `preload`:
+
+```js
+LoadBase64Audio(this, [
+    { key: 'sound_fx', data: soundFxMP3 }
+]);
+```
+
+The `key` is the normal Phaser audio key that you'll use for playback. The `data` parameter is the imported audio file. The `LoadBase64Audio` function takes an array, so if you have multiple audio files you should pass them all in here. Don't call this function more than once, bundle them together in this array.
+
+### Loading Bitmap Fonts
+
+The approach is the same here. Ensure your Bitmap Font png and xml files have been encoded and saved to the media folder, then import both the `LoadBase64BitmapFont` helper and the font files:
+
+```js
+import { LoadBase64BitmapFont } from '../utils/LoadBase64BitmapFont.js';
+import { iceicebabyPNG } from '../../media/fonts_iceicebaby.png.js';
+import { iceicebabyXML } from '../../media/fonts_iceicebaby.xml.js';
+```
+
+Then you can call the function within `preload`:
+
+```js
+LoadBase64BitmapFont(this, {
+    key: 'font1',
+    xml: iceicebabyXML,
+    png: iceicebabyPNG
+});
+```
+
+The parameters are the same as when loading a Bitmap Font normally with Phaser, so please consult the API Documentation for details.
+
+### Loading Spine Files
+
+There are two steps to loading Spine files. The first is ensuring the Spine plugin is added to Phaser.
+
+Look at the `src/main-with-spine.js` file and you'll see two parts for Spine. First, the import:
+
+```js
+import * as SpinePlugin from './spine/SpinePlugin';
+```
+
+and then the `gameConfig` plugin:
+
+```js
+const gameConfig = {
+    // other config values removed
+    plugins: {
+        scene: [
+            { key: 'SpinePlugin', plugin: window['SpinePlugin'], mapping: 'spine' }
+        ]
+    }
+};
+```
+
+Make sure you add these lines if you want to use Spine.
+
+A special version of the Spine Plugin has been included in the `spine` folder. Please use this. Do not replace it. It supports Spine 4.1 files.
+
+With the Spine plugin installed, you can then ensure the assets are encoded and import them, along with the helper function:
+
+```js
+import { LoadBase64SpineFile } from '../utils/LoadBase64SpineFile.js';
+import { atlas1ATLAS } from '../../media/spine_atlas1.atlas.js';
+import { atlas1PNG } from '../../media/spine_atlas1.png.js';
+import { demosJSON } from '../../media/spine_demos.json.js';
+```
+
+Spine consists of a JSON file. This contains all of the animation data. It also has one `.atlas` file. This contains all of the texture mapping. It then has one, or more, atlas files (PNGs). All of these are created when you export from Spine. Consult their documentation for details.
+
+With the function and files imported, we can call it in `preload`:
+
+```js
+LoadBase64SpineFile(this, {
+    key: 'set1',
+    json: demosJSON,
+    atlas: atlas1ATLAS,
+    png: [
+        { key: 'atlas1.png', file: atlas1PNG }
+    ],
+    preMultipliedAlpha: true
+});
+```
+
+You set the `key` under which this atlas will be loaded (`set1` in this case).
+
+Then pass in the `json` and `atlas` files you imported.
+
+The `png` property contains an _array_ of PNG to filename mappings. In the code above, the original file was called `atlas1.png`. This is the reference that Spine will have saved to the atlas. We use this object to map that key to the actual imported file.
+
+Finally, you can set if the pma is needed or not. Again, consult the Spine docs for details.
+
+This will load everything needed to use Spine in your Playable Ad.
+
+Have a look at the file `src/PreloaderWithSpine.js` for a complete example.
+
+Please think carefully about using Spine - it adds a very large amount to the filesize!
+
+## The Loader Callback
+
+With all of these calls made the only thing left to do is add some code to the loader callback. This is the callback we defined when calling the `Base64Manager`. In this template ours just does this:
+
+```js
+base64LoaderComplete ()
 {
-  //  This is an example of an imported bundled image.
-  //  Remember to import it at the top of this file
-  this.load.image("logo", logoImg);
+    adReady();
 
-  //  This is an example of loading a static image
-  //  from the public/assets folder:
-  this.load.image("background", "assets/bg.png");
+    this.scene.start('Game');
 }
 ```
 
-When you issue the `npm run build` command, all static assets are automatically copied to the `dist/assets` folder.
+In the `Game` Scene all of the assets you've preloaded here can be used exactly how you'd normally use them within Phaser. There's no actual difference now that they are loaded. Look at `Game.js` for a basic example.
 
-## Deploying to Production
+## Compressed Versions of Phaser
 
-After you run the `npm run build` command, your code will be built into a single bundle and saved to the `dist` folder, along with any other assets your project imported, or stored in the public assets folder.
+This template includes 3 versions of Phaser. These are in the `src/phaser` folder. The default one being used by the source code is:
 
-In order to deploy your playable ad, you will need to upload _all_ of the contents of the `dist` or `dist-zip` folder to ad network.
+```js
+import * as Phaser from './phaser/phaser-3.87.0-core.js';
+```
 
-## Customizing the Template
+The Core build is Phaser 3.87 without Arcade Physics, Matter Physics or Tilemap support, as these are traditionally not required for Playable Ads. Should you need them, swap it for the included `phaser-3.87.0-full.js` instead by changing the `import` statements in the source files.
 
-### Vite
+Also included is `phaser-3.80.1.js` which is a Phaser Compressor version that has the following removed:
 
-If you want to customize your build, such as adding plugin (i.e. for loading CSS or fonts), you can modify the `vite.config.js` file for cross-project changes, or you can modify and/or create new configuration files and target them in specific npm tasks inside of `package.json`. Please see the [Vite documentation](https://vitejs.dev/) for more information.
+Arcade Physics
+Matter Physics
+Tilemaps
+Gamepad Support
+Mesh, Plane, PointLight and Lights Game Objects
 
-## Join the Phaser Community!
+This makes is the smallest build of Phaser, should you need to start saving every last byte.
 
-We love to see what developers like you create with Phaser! It really motivates us to keep improving. So please join our community and show-off your work 😄
+## Testing your Ad
 
-**Visit:** The [Phaser website](https://phaser.io) and follow on [Phaser Twitter](https://twitter.com/phaser_)<br />
-**Play:** Some of the amazing games [#madewithphaser](https://twitter.com/search?q=%23madewithphaser&src=typed_query&f=live)<br />
-**Learn:** [API Docs](https://newdocs.phaser.io), [Support Forum](https://phaser.discourse.group/) and [StackOverflow](https://stackoverflow.com/questions/tagged/phaser-framework)<br />
-**Discord:** Join us on [Discord](https://discord.gg/phaser)<br />
-**Code:** 2000+ [Examples](https://labs.phaser.io)<br />
-**Read:** The [Phaser World](https://phaser.io/community/newsletter) Newsletter<br />
+Use `npm run dev` to test the Ad locally. This will launch Vite dev server, so you can use localhost to view the ad.
 
-Created by [Phaser Studio](mailto:support@phaser.io). Powered by coffee, anime, pixels and love.
+## Building your Ad
 
-The Phaser logo and characters are &copy; 2011 - 2024 Phaser Studio Inc.
+When it comes time to test it on Meta there are two build commands you can use, depending on which ad-type you are creating:
 
-All rights reserved.
+`npm run buildzip` and
+`npm run buildinline`
+
+The `buildzip` command will do the following:
+
+1. Create a build with all of the data inlined into the `dist-split` folder. The end result will be a single `index.html` file and then a single JS file that contains everything else.
+
+2. Vite will then zip this for you and save it into a file called `dist.zip` in the `dist-split` folder. This is the file you can upload to the Meta Ads Manager.
+
+If you are creating an inline-ad, use the command `buildinline` instead. The results of this are saved to the `dist-inline` folder. This is not zipped, as there's no need. Meta, and others, expect an html file upload, which is what this creates.
+
+Note that you will still get the warning "It looks like your source file may contain an XMLHttpRequest, which will be blocked on mobile devices. You can remove it, or proceed and verify that your file will work on mobile by using the Preview tool." - you can safely ignore this. Although the call is present inside Phaser, it won't be used.
+
+## Optimization Tips
+
+The downside of Meta requiring everything as base64 is that the files are huge. Your assets will increase in size by a third and there's nothing you can do to stop this. So the trick is to make sure the source media is as tiny as possible up front.
+
+Use JPEG where possible and you don't need transparency. Use 8-bit PNGs that have been palette reduced via a site like https://tinypng.com/ to shave important bytes off. Use audio formats and encodings that optimize space vs. clarity.
+
+There's nothing this template can do to crunch your assets, that needs to become part of your workflow. Good luck! Shaving bytes is a challenge all playable ad devs face. It's an eternal struggle.
