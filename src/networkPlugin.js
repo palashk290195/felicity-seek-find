@@ -39,6 +39,7 @@ export function adReady() {
 
 // New function to handle ctaPressed with optional store links
 export function handleCtaPressed() {
+    adClose(); // Ad needs to close after CTA press
     if (mraidAdNetworks.has(config.adNetworkType)) {
         networkPlugin.ctaPressed(config.googlePlayStoreLink, config.appleStoreLink);
     } else {

@@ -21,6 +21,7 @@ import { pixelRedPNG } from '../../media/images_pixel_red.png.js';
 import { pixelWhitePNG } from '../../media/images_pixel_white.png.js';
 import { pixelYellowPNG } from '../../media/images_pixel_yellow.png.js';
 import { playbtnPNG } from '../../media/images_playbtn.png.js';
+import { retrySVG } from '../../media/images_retry.svg.js';
 import { starPNG } from '../../media/images_star.png.js';
 import { pixelJSON } from '../../media/spine_pixel.json.js';
 import { pixelPNG } from '../../media/spine_pixel.png.js';

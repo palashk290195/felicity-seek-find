@@ -28,6 +28,7 @@ import { pixelRedPNG } from '../../media/images_pixel_red.png.js';
 import { pixelWhitePNG } from '../../media/images_pixel_white.png.js';
 import { pixelYellowPNG } from '../../media/images_pixel_yellow.png.js';
 import { playbtnPNG } from '../../media/images_playbtn.png.js';
+import { retrySVG } from '../../media/images_retry.svg.js';
 import { starPNG } from '../../media/images_star.png.js';
 import { pixelJSON } from '../../media/spine_pixel.json.js';
 import { pixelPNG } from '../../media/spine_pixel.png.js';
@@ -55,9 +56,9 @@ export class Preloader extends Phaser.Scene
             { key: 'duck_click_sound', data: duckClickSoundMP3 }
         ]);
     
-        this.load.image('map_outlined_HQ', mapOutlinedHQPNG);
-        this.load.image('duck_colored', duckColoredPNG);
-        this.load.image('duck_outline', duckOutlinePNG);
+        this.load.image('map_outlined_HQ', mapOutlinedHQ1PNG);
+        this.load.image('duck_colored', duckColored1PNG);
+        this.load.image('duck_outline', duckOutline1PNG);
         this.load.image('Logo_image', LogoImagePNG);
         this.load.image('map1', map1PNG);
         this.load.image('map2', map2PNG);
@@ -68,6 +69,7 @@ export class Preloader extends Phaser.Scene
         this.load.image('Cursor_1', Cursor1PNG);
         this.load.image('star', starPNG);
         this.load.atlas('pixel', pixelPNG, pixelJSON);
+        this.load.image("retryIcon", retrySVG);
     }
 
     create ()

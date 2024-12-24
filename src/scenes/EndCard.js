@@ -14,6 +14,7 @@ export class EndCard extends Phaser.Scene {
     
         this.createBackground(gameWidth, gameHeight);
         this.createHeader(gameWidth, gameHeight);
+        this.createRetryButton(gameWidth, gameHeight);
         this.createPlayButton(gameWidth, gameHeight);
         this.createMaps(gameWidth, gameHeight);
       }
@@ -120,12 +121,41 @@ export class EndCard extends Phaser.Scene {
       // Start the first tween without delay
       startTween(true);
     }
+
+    /**
+   * Creates retry button in top right corner
+   * @param {number} gameWidth - Width of game canvas
+   * @param {number} gameHeight - Height of game canvas
+   */
+  createRetryButton(gameWidth, gameHeight) {
+    const padding = 10;
+    const buttonSize = 10;
+    
+    const retryButton = this.add.image(
+      gameWidth - padding - buttonSize/2,
+      padding + buttonSize/2,
+      'retryIcon'
+    );
+    retryButton.setDisplaySize(buttonSize, buttonSize);
+    
+    retryButton
+      .setInteractive()
+      .on('pointerover', () => {
+        retryButton.setTint(0x666666);
+      })
+      .on('pointerout', () => {
+        retryButton.clearTint();
+      })
+      .on('pointerdown', () => {
+        adRetry();
+        this.scene.start('Game');
+      });
+  }
     
     
     
     create() {
         this.editorCreate();
         adEnd();
-        adClose();
     }
 }

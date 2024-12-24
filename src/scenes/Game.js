@@ -248,6 +248,7 @@ export class Game extends Phaser.Scene
     
         this.playNowButton.on('pointerdown', () => {
             handleCtaPressed();
+            adEnd();
         });
     
         this.tweens.add({
