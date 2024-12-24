@@ -5,20 +5,23 @@ import { mraidAdNetworks, networkPlugin } from './networkPlugin.js';
 import { Game } from './scenes/Game';
 import { Preloader } from './scenes/Preloader';
 import { config } from './config.js';
+import { EndCard } from "./scenes/EndCard";
+import { MidCard } from "./scenes/MidCard";
 
 const gameConfig = {
     type: Phaser.AUTO,
     parent: 'ad-container',
-    width: 411,
-    height: 731,
+    backgroundColor: "#028af8",
+    audio: {
+        disableWebAudio: false
+    },
     scale: {
         mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH
+        width: window.innerWidth,
+        height: window.innerHeight,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [
-        Preloader,
-        Game
-    ]
+    scene: [Preloader, Game, MidCard, EndCard],
 };
 
 function initializePhaserGame ()

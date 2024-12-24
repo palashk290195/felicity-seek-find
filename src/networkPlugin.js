@@ -36,3 +36,12 @@ export function adReady() {
         Mintegral.gameReady();
     }
 }
+
+// New function to handle ctaPressed with optional store links
+export function handleCtaPressed() {
+    if (mraidAdNetworks.has(config.adNetworkType)) {
+        networkPlugin.ctaPressed(config.googlePlayStoreLink, config.appleStoreLink);
+    } else {
+        networkPlugin.ctaPressed();
+    }
+}

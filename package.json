@@ -5,6 +5,7 @@
   "main": "src/main.js",
   "private": true,
   "scripts": {
+    "buildall": "node build-all-networks.mjs",
     "base64": "node base64encoder.mjs",
     "dev": "vite --config vite/config.dev.mjs",
     "buildzip": "vite build --config vite/config-zip.prod.mjs",

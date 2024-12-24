@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 import { htmlInjectionPlugin } from 'vite-plugin-html-injection';
 import { viteSingleFile } from 'vite-plugin-singlefile';
 import viteString from 'vite-plugin-string';
+import zipPack from 'vite-plugin-zip-pack';
 
 const addNetworkInjection = () => {
     switch (config.adNetworkType) {
@@ -82,44 +83,46 @@ const addNetworkInjection = () => {
 };
   
 export default defineConfig({
-    base: '',
-    logLevel: 'warning',
-    publicDir: false,
-    build: {
-        outDir: 'dist-inline',
-        assetsInlineLimit: 2097152,
-        sourcemap: false,
-        minify: 'terser',
-        terserOptions: {
-          compress: {
-              passes: 2
-          },
+  base: '',
+  logLevel: 'warning',
+  publicDir: false,
+  build: {
+      outDir: 'dist-inline',
+      assetsInlineLimit: 2097152,
+      sourcemap: false,
+      minify: 'terser',
+      terserOptions: {
           format: {
-                comments: false
-            }
-        }
-    },
-    server: {
-        port: 8080
-    },
-    plugins: [
-        createHtmlPlugin({
-            minify: false,
-            removeComments: true,
-            entry: "src/main.js",
-        }),
-        viteSingleFile({ removeViteModuleLoader: false }),
-        viteString({
-            compress: false,
-            include: [ "**/*.atlas", "**/*.xml" ] // This will inline all Spine Atlas files and XML files as strings
-        }),
-        {
-            ...htmlInjectionPlugin({
-              injections: [
-                addNetworkInjection(),
-              ],
-            }),
-            apply: "build"
+              comments: false
           }
-    ]
+      }
+  },
+  server: {
+      port: 8080
+  },
+  plugins: [
+      createHtmlPlugin({
+          minify: false,
+          removeComments: true,
+          entry: "src/main.js",
+      }),
+      viteSingleFile({ removeViteModuleLoader: false }),
+      viteString({
+          compress: false,
+          include: [ "**/*.atlas", "**/*.xml" ]
+      }),
+      zipPack({
+        inDir: 'dist-inline',
+        outDir: 'dist-inline',
+        outFileName: 'index.zip'
+      }),
+      {
+          ...htmlInjectionPlugin({
+            injections: [
+              addNetworkInjection(),
+            ],
+          }),
+          apply: "build"
+        }
+  ]
 });
