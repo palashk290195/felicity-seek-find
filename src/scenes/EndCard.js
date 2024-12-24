@@ -8,16 +8,25 @@ export class EndCard extends Scene {
     super("EndCard");
   }
 
+  /**
+   * Creates all elements for the end card scene
+   */
   editorCreate() {
     const gameWidth = this.scale.width;
     const gameHeight = this.scale.height;
 
     this.createBackground(gameWidth, gameHeight);
     this.createHeader(gameWidth, gameHeight);
+    this.createRetryButton(gameWidth, gameHeight);
     this.createPlayButton(gameWidth, gameHeight);
     this.createMaps(gameWidth, gameHeight);
   }
 
+  /**
+   * Creates the background for the end card
+   * @param {number} gameWidth - Width of game canvas
+   * @param {number} gameHeight - Height of game canvas
+   */
   createBackground(gameWidth, gameHeight) {
     this.background = this.add.image(gameWidth/2, gameHeight/2, "VideoBG");
     const scaleX = gameWidth / this.background.width;
@@ -26,6 +35,11 @@ export class EndCard extends Scene {
     this.background.setScale(scale);
   }
 
+  /**
+   * Creates the header with logo
+   * @param {number} gameWidth - Width of game canvas
+   * @param {number} gameHeight - Height of game canvas
+   */
   createHeader(gameWidth, gameHeight) {
     const seekAndFind = this.add.image(
       gameWidth * 0.5,
@@ -36,6 +50,42 @@ export class EndCard extends Scene {
     seekAndFind.setScale(seekAndFindScale);
   }
 
+  /**
+   * Creates retry button in top right corner
+   * @param {number} gameWidth - Width of game canvas
+   * @param {number} gameHeight - Height of game canvas
+   */
+  createRetryButton(gameWidth, gameHeight) {
+    const padding = 10;
+    const buttonSize = 20;
+    
+    const retryButton = this.add.image(
+      gameWidth - padding - buttonSize/2,
+      padding + buttonSize/2,
+      'retryIcon'
+    );
+
+    retryButton.setDisplaySize(buttonSize, buttonSize);
+    
+    retryButton
+      .setInteractive()
+      .on('pointerover', () => {
+        retryButton.setTint(0x666666);
+      })
+      .on('pointerout', () => {
+        retryButton.clearTint();
+      })
+      .on('pointerdown', () => {
+        adRetry();
+        this.scene.start('Game');
+      });
+  }
+
+  /**
+   * Creates main play/install button
+   * @param {number} gameWidth - Width of game canvas
+   * @param {number} gameHeight - Height of game canvas 
+   */
   createPlayButton(gameWidth, gameHeight) {
     const playbtn = this.add.image(
       gameWidth * 0.5,
@@ -48,7 +98,7 @@ export class EndCard extends Scene {
       .setScale(playbtnScale)
       .setInteractive()
       .on('pointerdown', () => {
-        adClose(); // Move adClose here, after user clicks
+        adClose();
         networkPlugin.ctaPressed();
       });
 
@@ -62,6 +112,11 @@ export class EndCard extends Scene {
     });
   }
 
+  /**
+   * Creates and animates map elements
+   * @param {number} gameWidth - Width of game canvas
+   * @param {number} gameHeight - Height of game canvas
+   */
   createMaps(gameWidth, gameHeight) {
     const mapPositions = [
         {x: 0.25, y: 0.55},
@@ -94,6 +149,14 @@ export class EndCard extends Scene {
     this.createMapMovement(this.map3, [2, 0, 1], gameWidth, gameHeight, mapPositions);
   }
 
+  /**
+   * Creates movement animation for maps
+   * @param {Phaser.GameObjects.Image} map - Map sprite to animate
+   * @param {Array} sequence - Sequence of position indices
+   * @param {number} gameWidth - Width of game canvas
+   * @param {number} gameHeight - Height of game canvas
+   * @param {Array} positions - Array of position objects
+   */
   createMapMovement(map, sequence, gameWidth, gameHeight, positions) {
     let currentIndex = 0;
 
@@ -116,8 +179,11 @@ export class EndCard extends Scene {
     startTween(true);
   }
 
+  /**
+   * Scene create callback
+   */
   create() {
     this.editorCreate();
-    adEnd(); // Keep adEnd, remove adClose
+    adEnd();
   }
 }

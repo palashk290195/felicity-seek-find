@@ -244,7 +244,9 @@ export class Game extends Scene {
     this.playNowButton.setScale(playNowButtonScale);
 
     this.playNowButton.on('pointerdown', () => {
+      adClose();
       networkPlugin.ctaPressed();
+      adEnd();
     });
 
     this.tweens.add({
