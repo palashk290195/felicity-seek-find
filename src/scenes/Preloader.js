@@ -5,33 +5,43 @@ import { LoadBase64Audio } from '../utils/LoadBase64Audio.js';
 // import { LoadBase64BitmapFont } from '../utils/LoadBase64BitmapFont.js';
 import { adReady } from '../networkPlugin';
 
-// import { .DSStore } from '../../media/.DS_Store.js';
+//import { .DSStore } from '../../media/.DS_Store.js';
 import { duckClickSoundMP3 } from '../../media/audio_duck_click_sound.mp3.js';
-// import { .DSStore } from '../../media/images_.DS_Store.js';
+//import { .DSStore } from '../../media/images_.DS_Store.js';
 import { Cursor1PNG } from '../../media/images_Cursor_1.png.js';
 import { LogoImagePNG } from '../../media/images_Logo_image.png.js';
 import { PlayNowPNG } from '../../media/images_PlayNow.png.js';
 import { VideoBGPNG } from '../../media/images_VideoBG.png.js';
-import { duckColoredPNG } from '../../media/images_duck_colored.png.js';
-import { duckColored1PNG } from '../../media/images_duck_colored1.png.js';
-import { duckOutlinePNG } from '../../media/images_duck_outline.png.js';
-import { duckOutline1PNG } from '../../media/images_duck_outline1.png.js';
+// import { duckColoredPNG } from '../../media/images_duck_colored.png.js';
+// import { duckColored1PNG } from '../../media/images_duck_colored1.png.js';
+// import { duckOutlinePNG } from '../../media/images_duck_outline.png.js';
+// import { duckOutline1PNG } from '../../media/images_duck_outline1.png.js';
 import { map1PNG } from '../../media/images_map1.png.js';
 import { map2PNG } from '../../media/images_map2.png.js';
 import { map3PNG } from '../../media/images_map3.png.js';
-import { mapOutlinedHQPNG } from '../../media/images_map_outlined_HQ.png.js';
-import { mapOutlinedHQ1PNG } from '../../media/images_map_outlined_HQ1.png.js';
-import { mapOutlinedHQ3PNG } from '../../media/images_map_outlined_HQ3.png.js';
-import { pixelBluePNG } from '../../media/images_pixel_blue.png.js';
-import { pixelGreenPNG } from '../../media/images_pixel_green.png.js';
-import { pixelRedPNG } from '../../media/images_pixel_red.png.js';
-import { pixelWhitePNG } from '../../media/images_pixel_white.png.js';
-import { pixelYellowPNG } from '../../media/images_pixel_yellow.png.js';
+// import { mapOutlinedHQPNG } from '../../media/images_map_outlined_HQ.png.js';
+// import { mapOutlinedHQ1PNG } from '../../media/images_map_outlined_HQ1.png.js';
+// import { mapOutlinedHQ3PNG } from '../../media/images_map_outlined_HQ3.png.js';
+// import { mapWinterWonderland 2WEBP } from '../../media/images_map_winter_wonderland 2.webp.js';
+// import { mapWinterWonderlandPNG } from '../../media/images_map_winter_wonderland.png.js';
+import { mapWinterWonderland11zonPNG } from '../../media/images_map_winter_wonderland_11zon.png.js';
+// import { mapWinterWonderlandWEBP } from '../../media/images_map_winter_wonderland.webp.js';
+// import { mapWinterWonderlandZIP } from '../../media/images_map_winter_wonderland.zip.js';
+// import { pixelBluePNG } from '../../media/images_pixel_blue.png.js';
+// import { pixelGreenPNG } from '../../media/images_pixel_green.png.js';
+// import { pixelRedPNG } from '../../media/images_pixel_red.png.js';
+// import { pixelWhitePNG } from '../../media/images_pixel_white.png.js';
+// import { pixelYellowPNG } from '../../media/images_pixel_yellow.png.js';
+// import { christmasClassicLand11zonPNG } from '../../media/images_christmas_classic_land_11zon.png.js';
 import { playbtnPNG } from '../../media/images_playbtn.png.js';
+import { polarBearColoredPNG } from '../../media/images_polar_bear_colored.png.js';
+// import { polarBearOutlinedPNG } from '../../media/images_polar_bear_outlined.png.js';
+// import { polarBearColoredEdgePNG } from '../../media/images_polar_bear_colored_edge.png.js';
 import { retrySVG } from '../../media/images_retry.svg.js';
 import { starPNG } from '../../media/images_star.png.js';
 import { pixelJSON } from '../../media/spine_pixel.json.js';
 import { pixelPNG } from '../../media/spine_pixel.png.js';
+import { polarBearColoredEdgeDark1PNG } from '../../media/images_polar_bear_colored_edge_dark1.png.js';
 
 export class Preloader extends Phaser.Scene
 {
@@ -56,9 +66,10 @@ export class Preloader extends Phaser.Scene
             { key: 'duck_click_sound', data: duckClickSoundMP3 }
         ]);
     
-        this.load.image('map_outlined_HQ', mapOutlinedHQ1PNG);
-        this.load.image('duck_colored', duckColored1PNG);
-        this.load.image('duck_outline', duckOutline1PNG);
+        
+        this.load.image('duck_colored', polarBearColoredPNG);
+        this.load.image('map_outlined_HQ', mapWinterWonderland11zonPNG);
+        this.load.image('duck_outline', polarBearColoredEdgeDark1PNG);
         this.load.image('Logo_image', LogoImagePNG);
         this.load.image('map1', map1PNG);
         this.load.image('map2', map2PNG);

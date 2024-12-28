@@ -1,0 +1,1 @@
+export const polarBearColoredEdge1PNG = "data:image/png;base64,";

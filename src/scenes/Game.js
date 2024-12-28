@@ -118,7 +118,7 @@ export class Game extends Phaser.Scene
     
         // Add main text in two lines
         const headerTextLine1 = this.add.text(0, 0, 
-          '"I\'ve tried 464 times but still can\'t', 
+          '"I\'ve tried 353 times but still can\'t', 
           textStyle
         ).setOrigin(0.5, 0);
     
@@ -131,7 +131,7 @@ export class Game extends Phaser.Scene
         const numberText = this.add.text(
           headerTextLine2.width / 2 + fontSize * 0.3,
           fontSize,
-          '100"',
+          '100."',
           {
             ...textStyle,
             fill: '#ff9900' // Golden color for emphasis
