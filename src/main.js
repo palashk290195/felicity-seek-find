@@ -7,6 +7,7 @@ import { Preloader } from './scenes/Preloader';
 import { config } from './config.js';
 import { EndCard } from "./scenes/EndCard";
 import { MidCard } from "./scenes/MidCard";
+import { StartCard } from './scenes/StartCard';
 
 const gameConfig = {
     type: Phaser.AUTO,
@@ -21,7 +22,7 @@ const gameConfig = {
         height: window.innerHeight,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [Preloader, Game, MidCard, EndCard],
+    scene: [Preloader, StartCard, Game, MidCard, EndCard],
 };
 
 function initializePhaserGame ()

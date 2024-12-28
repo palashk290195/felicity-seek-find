@@ -155,7 +155,9 @@ export class EndCard extends Phaser.Scene {
     
     
     create() {
-        this.editorCreate();
-        adEnd();
+      const voiceover = this.sound.add('seek_english_voiceover');
+      voiceover.play();
+      this.editorCreate();
+      adEnd();
     }
 }

@@ -2,6 +2,8 @@ import * as Phaser from '../phaser/phaser-3.87.0-core.js';
 
 import { handleCtaPressed, networkPlugin, adStart, adEnd, adClose, adRetry } from "../networkPlugin.js";
 import { config } from "../config.js";
+import { GAME_CONFIG } from "./utils/game-config.js";
+import { fitImageToContainer } from "./utils/layout-utils.js";
 
 export class Game extends Phaser.Scene
 {
@@ -15,6 +17,7 @@ export class Game extends Phaser.Scene
         this.ducksFound = 0;
         this.gameTimer = null;
         this.headerHeight = 0;
+        this.suspenseTheme = null; // Initialize the audio reference
     }
 
     init ()
@@ -181,60 +184,59 @@ export class Game extends Phaser.Scene
           {x: 0.2, y: 0.92}, {x: 0.4, y: 0.93}, {x: 0.6, y: 0.94},
           {x: 0.8, y: 0.5}, {x: 0.9, y: 0.94}
         ];
-    
-        // Create ducks
+        const duckContainerSize = Math.min(gameWidth, gameHeight) * GAME_CONFIG.DUCK_CONTAINER_SIZE_RATIO;
+
         this.ducks = duckPositions.map(pos => {
-          const duck = this.add.image(
-            gameWidth * pos.x,
-            gameHeight * pos.y,
-            'duck_outline'
-          );
-          const duckScale = Math.min(gameWidth, gameHeight) * 0.001;
-          duck.setScale(duckScale);
-          duck.setInteractive();
-          duck.on('pointerdown', () => this.handleDuckClick(duck));
-          // this.gameContainer.add(duck);
-          return duck;
+            const container = this.add.container(gameWidth * pos.x, gameHeight * pos.y);
+            container.setSize(duckContainerSize, duckContainerSize);
+
+            const duck = this.add.image(0, 0, 'duck_outline');
+            fitImageToContainer(duck, container);
+            container.add(duck);
+
+            container.setInteractive(new Phaser.Geom.Rectangle(0, 0, duckContainerSize, duckContainerSize), Phaser.Geom.Rectangle.Contains);
+            container.on('pointerdown', () => this.handleDuckClick(container, duck));
+
+            return container;
         });
       }
     
-      handleDuckClick(duck) {
+      handleDuckClick(container, duck) {
         // Remove pointer
         if (this.pointer) {
-          this.pointer.destroy();
-          this.pointerTween.stop();
+            this.pointer.destroy();
+            this.pointerTween.stop();
         }
-    
+
         // Play sound when duck is clicked
         try {
-          const sound = this.sound.add('duck_click_sound');
-          sound.play();
+            const sound = this.sound.add('duck_click_sound');
+            sound.play();
         } catch (error) {
-          console.error('Audio decode error:', error);
+            console.error('Audio decode error:', error);
         }
-    
+
         // Replace outline duck with colored duck
-        const coloredDuck = this.add.image(duck.x, duck.y, 'duck_colored')
-          .setScale(duck.scale);
+        const coloredDuck = this.add.image(0, 0, 'duck_colored');
+        fitImageToContainer(coloredDuck, container);
+        container.remove(duck);
         duck.destroy();
-    
-    
-    
-    
+        container.add(coloredDuck);
+
         // Create a particle emitter
-        const particles = this.add.particles(coloredDuck.x, coloredDuck.y, 'star', {
-          speed: 30,
-          angle: { min: 0, max: 360 },
-          scale: {start: 0.5, end: 0},
-          maxParticles: 10,
-          lifespan: 1000
+        const particles = this.add.particles(container.x, container.y, 'star', {
+            speed: 30,
+            angle: { min: 0, max: 360 },
+            scale: { start: 0.5, end: 0 },
+            maxParticles: 10,
+            lifespan: 1000
         });
-    
+
         this.ducksFound++;
         if (this.ducksFound >= this.DUCKS_TO_FIND) {
-          this.scene.start('MidCard');
+            this.scene.start('MidCard');
         }
-      }
+    }
     
       createPlayNowButton(gameWidth, gameHeight) {
         // Position the button at the bottom center, slightly up from bottom
@@ -262,7 +264,20 @@ export class Game extends Phaser.Scene
     create ()
     {
         adStart();
-
+        this.suspenseTheme = this.sound.add('suspense_theme', {
+          loop: true,
+          volume: 0.7 // Adjust the volume to be slightly less than the default
+        });
+        this.suspenseTheme.play();
         this.editorCreate();
+        // Listen for the shutdown event to stop the audio
+        this.events.on('shutdown', this.stopAudio, this);
+        
+    }
+    
+    stopAudio() {
+      if (this.suspenseTheme) {
+          this.suspenseTheme.stop();
+      }
     }
 }
