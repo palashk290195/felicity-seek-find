@@ -58,3 +58,15 @@ export function fitTextToContainer(textGameObject, container, content) {
     
     return textGameObject;
 }
+
+export function createBackground(gameWidth, gameHeight, backgroundAssetKey) {
+    // Add background
+    const bg = this.add.image(gameWidth/2, gameHeight/2, backgroundAssetKey);
+    bg.setOrigin(0.5, 0.5);
+    
+    // Scale background to fit screen
+    const scaleX = gameWidth / bg.width;
+    const scaleY = gameHeight / bg.height;
+    const scale = Math.max(scaleX, scaleY);
+    bg.setScale(scale);
+}

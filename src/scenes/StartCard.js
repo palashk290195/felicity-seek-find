@@ -3,7 +3,7 @@
 import * as Phaser from '../phaser/phaser-3.87.0-core.js';
 import { GAME_CONFIG } from './utils/game-config.js';
 import { StartCardLayoutManager } from './utils/startcard-layout-manager.js';
-import { fitImageToContainer, fitTextToContainer } from './utils/layout-utils.js';
+import { fitImageToContainer, fitTextToContainer, createBackground } from './utils/layout-utils.js';
 
 export class StartCard extends Phaser.Scene {
     constructor() {
@@ -11,6 +11,9 @@ export class StartCard extends Phaser.Scene {
     }
 
     create() {
+        const gameWidth = this.scale.width;
+        const gameHeight = this.scale.height;
+        createBackground.call(this,gameWidth, gameHeight, 'VideoBG');
         this.setupScene();
         this.createSceneElements();
         this.startAnimations();
@@ -18,8 +21,6 @@ export class StartCard extends Phaser.Scene {
     }
 
     setupScene() {
-        // Set white background
-        this.cameras.main.setBackgroundColor('#FFFFFF');
         
         // Initialize layout manager
         this.layoutManager = new StartCardLayoutManager(this);

@@ -35,5 +35,8 @@ export const GAME_CONFIG = {
           }
         }
     },
-    DUCK_CONTAINER_SIZE_RATIO: 0.25
+    DUCK_CONTAINER_SIZE_RATIO: 0.15, // Ratio of Min(GameWidth, GameHeight)
+    AUDIO: {
+        BG_MUSIC_VOLUME: 0.9 // Volume for suspense theme. 1 is standard.
+    }
 };

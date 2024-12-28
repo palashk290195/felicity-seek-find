@@ -47,6 +47,7 @@ import { pixelPNG } from '../../media/spine_pixel.png.js';
 //import { brownBearOutlinedSmooth4PNG } from '../../media/images_brown_bear_outlined_smooth_4.png.js';
 import { brownBearColoredPNG } from '../../media/images_brown_bear_colored.png.js';
 import { brownBearOutlinedSmooth2PNG } from '../../media/images_brown_bear_outlined_smooth_2.png.js';
+import { brownBearOutlineWEBP } from '../../media/images_brown_bear_outline.webp.js';
 import { brownBearOutlinedSmooth5PNG } from '../../media/images_brown_bear_outlined_smooth_5.png.js';
 import { seekEnglishVoiceoverMP3 } from '../../media/audio_seek_english_voiceover.mp3.js';
 import { seekRussianVoiceoverMP3 } from '../../media/audio_seek_russian_voiceover.mp3.js';

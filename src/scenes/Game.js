@@ -266,7 +266,7 @@ export class Game extends Phaser.Scene
         adStart();
         this.suspenseTheme = this.sound.add('suspense_theme', {
           loop: true,
-          volume: 0.7 // Adjust the volume to be slightly less than the default
+          volume: GAME_CONFIG.AUDIO.BG_MUSIC_VOLUME // Adjust the volume to be slightly less than the default
         });
         this.suspenseTheme.play();
         this.editorCreate();

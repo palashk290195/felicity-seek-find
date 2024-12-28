@@ -2,6 +2,7 @@ import * as Phaser from '../phaser/phaser-3.87.0-core.js';
 
 import { handleCtaPressed, networkPlugin, adStart, adEnd, adClose, adRetry } from "../networkPlugin.js";
 import { config } from "../config.js";
+import { createBackground } from './utils/layout-utils.js';
 
 export class EndCard extends Phaser.Scene {
     constructor() {
@@ -12,23 +13,11 @@ export class EndCard extends Phaser.Scene {
         const gameWidth = this.scale.width;
         const gameHeight = this.scale.height;
     
-        this.createBackground(gameWidth, gameHeight);
+        createBackground.call(this,gameWidth, gameHeight, 'VideoBG');
         this.createHeader(gameWidth, gameHeight);
         this.createRetryButton(gameWidth, gameHeight);
         this.createPlayButton(gameWidth, gameHeight);
         this.createMaps(gameWidth, gameHeight);
-      }
-    
-      createBackground(gameWidth, gameHeight) {
-        this.background = this.add.image(gameWidth/2, gameHeight/2, "VideoBG");
-        const scaleX = gameWidth / this.background.width;
-        const scaleY = gameHeight / this.background.height;
-    
-        // Use the larger scale to ensure the background covers the remaining space
-        const scale = Math.max(scaleX, scaleY);
-    
-        // Set the scale of the background
-        this.background.setScale(scale);
       }
     
       createHeader(gameWidth, gameHeight) {

@@ -11,6 +11,7 @@ import { LogoImagePNG } from '../../media/images_Logo_image.png.js';
 import { PlayNowPNG } from '../../media/images_PlayNow.png.js';
 import { VideoBGPNG } from '../../media/images_VideoBG.png.js';
 import { brownBearColoredPNG } from '../../media/images_brown_bear_colored.png.js';
+import { brownBearOutlineWEBP } from '../../media/images_brown_bear_outline.webp.js';
 import { brownBearOutlinedFine5PNG } from '../../media/images_brown_bear_outlined_fine_5.png.js';
 import { brownBearOutlinedSmooth2PNG } from '../../media/images_brown_bear_outlined_smooth_2.png.js';
 import { brownBearOutlinedSmooth4PNG } from '../../media/images_brown_bear_outlined_smooth_4.png.js';
