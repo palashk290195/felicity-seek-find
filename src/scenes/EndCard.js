@@ -2,59 +2,61 @@ import * as Phaser from '../phaser/phaser-3.87.0-core.js';
 
 import { handleCtaPressed, networkPlugin, adStart, adEnd, adClose, adRetry } from "../networkPlugin.js";
 import { config } from "../config.js";
+import { GAME_CONFIG, getCurrentLanguage, getSceneBackground } from "./utils/game-config.js";
 import { createBackground } from './utils/layout-utils.js';
 
 export class EndCard extends Phaser.Scene {
     constructor() {
         super("EndCard");
-      }
+    }
     
-      editorCreate() {
+    editorCreate() {
         const gameWidth = this.scale.width;
         const gameHeight = this.scale.height;
     
-        createBackground.call(this,gameWidth, gameHeight, 'VideoBG');
+        createBackground.call(this, gameWidth, gameHeight, getSceneBackground('END_CARD'));
         this.createHeader(gameWidth, gameHeight);
         this.createRetryButton(gameWidth, gameHeight);
         this.createPlayButton(gameWidth, gameHeight);
         this.createMaps(gameWidth, gameHeight);
-      }
+    }
     
-      createHeader(gameWidth, gameHeight) {
+    createHeader(gameWidth, gameHeight) {
         const seekAndFind = this.add.image(
-          gameWidth * 0.5,
-          gameHeight * 0.05,
-          'Logo_image'
+            gameWidth * 0.5,
+            gameHeight * 0.05,
+            GAME_CONFIG.COMMON_ASSETS.LOGO
         );
-        const seekAndFindScale = Math.min(gameWidth, gameHeight) * 0.0015;
+        const seekAndFindScale = Math.min(gameWidth, gameHeight) * GAME_CONFIG.SCENES.END_CARD.LOGO_SCALE_RATIO;
         seekAndFind.setScale(seekAndFindScale);
-      }
+    }
     
-      createPlayButton(gameWidth, gameHeight) {
+    createPlayButton(gameWidth, gameHeight) {
+        const currentLanguage = getCurrentLanguage();
         const playbtn = this.add.image(
-          gameWidth * 0.5,
-          gameHeight * 0.9,
-          'playbtn'
+            gameWidth * 0.5,
+            gameHeight * 0.9,
+            currentLanguage.ASSETS.PLAY_BTN
         )
         .setInteractive();
-        const playbtnScale = Math.min(gameWidth, gameHeight) * 0.001;
+        const playbtnScale = Math.min(gameWidth, gameHeight) * GAME_CONFIG.SCENES.END_CARD.BUTTON_SCALE_RATIO;
         playbtn.setScale(playbtnScale);
         playbtn.on('pointerdown', () => {
-          handleCtaPressed();
+            handleCtaPressed();
         });
     
         // Add tween for continuous scaling
         this.tweens.add({
-          targets: playbtn,
-          scale: playbtnScale / 1.1,
-          duration: 500,
-          yoyo: true,
-          repeat: -1,
-          ease: 'Sine.easeInOut'
-      });
-      }
+            targets: playbtn,
+            scale: playbtnScale / 1.1,
+            duration: 500,
+            yoyo: true,
+            repeat: -1,
+            ease: 'Sine.easeInOut'
+        });
+    }
     
-      createMaps(gameWidth, gameHeight) {
+    createMaps(gameWidth, gameHeight) {
         const mapPositions = [
             {x: 0.25, y: 0.55}, // pos1
             {x: 0.5, y: 0.4},   // pos2
@@ -89,64 +91,57 @@ export class EndCard extends Phaser.Scene {
     }
     
     createMapMovement(map, sequence, gameWidth, gameHeight, positions) {
-      let currentIndex = 0;
+        let currentIndex = 0;
     
-      const startTween = (initial = false) => {
-        const index = sequence[currentIndex];
-        this.tweens.add({
-          targets: map,
-          x: gameWidth * positions[index].x,
-          y: gameHeight * positions[index].y,
-          duration: 1000,
-          ease: 'Linear',
-          onComplete: () => {
-            currentIndex = (currentIndex + 1) % sequence.length;
-            const delay = initial ? 0 : 0; // No delay for the initial call
-            this.time.delayedCall(delay, () => startTween());
-          }
-        });
-      };
+        const startTween = (initial = false) => {
+            const index = sequence[currentIndex];
+            this.tweens.add({
+                targets: map,
+                x: gameWidth * positions[index].x,
+                y: gameHeight * positions[index].y,
+                duration: 1000,
+                ease: 'Linear',
+                onComplete: () => {
+                    currentIndex = (currentIndex + 1) % sequence.length;
+                    const delay = initial ? 0 : 0;
+                    this.time.delayedCall(delay, () => startTween());
+                }
+            });
+        };
     
-      // Start the first tween without delay
-      startTween(true);
+        startTween(true);
     }
 
-    /**
-   * Creates retry button in top right corner
-   * @param {number} gameWidth - Width of game canvas
-   * @param {number} gameHeight - Height of game canvas
-   */
-  createRetryButton(gameWidth, gameHeight) {
-    const padding = 10;
-    const buttonSize = 10;
-    
-    const retryButton = this.add.image(
-      gameWidth - padding - buttonSize/2,
-      padding + buttonSize/2,
-      'retryIcon'
-    );
-    retryButton.setDisplaySize(buttonSize, buttonSize);
-    
-    retryButton
-      .setInteractive()
-      .on('pointerover', () => {
-        retryButton.setTint(0x666666);
-      })
-      .on('pointerout', () => {
-        retryButton.clearTint();
-      })
-      .on('pointerdown', () => {
-        adRetry();
-        this.scene.start('Game');
-      });
-  }
-    
-    
+    createRetryButton(gameWidth, gameHeight) {
+        const padding = 10;
+        const buttonSize = 10;
+        
+        const retryButton = this.add.image(
+            gameWidth - padding - buttonSize/2,
+            padding + buttonSize/2,
+            GAME_CONFIG.COMMON_ASSETS.RETRY_ICON
+        );
+        retryButton.setDisplaySize(buttonSize, buttonSize);
+        
+        retryButton
+            .setInteractive()
+            .on('pointerover', () => {
+                retryButton.setTint(0x666666);
+            })
+            .on('pointerout', () => {
+                retryButton.clearTint();
+            })
+            .on('pointerdown', () => {
+                adRetry();
+                this.scene.start('Game');
+            });
+    }
     
     create() {
-      const voiceover = this.sound.add('seek_english_voiceover');
-      voiceover.play();
-      this.editorCreate();
-      adEnd();
+        const currentLanguage = getCurrentLanguage();
+        const voiceover = this.sound.add(currentLanguage.ASSETS.VOICEOVER);
+        voiceover.play();
+        this.editorCreate();
+        adEnd();
     }
 }

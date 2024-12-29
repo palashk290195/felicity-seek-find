@@ -38,7 +38,7 @@ export class StartCardLayoutManager {
     }
 
     applyPortraitLayout(width, height) {
-        const { TEXT, CHARACTER } = GAME_CONFIG.START_CARD;
+        const { TEXT, CHARACTER } = GAME_CONFIG.SCENES.START_CARD;
         
         // Text container
         const textContainer = this.containers.text;
@@ -64,7 +64,7 @@ export class StartCardLayoutManager {
     }
 
     applyLandscapeLayout(width, height) {
-        const { TEXT, CHARACTER } = GAME_CONFIG.START_CARD;
+        const { TEXT, CHARACTER } = GAME_CONFIG.SCENES.START_CARD;
         
         // Text container
         const textContainer = this.containers.text;

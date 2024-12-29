@@ -1,7 +1,7 @@
 // scenes/StartCard.js
 
 import * as Phaser from '../phaser/phaser-3.87.0-core.js';
-import { GAME_CONFIG } from './utils/game-config.js';
+import { GAME_CONFIG, getCurrentLanguage, getSceneBackground } from './utils/game-config.js';
 import { StartCardLayoutManager } from './utils/startcard-layout-manager.js';
 import { fitImageToContainer, fitTextToContainer, createBackground } from './utils/layout-utils.js';
 
@@ -13,7 +13,14 @@ export class StartCard extends Phaser.Scene {
     create() {
         const gameWidth = this.scale.width;
         const gameHeight = this.scale.height;
-        createBackground.call(this,gameWidth, gameHeight, 'VideoBG');
+        
+        // Get current language and theme configurations
+        const currentLanguage = getCurrentLanguage();
+        const backgroundKey = getSceneBackground('START_CARD');
+        
+        // Create background with current theme
+        createBackground.call(this, gameWidth, gameHeight, backgroundKey);
+        
         this.setupScene();
         this.createSceneElements();
         this.startAnimations();
@@ -21,26 +28,26 @@ export class StartCard extends Phaser.Scene {
     }
 
     setupScene() {
-        
         // Initialize layout manager
         this.layoutManager = new StartCardLayoutManager(this);
     }
 
     createSceneElements() {
         const { text: textContainer, character: characterContainer } = this.layoutManager.getContainers();
+        const currentLanguage = getCurrentLanguage();
         
-        // Create text
-        this.titleText = this.add.text(0, 0, GAME_CONFIG.START_CARD.TEXT.CONTENT.en, {
+        // Create text using language-specific content
+        this.titleText = this.add.text(0, 0, currentLanguage.TEXT.TITLE, {
             fontFamily: 'Arial',
             fontSize: '32px',
             fontStyle: 'bold',
             color: '#000000'
         });
-        fitTextToContainer(this.titleText, textContainer, GAME_CONFIG.START_CARD.TEXT.CONTENT.en);
+        fitTextToContainer(this.titleText, textContainer, currentLanguage.TEXT.TITLE);
         textContainer.add(this.titleText);
 
-        // Create character
-        this.character = this.add.image(0, 0, 'duck_colored');
+        // Create character using language-specific asset
+        this.character = this.add.image(0, 0, GAME_CONFIG.COMMON_ASSETS.CHARACTER);
         fitImageToContainer(this.character, characterContainer);
         characterContainer.add(this.character);
 
@@ -52,23 +59,26 @@ export class StartCard extends Phaser.Scene {
     }
 
     startAnimations() {
+        const { ENTRY_DURATION, WIGGLE_DURATION } = GAME_CONFIG.SCENES.START_CARD;
+        
         // Entry animation
         this.tweens.add({
             targets: this.layoutManager.getContainer('character'),
             x: this.getTargetX(),
-            duration: GAME_CONFIG.START_CARD.ENTRY_DURATION,
+            duration: ENTRY_DURATION,
             ease: 'Power2',
             onComplete: () => this.startWiggleAnimation()
         });
     }
 
     startWiggleAnimation() {
+        const { WIGGLE_DURATION, EXIT_DURATION } = GAME_CONFIG.SCENES.START_CARD;
         const targetX = this.getTargetX();
         
         this.tweens.add({
             targets: this.layoutManager.getContainer('character'),
             x: targetX - 10,
-            duration: GAME_CONFIG.START_CARD.WIGGLE_DURATION,
+            duration: WIGGLE_DURATION,
             yoyo: true,
             repeat: 1,
             ease: 'Sine.easeInOut',
@@ -76,8 +86,8 @@ export class StartCard extends Phaser.Scene {
                 // Move character off the left side of the screen
                 this.tweens.add({
                     targets: this.layoutManager.getContainer('character'),
-                    x: -this.layoutManager.getContainer('character').width, // Move completely off-screen
-                    duration: GAME_CONFIG.START_CARD.EXIT_DURATION, // Adjust duration as needed
+                    x: -this.layoutManager.getContainer('character').width,
+                    duration: EXIT_DURATION,
                     ease: 'Power2'
                 });
             }
@@ -85,8 +95,10 @@ export class StartCard extends Phaser.Scene {
     }
 
     setupSceneTransition() {
+        const { SCENE_DURATION } = GAME_CONFIG.SCENES.START_CARD;
+        
         // Transition to Game scene after duration
-        this.time.delayedCall(GAME_CONFIG.START_CARD.SCENE_DURATION, () => {
+        this.time.delayedCall(SCENE_DURATION, () => {
             this.scene.start('Game');
         });
     }
@@ -97,8 +109,10 @@ export class StartCard extends Phaser.Scene {
 
     getTargetX() {
         const width = this.scale.width;
+        const { CHARACTER } = GAME_CONFIG.SCENES.START_CARD;
+        
         return this.isLandscape()
-            ? width * GAME_CONFIG.START_CARD.CHARACTER.LANDSCAPE.X
-            : width * GAME_CONFIG.START_CARD.CHARACTER.PORTRAIT.X;
+            ? width * CHARACTER.LANDSCAPE.X
+            : width * CHARACTER.PORTRAIT.X;
     }
 }

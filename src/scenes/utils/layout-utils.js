@@ -54,13 +54,13 @@ export function fitTextToContainer(textGameObject, container, content) {
     textGameObject.setFontSize(minSize * 0.95);
     
     // Since container position is at center, text should be at 0,0 relative to container
-    textGameObject.setPosition(0, 0);  // This is key change
+    textGameObject.setPosition(0, 0);
     
     return textGameObject;
 }
 
 export function createBackground(gameWidth, gameHeight, backgroundAssetKey) {
-    // Add background
+    // Add background using the themed background key
     const bg = this.add.image(gameWidth/2, gameHeight/2, backgroundAssetKey);
     bg.setOrigin(0.5, 0.5);
     
