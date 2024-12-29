@@ -49,12 +49,21 @@ import { brownBearColoredPNG } from '../../media/images_brown_bear_colored.png.j
 import { brownBearOutlinedSmooth2PNG } from '../../media/images_brown_bear_outlined_smooth_2.png.js';
 import { brownBearOutlineWEBP } from '../../media/images_brown_bear_outline.webp.js';
 import { brownBearOutlinedSmooth5PNG } from '../../media/images_brown_bear_outlined_smooth_5.png.js';
-import { seekEnglishVoiceoverMP3 } from '../../media/audio_seek_english_voiceover.mp3.js';
-import { seekRussianVoiceoverMP3 } from '../../media/audio_seek_russian_voiceover.mp3.js';
 import { suspenseTheme2MP3 } from '../../media/audio_suspense_theme2.mp3.js';
-//import { suspenseTheme1MP3 } from '../../media/audio_suspense_theme1.mp3.js';
+import { playbtnEnPNG } from '../../media/images_playbtn-en.png.js';
+import { playbtnRuPNG } from '../../media/images_playbtn-ru.png.js';
+import { playbtnDePNG } from '../../media/images_playbtn_de.png.js';
+import { playbtnJaPNG } from '../../media/images_playbtn_ja.png.js';
+import { PlayNowEnPNG } from '../../media/images_PlayNow-en.png.js';
+import { PlayNowRuPNG } from '../../media/images_PlayNow-ru.png.js';
+import { PlayNowDePNG } from '../../media/images_PlayNow_de.png.js';
+import { PlayNowJaPNG } from '../../media/images_PlayNow_ja.png.js';
+import { seekEnglishVoiceoverMP3 } from '../../media/audio_seek_english_voiceover.mp3.js';
+import { seekGermanVoiceoverMP3 } from '../../media/audio_seek_german_voiceover.mp3.js';
+import { seekJapaneseVoiceoverMP3 } from '../../media/audio_seek_japanese_voiceover.mp3.js';
+import { seekRussianVoiceoverMP3 } from '../../media/audio_seek_russian_voiceover.mp3.js';
 
-//import { suspenseTheme3MP3 } from '../../media/audio_suspense_theme3.mp3.js';
+
 
 export class Preloader extends Phaser.Scene
 {
@@ -78,6 +87,8 @@ export class Preloader extends Phaser.Scene
         LoadBase64Audio(this, [
             { key: 'duck_click_sound', data: duckClickSoundMP3 },
             { key: 'seek_english_voiceover', data: seekEnglishVoiceoverMP3 },
+            { key: 'seek_german_voiceover', data: seekGermanVoiceoverMP3 },
+            { key: 'seek_japanese_voiceover', data: seekJapaneseVoiceoverMP3 },
             { key: 'seek_russian_voiceover', data: seekRussianVoiceoverMP3 },
             { key: 'suspense_theme', data: suspenseTheme2MP3 }
         ]);
@@ -97,6 +108,15 @@ export class Preloader extends Phaser.Scene
         this.load.image('star', starPNG);
         this.load.atlas('pixel', pixelPNG, pixelJSON);
         this.load.image("retryIcon", retrySVG);
+
+        this.load.image('playbtn_en', playbtnEnPNG);
+        this.load.image('playbtn_ru', playbtnRuPNG);
+        this.load.image('playbtn_de', playbtnDePNG);
+        this.load.image('playbtn_ja', playbtnJaPNG);
+        this.load.image('playnow_en', PlayNowEnPNG);
+        this.load.image('playnow_ru', PlayNowRuPNG);
+        this.load.image('playnow_de', PlayNowDePNG);
+        this.load.image('playnow_ja', PlayNowJaPNG);
     }
 
     create ()

@@ -2,7 +2,10 @@
 
 export const GAME_CONFIG = {
     // Selected language for the game
-    SELECTED_LANGUAGE: 'ru',
+    SELECTED_LANGUAGE: 'en',
+
+    // Selected theme for the game
+    SELECTED_THEME: 'DEFAULT', // Can be DEFAULT, CHRISTMAS, WINTER, CITY
 
     // Common assets across all languages
     COMMON_ASSETS: {
@@ -35,20 +38,17 @@ export const GAME_CONFIG = {
         DUCK_CLICK_SOUND: 'duck_click_sound'
     },
 
-    // Selected theme for the game
-    SELECTED_THEME: 'DEFAULT', // Can be DEFAULT, CHRISTMAS, WINTER, CITY
-
     // Language specific configurations
     LANGUAGES: {
         en: {
             ASSETS: {
-                PLAY_BTN: 'playbtn',
-                PLAY_NOW: 'PlayNow',
+                PLAY_BTN: 'playbtn_en',
+                PLAY_NOW: 'playnow_en',
                 VOICEOVER: 'seek_english_voiceover',
             },
             TEXT: {
-                TITLE: "Where is Duck?",
-                HEADER: "\"I've tried 353 times but still can't \nFind all 100 Ducks.\""
+                TITLE: "Where is the bear?",
+                HEADER: "\"I've tried 353 times but still can't find all 100 Bears\""
             }
         },
         ru: {
@@ -58,8 +58,8 @@ export const GAME_CONFIG = {
                 VOICEOVER: 'seek_russian_voiceover',
             },
             TEXT: {
-                TITLE: "Где утка?",
-                HEADER: "\"Я пробовал 353 раза, но до сих пор не могу \nНайти все 100 уток.\""
+                TITLE: "Где медведь?",
+                HEADER: "\"Я пробовал 353 раза, но до сих пор не могу найти всех 100 медведей.\""
             }
         },
         ja: {
@@ -69,8 +69,8 @@ export const GAME_CONFIG = {
                 VOICEOVER: 'seek_japanese_voiceover',
             },
             TEXT: {
-                TITLE: "アヒルはどこ？",
-                HEADER: "\"353回試しましたが、\n100匹のアヒルを見つけることができません。\""
+                TITLE: "熊はどこですか？",
+                HEADER: "\"353回試しましたが、まだ100匹すべてのクマを見つけることができません\""
             }
         },
         de: {
@@ -89,7 +89,7 @@ export const GAME_CONFIG = {
     // Layout configurations
     LAYOUT: {
         HEADER_HEIGHT_RATIO: 0.05,  // Ratio of game height
-        BUTTON_SCALE_RATIO: 0.001,  // Scale relative to min(gameWidth, gameHeight)
+        BUTTON_SCALE_RATIO: 0.0007,  // Scale relative to min(gameWidth, gameHeight)
         CHARACTER_CONTAINER_SIZE_RATIO: 0.15  // Size ratio relative to min(gameWidth, gameHeight)
     },
 
@@ -131,7 +131,7 @@ export const GAME_CONFIG = {
             DURATION: 300,  // seconds
             DUCKS_TO_FIND: 5,
             TARGET_POSITION: { x: 0.15, y: 0.3 },  // Ratio of game dimensions
-            PLAY_BUTTON_Y: 0.85,  // Ratio of game height
+            PLAY_BUTTON_Y: 0.85,  // Position in ratio of game height
             // Character positions relative to game dimensions (width, height)
             CHARACTER_POSITIONS: [
                 {x: 0.5, y: 0.5}, {x: 0.4, y: 0.43}, {x: 0.6, y: 0.22},  // Top cluster
