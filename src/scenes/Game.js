@@ -3,7 +3,7 @@ import * as Phaser from '../phaser/phaser-3.87.0-core.js';
 import { handleCtaPressed, networkPlugin, adStart, adEnd, adClose, adRetry } from "../networkPlugin.js";
 import { config } from "../config.js";
 import { GAME_CONFIG } from "./utils/game-config.js";
-import { fitImageToContainer } from "./utils/layout-utils.js";
+import { fitImageToContainer, fitTextToContainer } from "./utils/layout-utils.js";
 
 export class Game extends Phaser.Scene
 {
@@ -86,7 +86,7 @@ export class Game extends Phaser.Scene
         this.background.setScale(scale);
     
         this.background.setOrigin(0.5,0);
-        this.background.setPosition(width / 2, headerHeight);
+        this.background.setPosition(width/2, 0);
         console.log(headerHeight, gameHeight);
       }
     
@@ -99,7 +99,8 @@ export class Game extends Phaser.Scene
         this.gameContainer = this.add.container(0, topSpace);
     
         // Add and position the background image
-        this.background = this.add.image(gameWidth / 2, (gameHeight - topSpace) / 2 + topSpace, "map_outlined_HQ");
+        this.background = this.add.image(gameWidth / 2, (gameHeight - topSpace) / 2 + topSpace, "map_outlined_HQ")
+        .setOrigin(0.5);
         this.gameContainer.add(this.background);
     
         // Scale the background to cover the entire area below the header
@@ -107,71 +108,36 @@ export class Game extends Phaser.Scene
       }
     
       createHeader(gameWidth, gameHeight) {
-        // Create single container for header
+        const headerContainer = this.add.container(gameWidth / 2, 0);
     
-        // Calculate font size based on device width for consistency
-        const fontSize = Math.min(gameWidth * 0.04, gameHeight * 0.04 , 24); // Cap maximum size
-        const textStyle = {
-          fontSize: `${fontSize}px`,
-          fill: '#000000',
+        const containerWidth = gameWidth * 0.8;
+        const containerHeight = gameHeight * 0.05;
+        // Draw the container using graphics for visualization
+        // const graphics = this.add.graphics();
+        // graphics.lineStyle(2, 0xff0000, 1); // Red border with 100% opacity
+        // graphics.strokeRect(-containerWidth / 2, 0, containerWidth, containerHeight);
+        // headerContainer.add(graphics);
+
+        const headerText = this.add.text(0, 0, '"I\'ve tried 353 times but still can\'t \nFind all 100 Bears."', {
           fontFamily: 'Arial, sans-serif',
-          fontWeight: 'bold'
-        };
-        console.log(fontSize);
+          fontWeight: 'bold',
+          fill: '#000000'
+        }).setOrigin(0.5, 0);
     
-        // Add main text in two lines
-        const headerTextLine1 = this.add.text(0, 0, 
-          '"I\'ve tried 353 times but still can\'t', 
-          textStyle
-        ).setOrigin(0.5, 0);
+        fitTextToContainer(headerText, { width: containerWidth, height: containerHeight }, headerText.text);
     
-        const headerTextLine2 = this.add.text(0, fontSize, 
-          'Find all', 
-          textStyle
-        ).setOrigin(0.5, 0);
+        headerContainer.add([headerText]);
     
-        // Add "100" with different color
-        const numberText = this.add.text(
-          headerTextLine2.width / 2 + fontSize * 0.3,
-          fontSize,
-          '100."',
-          {
-            ...textStyle,
-            fill: '#ff9900' // Golden color for emphasis
-          }
-        ).setOrigin(0, 0);
-    
-        // Add duck icon right after the text
-        // Add duck icon right after the text
-        const duck = this.add.image(
-          numberText.x + numberText.width + fontSize,
-          fontSize,
-          'duck_colored'
-        );
-    
-        // Set the scale to make the duck's height equal to the font size
-        duck.setScale(fontSize / duck.height);
-    
-        // Adjust the position of the duck to avoid overlap
-        duck.setY(fontSize * 1.5);
-    
-        // Create a container for the header elements
-        const headerElementsContainer = this.add.container(gameWidth / 2, 0, [
-          headerTextLine1, headerTextLine2, numberText, duck
-        ]);
-    
-        // Store the height of the container in a class property
-        this.headerHeight = headerElementsContainer.getBounds().height;
+        this.headerHeight = headerContainer.getBounds().height;
         console.log('Container Height:', this.headerHeight);
     
-        // Tween the entire container
         this.tweens.add({
-          targets: headerElementsContainer, // Ensure the correct target is used
-          scale: { from: 0, to: 1 },
-          duration: 1000,
-          ease: 'Power2'
+            targets: headerText,
+            scale: { from: 0, to: 1 },
+            duration: 1000,
+            ease: 'Power2'
         });
-      }
+    }
     
       createDucks(gameWidth, gameHeight) {
         // Duck positions

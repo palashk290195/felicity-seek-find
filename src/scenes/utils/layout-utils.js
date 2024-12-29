@@ -28,7 +28,7 @@ export function fitTextToContainer(textGameObject, container, content) {
     
     // Configure text properties
     textGameObject.setAlign('center');
-    textGameObject.setOrigin(0.5);
+    textGameObject.setOrigin(0.5, 0);
     textGameObject.setWordWrapWidth(containerWidth);
     
     // Binary search to find the largest font size that fits
