@@ -53,8 +53,8 @@ export const GAME_CONFIG = {
         },
         ru: {
             ASSETS: {
-                PLAY_BTN: 'playbtn',
-                PLAY_NOW: 'PlayNow',
+                PLAY_BTN: 'playbtn_ru',
+                PLAY_NOW: 'playnow_ru',
                 VOICEOVER: 'seek_russian_voiceover',
             },
             TEXT: {
@@ -65,7 +65,7 @@ export const GAME_CONFIG = {
         ja: {
             ASSETS: {
                 PLAY_BTN: 'playbtn_ja',
-                PLAY_NOW: 'PlayNow_ja',
+                PLAY_NOW: 'playnow_ja',
                 VOICEOVER: 'seek_japanese_voiceover',
             },
             TEXT: {
@@ -76,7 +76,7 @@ export const GAME_CONFIG = {
         de: {
             ASSETS: {
                 PLAY_BTN: 'playbtn_de',
-                PLAY_NOW: 'PlayNow_de',
+                PLAY_NOW: 'playnow_de',
                 VOICEOVER: 'seek_german_voiceover',
             },
             TEXT: {
@@ -88,7 +88,7 @@ export const GAME_CONFIG = {
 
     // Layout configurations
     LAYOUT: {
-        HEADER_HEIGHT_RATIO: 0.05,  // Ratio of game height
+        HEADER_HEIGHT_RATIO: 0.08,  // Ratio of game height
         BUTTON_SCALE_RATIO: 0.0007,  // Scale relative to min(gameWidth, gameHeight)
         CHARACTER_CONTAINER_SIZE_RATIO: 0.15  // Size ratio relative to min(gameWidth, gameHeight)
     },

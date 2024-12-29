@@ -127,9 +127,8 @@ export class Game extends Phaser.Scene {
             const duck = this.add.image(0, 0, GAME_CONFIG.COMMON_ASSETS.CHARACTER_OUTLINE);
             fitImageToContainer(duck, container);
             container.add(duck);
-
-            container.setInteractive(new Phaser.Geom.Rectangle(0, 0, duckContainerSize, duckContainerSize), Phaser.Geom.Rectangle.Contains);
-            container.on('pointerdown', () => this.handleDuckClick(container, duck));
+            duck.setInteractive();
+            duck.on('pointerdown', () => this.handleDuckClick(container, duck));
 
             return container;
         });
