@@ -195,7 +195,7 @@ export class Game extends Phaser.Scene {
 
     create() {
         adStart();
-        this.suspenseTheme = this.sound.add('suspense_theme', {
+        this.suspenseTheme = this.sound.add(GAME_CONFIG.COMMON_ASSETS.BG_MUSIC, {
             loop: true,
             volume: GAME_CONFIG.AUDIO.BG_MUSIC_VOLUME
         });

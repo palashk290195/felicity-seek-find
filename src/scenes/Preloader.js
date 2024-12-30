@@ -12,9 +12,9 @@ import { Cursor1PNG } from '../../media/images_Cursor_1.png.js';
 import { LogoImagePNG } from '../../media/images_Logo_image.png.js';
 import { PlayNowPNG } from '../../media/images_PlayNow.png.js';
 import { VideoBGPNG } from '../../media/images_VideoBG.png.js';
-import { duckColoredPNG } from '../../media/images_duck_colored.png.js';
+// import { duckColoredPNG } from '../../media/images_duck_colored.png.js';
 // import { duckColored1PNG } from '../../media/images_duck_colored1.png.js';
-import { duckOutlinePNG } from '../../media/images_duck_outline.png.js';
+// import { duckOutlinePNG } from '../../media/images_duck_outline.png.js';
 // import { duckOutline1PNG } from '../../media/images_duck_outline1.png.js';
 import { map1PNG } from '../../media/images_map1.png.js';
 import { map2PNG } from '../../media/images_map2.png.js';
@@ -25,7 +25,8 @@ import { map3PNG } from '../../media/images_map3.png.js';
 // import { mapWinterWonderland 2WEBP } from '../../media/images_map_winter_wonderland 2.webp.js';
 // import { mapWinterWonderlandPNG } from '../../media/images_map_winter_wonderland.png.js';
 //import { mapWinterWonderland11zonPNG } from '../../media/images_map_winter_wonderland_11zon.png.js';
-import { mapWinterlandResizedPNG } from '../../media/images_map_winterland_resized.png.js';
+//import { mapWinterlandResizedPNG } from '../../media/images_map_winterland_resized.png.js';
+import { mapChristmasLandPNG } from '../../media/images_map_christmas_land.png.js';
 // import { mapWinterWonderlandWEBP } from '../../media/images_map_winter_wonderland.webp.js';
 // import { mapWinterWonderlandZIP } from '../../media/images_map_winter_wonderland.zip.js';
 // import { pixelBluePNG } from '../../media/images_pixel_blue.png.js';
@@ -35,7 +36,7 @@ import { mapWinterlandResizedPNG } from '../../media/images_map_winterland_resiz
 // import { pixelYellowPNG } from '../../media/images_pixel_yellow.png.js';
 // import { christmasClassicLand11zonPNG } from '../../media/images_christmas_classic_land_11zon.png.js';
 import { playbtnPNG } from '../../media/images_playbtn.png.js';
-import { polarBearColoredPNG } from '../../media/images_polar_bear_colored.png.js';
+//import { polarBearColoredPNG } from '../../media/images_polar_bear_colored.png.js';
 // import { polarBearOutlinedPNG } from '../../media/images_polar_bear_outlined.png.js';
 // import { polarBearColoredEdgePNG } from '../../media/images_polar_bear_colored_edge.png.js';
 import { retrySVG } from '../../media/images_retry.svg.js';
@@ -46,10 +47,11 @@ import { pixelPNG } from '../../media/spine_pixel.png.js';
 //import { brownBearOutlinedFine5PNG } from '../../media/images_brown_bear_outlined_fine_5.png.js';
 //import { brownBearOutlinedSmooth4PNG } from '../../media/images_brown_bear_outlined_smooth_4.png.js';
 import { brownBearColoredPNG } from '../../media/images_brown_bear_colored.png.js';
-import { brownBearOutlinedSmooth2PNG } from '../../media/images_brown_bear_outlined_smooth_2.png.js';
-import { brownBearOutlineWEBP } from '../../media/images_brown_bear_outline.webp.js';
+// import { brownBearOutlinedSmooth2PNG } from '../../media/images_brown_bear_outlined_smooth_2.png.js';
+// import { brownBearOutlineWEBP } from '../../media/images_brown_bear_outline.webp.js';
 import { brownBearOutlinedSmooth5PNG } from '../../media/images_brown_bear_outlined_smooth_5.png.js';
-import { suspenseTheme2MP3 } from '../../media/audio_suspense_theme2.mp3.js';
+// import { suspenseTheme2MP3 } from '../../media/audio_suspense_theme2.mp3.js';
+import { seekBgMusicMP3 } from '../../media/audio_seek_bg_music.mp3.js';
 import { playbtnEnPNG } from '../../media/images_playbtn-en.png.js';
 import { playbtnRuPNG } from '../../media/images_playbtn-ru.png.js';
 import { playbtnDePNG } from '../../media/images_playbtn_de.png.js';
@@ -90,11 +92,11 @@ export class Preloader extends Phaser.Scene
             { key: 'seek_german_voiceover', data: seekGermanVoiceoverMP3 },
             { key: 'seek_japanese_voiceover', data: seekJapaneseVoiceoverMP3 },
             { key: 'seek_russian_voiceover', data: seekRussianVoiceoverMP3 },
-            { key: 'suspense_theme', data: suspenseTheme2MP3 }
+            { key: 'seek_bg_music', data: seekBgMusicMP3 }
         ]);
     
         
-        this.load.image('map_outlined_HQ', mapWinterlandResizedPNG);
+        this.load.image('map_outlined_HQ', mapChristmasLandPNG);
         this.load.image('duck_colored', brownBearColoredPNG);
         this.load.image('duck_outline', brownBearOutlinedSmooth5PNG);
         this.load.image('Logo_image', LogoImagePNG);

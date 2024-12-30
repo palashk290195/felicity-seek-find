@@ -35,7 +35,8 @@ export const GAME_CONFIG = {
         PIXEL: ['pixel_green', 'pixel_white', 'pixel_yellow', 'pixel_blue', 'pixel_red'],
         CHARACTER: 'duck_colored',
         CHARACTER_OUTLINE: 'duck_outline',
-        DUCK_CLICK_SOUND: 'duck_click_sound'
+        DUCK_CLICK_SOUND: 'duck_click_sound',
+        BG_MUSIC: 'seek_bg_music'
     },
 
     // Language specific configurations

@@ -1,5 +1,6 @@
 import { .DSStore } from '../../media/.DS_Store.js';
 import { duckClickSoundMP3 } from '../../media/audio_duck_click_sound.mp3.js';
+import { seekBgMusicMP3 } from '../../media/audio_seek_bg_music.mp3.js';
 import { seekEnglishVoiceoverMP3 } from '../../media/audio_seek_english_voiceover.mp3.js';
 import { seekGermanVoiceoverMP3 } from '../../media/audio_seek_german_voiceover.mp3.js';
 import { seekJapaneseVoiceoverMP3 } from '../../media/audio_seek_japanese_voiceover.mp3.js';
@@ -36,6 +37,8 @@ import { duckOutline1PNG } from '../../media/images_duck_outline1.png.js';
 import { map1PNG } from '../../media/images_map1.png.js';
 import { map2PNG } from '../../media/images_map2.png.js';
 import { map3PNG } from '../../media/images_map3.png.js';
+import { mapChristmasLandJPG } from '../../media/images_map_christmas_land.jpg.js';
+import { mapChristmasLandPNG } from '../../media/images_map_christmas_land.png.js';
 import { mapOutlinedHQPNG } from '../../media/images_map_outlined_HQ.png.js';
 import { mapOutlinedHQ1PNG } from '../../media/images_map_outlined_HQ1.png.js';
 import { mapOutlinedHQ3PNG } from '../../media/images_map_outlined_HQ3.png.js';
@@ -73,5 +76,7 @@ import { polarBearColoredEdgeDark1SVG } from '../../media/images_polar_bear_colo
 import { polarBearOutlinedPNG } from '../../media/images_polar_bear_outlined.png.js';
 import { retrySVG } from '../../media/images_retry.svg.js';
 import { starPNG } from '../../media/images_star.png.js';
+import { .DSStore } from '../../media/images_tinified_.DS_Store.js';
+import { tinifiedZIP } from '../../media/images_tinified.zip.js';
 import { pixelJSON } from '../../media/spine_pixel.json.js';
 import { pixelPNG } from '../../media/spine_pixel.png.js';
