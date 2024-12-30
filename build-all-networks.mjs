@@ -1,12 +1,25 @@
 import fs from 'fs';
 import { execSync } from 'child_process';
 import path from 'path';
+import readline from 'readline';
 
 // Helper function to remove a directory if it exists
 function removeDirectoryIfExists(directoryPath) {
   if (fs.existsSync(directoryPath)) {
     fs.rmSync(directoryPath, { recursive: true, force: true });
   }
+}
+
+// Helper function to rename a zip file
+function renameZipFile(directory, network) {
+  const files = fs.readdirSync(directory);
+  const zipFiles = files.filter(file => file.endsWith('.zip'));
+
+  zipFiles.forEach(zipFile => {
+    const oldZipPath = path.join(directory, zipFile);
+    const newZipPath = path.join(directory, `${network}.zip`);
+    fs.renameSync(oldZipPath, newZipPath);
+  });
 }
 
 // Read the existing config.js file
@@ -33,52 +46,79 @@ const adNetworks = [
   'kayzen'
 ];
 
-adNetworks.forEach(network => {
-  console.log(`Building for ad network: ${network}`);
+// Create a readline interface for user input
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
-  // Update the config.js file with the current ad network type
-  const updatedConfigContent = `
-    export const config = {
-      adNetworkType: "${network}",
-      googlePlayStoreLink: "${googlePlayStoreLink}",
-      appleStoreLink: "${appleStoreLink}",
-    };
-  `;
-  fs.writeFileSync(configPath, updatedConfigContent);
+// Ask the user which networks to build
+rl.question(`Which ad networks would you like to build? (comma-separated, e.g., google,meta,mintegral,unityads): `, (answer) => {
+  let selectedNetworks = answer.split(',').map(network => network.trim()).filter(network => adNetworks.includes(network));
 
-  // Run the inline build command with Vite
-  console.log(`Running inline build for ${network}`);
-  execSync(`vite build --config vite/config-inline.prod.mjs`, { stdio: 'inherit' });
-
-  // Run the zip build command with Vite
-  console.log(`Running zip build for ${network}`);
-  execSync(`vite build --config vite/config-zip.prod.mjs`, { stdio: 'inherit' });
-
-  // Create the playable-ad-builds directory if it doesn't exist
-  const buildsDir = './playable-ad-builds';
-  if (!fs.existsSync(buildsDir)) {
-    fs.mkdirSync(buildsDir);
+  // If no networks are specified, build all
+  if (selectedNetworks.length === 0 && answer.trim() === '') {
+    selectedNetworks = adNetworks;
   }
 
-  // Create a directory for the current ad network
-  const networkDir = path.join(buildsDir, network);
-  if (!fs.existsSync(networkDir)) {
-    fs.mkdirSync(networkDir);
+  if (selectedNetworks.length === 0) {
+    console.log('No valid ad networks selected. Exiting.');
+    rl.close();
+    return;
   }
 
-  // Remove existing dist-inline and dist-split directories in the network directory
-  removeDirectoryIfExists(path.join(networkDir, 'dist-inline'));
-  removeDirectoryIfExists(path.join(networkDir, 'dist-split'));
+  selectedNetworks.forEach(network => {
+    console.log(`Building for ad network: ${network}`);
 
-  // Move the dist-inline and dist-split folders into the network directory
-  const distInlinePath = './dist-inline';
-  const distSplitPath = './dist-split';
+    // Update the config.js file with the current ad network type
+    const updatedConfigContent = `
+      export const config = {
+        adNetworkType: "${network}",
+        googlePlayStoreLink: "${googlePlayStoreLink}",
+        appleStoreLink: "${appleStoreLink}",
+      };
+    `;
+    fs.writeFileSync(configPath, updatedConfigContent);
 
-  if (fs.existsSync(distInlinePath)) {
-    fs.renameSync(distInlinePath, path.join(networkDir, 'dist-inline'));
-  }
+    // Run the appropriate build command with Vite
+    if (network === 'meta') {
+      console.log(`Running zip build for ${network}`);
+      execSync(`vite build --config vite/config-zip.prod.mjs`, { stdio: 'inherit' });
+    } else {
+      console.log(`Running inline build for ${network}`);
+      execSync(`vite build --config vite/config-inline.prod.mjs`, { stdio: 'inherit' });
+    }
 
-  if (fs.existsSync(distSplitPath)) {
-    fs.renameSync(distSplitPath, path.join(networkDir, 'dist-split'));
-  }
+    // Create the playable-ad-builds directory if it doesn't exist
+    const buildsDir = './playable-ad-builds';
+    if (!fs.existsSync(buildsDir)) {
+      fs.mkdirSync(buildsDir);
+    }
+
+    // Create a directory for the current ad network
+    const networkDir = path.join(buildsDir, network);
+    if (!fs.existsSync(networkDir)) {
+      fs.mkdirSync(networkDir);
+    }
+
+    // Remove existing dist-inline and dist-split directories in the network directory
+    removeDirectoryIfExists(path.join(networkDir, 'dist-inline'));
+    removeDirectoryIfExists(path.join(networkDir, 'dist-split'));
+
+    // Move the appropriate dist folder into the network directory
+    const distInlinePath = './dist-inline';
+    const distSplitPath = './dist-split';
+
+    if (fs.existsSync(distInlinePath)) {
+      fs.renameSync(distInlinePath, path.join(networkDir, 'dist-inline'));
+      renameZipFile(path.join(networkDir, 'dist-inline'), network);
+    }
+
+    if (fs.existsSync(distSplitPath)) {
+      fs.renameSync(distSplitPath, path.join(networkDir, 'dist-split'));
+      renameZipFile(path.join(networkDir, 'dist-split'), network);
+    }
+  });
+
+  rl.close();
 });

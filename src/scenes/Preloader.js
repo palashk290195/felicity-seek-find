@@ -25,8 +25,8 @@ import { map3PNG } from '../../media/images_map3.png.js';
 // import { mapWinterWonderland 2WEBP } from '../../media/images_map_winter_wonderland 2.webp.js';
 // import { mapWinterWonderlandPNG } from '../../media/images_map_winter_wonderland.png.js';
 //import { mapWinterWonderland11zonPNG } from '../../media/images_map_winter_wonderland_11zon.png.js';
-//import { mapWinterlandResizedPNG } from '../../media/images_map_winterland_resized.png.js';
-import { mapChristmasLandPNG } from '../../media/images_map_christmas_land.png.js';
+import { mapWinterlandResizedPNG } from '../../media/images_map_winterland_resized.png.js';
+// import { mapChristmasLandPNG } from '../../media/images_map_christmas_land.png.js';
 // import { mapWinterWonderlandWEBP } from '../../media/images_map_winter_wonderland.webp.js';
 // import { mapWinterWonderlandZIP } from '../../media/images_map_winter_wonderland.zip.js';
 // import { pixelBluePNG } from '../../media/images_pixel_blue.png.js';
@@ -96,7 +96,7 @@ export class Preloader extends Phaser.Scene
         ]);
     
         
-        this.load.image('map_outlined_HQ', mapChristmasLandPNG);
+        this.load.image('map_outlined_HQ', mapWinterlandResizedPNG);
         this.load.image('duck_colored', brownBearColoredPNG);
         this.load.image('duck_outline', brownBearOutlinedSmooth5PNG);
         this.load.image('Logo_image', LogoImagePNG);
