@@ -2,7 +2,7 @@
 
 export const GAME_CONFIG = {
     // Selected language for the game
-    SELECTED_LANGUAGE: 'ja',
+    SELECTED_LANGUAGE: 'en',
 
     // Selected theme for the game
     SELECTED_THEME: 'DEFAULT', // Can be DEFAULT, CHRISTMAS, WINTER, CITY
