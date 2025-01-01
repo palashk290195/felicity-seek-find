@@ -129,7 +129,7 @@ export const GAME_CONFIG = {
             }
         },
         GAME: {
-            DURATION: 300,  // seconds
+            DURATION: 299,  // seconds
             DUCKS_TO_FIND: 5,
             TARGET_POSITION: { x: 0.15, y: 0.3 },  // Ratio of game dimensions
             PLAY_BUTTON_Y: 0.85,  // Position in ratio of game height
