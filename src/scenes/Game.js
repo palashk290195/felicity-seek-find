@@ -4,6 +4,7 @@ import { handleCtaPressed, networkPlugin, adStart, adEnd } from "../networkPlugi
 import { config } from "../config.js";
 import { GAME_CONFIG, getCurrentLanguage, getSceneBackground } from "./utils/game-config.js";
 import { fitImageToContainer, fitTextToContainer } from "./utils/layout-utils.js";
+import { AudioUtils } from '../utils/audio-utils.js';
 
 export class Game extends Phaser.Scene {
     constructor() {
@@ -20,14 +21,12 @@ export class Game extends Phaser.Scene {
             foundDuckIndices: new Set(),
             gameStartTime: 0,
             elapsedTime: 0,
-            musicPlaying: false,
             headerShown: false,
             lastUpdateTime: 0
         };
 
         // Scene elements
         this.headerHeight = 0;
-        this.suspenseTheme = null;
         this.background = null;
         this.ducks = [];
         this.pointer = null;
@@ -65,11 +64,15 @@ export class Game extends Phaser.Scene {
         
         this.createSceneElements();
         this.setupResizeHandler();
+
+        // Setup audio handling
+        const cleanup = AudioUtils.setup(this);
+
+        // Clean up when scene shuts down
+        this.events.once('shutdown', cleanup);
         
-        // Only initialize audio if not already playing
-        if (!this.state.musicPlaying) {
-            this.setupBackgroundMusic();
-        }
+        // Setup background music
+        this.setupBackgroundMusic();
         
         this.logState('create');
     }
@@ -176,12 +179,8 @@ export class Game extends Phaser.Scene {
             this.pointerTween?.stop();
         }
 
-        try {
-            const sound = this.sound.add(GAME_CONFIG.COMMON_ASSETS.DUCK_CLICK_SOUND);
-            sound.play();
-        } catch (error) {
-            console.error('Audio decode error:', error);
-        }
+        // Play duck click sound
+        AudioUtils.playSound(this, GAME_CONFIG.COMMON_ASSETS.DUCK_CLICK_SOUND);
 
         const coloredDuck = this.add.image(0, 0, GAME_CONFIG.COMMON_ASSETS.CHARACTER);
         fitImageToContainer(coloredDuck, container);
@@ -255,14 +254,10 @@ export class Game extends Phaser.Scene {
     }
 
     setupBackgroundMusic() {
-        if (!this.state.musicPlaying) {
-            this.suspenseTheme = this.sound.add(GAME_CONFIG.COMMON_ASSETS.BG_MUSIC, {
-                loop: true,
-                volume: GAME_CONFIG.AUDIO.BG_MUSIC_VOLUME
-            });
-            this.suspenseTheme.play();
-            this.state.musicPlaying = true;
-        }
+        AudioUtils.playSound(this, GAME_CONFIG.COMMON_ASSETS.BG_MUSIC, {
+            loop: true,
+            volume: GAME_CONFIG.AUDIO.BG_MUSIC_VOLUME
+        });
     }
 
     setupResizeHandler() {

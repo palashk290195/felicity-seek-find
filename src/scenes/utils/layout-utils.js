@@ -4,14 +4,10 @@ export function fitImageToContainer(image, container) {
     const imageAspectRatio = image.width / image.height;
     const containerAspectRatio = containerWidth / containerHeight;
 
-    console.log(`Fitting image: ${image.texture.key}`); // Log the image name
-
     if (imageAspectRatio > containerAspectRatio) {
         image.setDisplaySize(containerWidth, containerWidth / imageAspectRatio);
-        console.log(`Image fitted to width: ${containerWidth}, height: ${containerWidth / imageAspectRatio}`);
     } else {
         image.setDisplaySize(containerHeight * imageAspectRatio, containerHeight);
-        console.log(`Image fitted to width: ${containerHeight * imageAspectRatio}, height: ${containerHeight}`);
     }
 }
 

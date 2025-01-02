@@ -4,6 +4,7 @@ import { handleCtaPressed, networkPlugin, adStart, adEnd, adClose, adRetry } fro
 import { config } from "../config.js";
 import { GAME_CONFIG, getCurrentLanguage, getSceneBackground } from "./utils/game-config.js";
 import { createBackground } from './utils/layout-utils.js';
+import { AudioUtils } from '../utils/audio-utils.js';
 
 export class EndCard extends Phaser.Scene {
     constructor() {
@@ -37,6 +38,10 @@ export class EndCard extends Phaser.Scene {
 
     create() {
         console.log('[EndCard][create] Initializing');
+
+        const cleanup = AudioUtils.setup(this);
+        this.events.once('shutdown', cleanup);
+
         this.createSceneElements();
         this.setupResizeHandler();
         
@@ -187,15 +192,9 @@ export class EndCard extends Phaser.Scene {
         console.log('[EndCard][initializeAudio] Setting up audio');
         const currentLanguage = getCurrentLanguage();
         this.voiceover = this.sound.add(currentLanguage.ASSETS.VOICEOVER);
-        this.playVoiceover();
+        // Play voiceover - will play immediately if user has already interacted
+        AudioUtils.playSound(this, currentLanguage.ASSETS.VOICEOVER);
         this.state.audioInitialized = true;
-    }
-
-    playVoiceover() {
-        if (!this.state.voiceoverPlayed && this.voiceover) {
-            this.voiceover.play();
-            this.state.voiceoverPlayed = true;
-        }
     }
 
     setupResizeHandler() {

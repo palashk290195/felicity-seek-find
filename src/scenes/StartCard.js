@@ -3,6 +3,7 @@ import * as Phaser from '../phaser/phaser-3.87.0-core.js';
 import { GAME_CONFIG, getCurrentLanguage, getSceneBackground } from './utils/game-config.js';
 import { StartCardLayoutManager } from './utils/startcard-layout-manager.js';
 import { fitImageToContainer, fitTextToContainer, createBackground } from './utils/layout-utils.js';
+import { AudioUtils } from '../utils/audio-utils.js';
 
 export class StartCard extends Phaser.Scene {
     constructor() {
@@ -17,6 +18,11 @@ export class StartCard extends Phaser.Scene {
         this.layoutManager = null;
         this.background = null;
         this.sceneTransitionTimer = null;
+    }
+
+    init() {
+        // this.game.events.on('hidden', this.sound.onGameBlur, this);
+        // this.game.events.on('visible', this.sound.onGameFocus, this);
     }
 
     logState(event = 'default') {
@@ -38,6 +44,9 @@ export class StartCard extends Phaser.Scene {
         this.startAnimationsFromState();
         this.setupSceneTransition();
         this.logState('create');
+        // Setup audio handling
+        const cleanup = AudioUtils.setup(this);
+        this.events.once('shutdown', cleanup);
     }
 
     createSceneElements() {
