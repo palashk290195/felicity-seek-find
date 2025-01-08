@@ -24,3 +24,5 @@ playable-ad-builds
 *.njsproj
 *.sln
 *.sw?
+
+.codegpt

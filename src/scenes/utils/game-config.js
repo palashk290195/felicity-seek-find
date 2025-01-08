@@ -2,7 +2,7 @@
 
 export const GAME_CONFIG = {
     // Selected language for the game
-    SELECTED_LANGUAGE: 'en',
+    SELECTED_LANGUAGE: 'ja',
 
     // Selected theme for the game
     SELECTED_THEME: 'DEFAULT', // Can be DEFAULT, CHRISTMAS, WINTER, CITY
@@ -71,7 +71,7 @@ export const GAME_CONFIG = {
             },
             TEXT: {
                 TITLE: "熊はどこですか？",
-                HEADER: "\"353回試しましたが、まだ100匹すべてのクマを見つけることができません\""
+                HEADER: "「353回試しましたが、\nまだ100匹のクマを\nすべて見つけることができません。」"
             }
         },
         de: {
