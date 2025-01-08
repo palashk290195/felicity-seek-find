@@ -179,7 +179,7 @@ export class Game extends Phaser.Scene {
             this.pointerTween?.stop();
         }
 
-        // Play duck click sound
+        // Play initial click sound
         AudioUtils.playSound(this, GAME_CONFIG.COMMON_ASSETS.DUCK_CLICK_SOUND);
 
         const coloredDuck = this.add.image(0, 0, GAME_CONFIG.COMMON_ASSETS.CHARACTER);
@@ -201,9 +201,74 @@ export class Game extends Phaser.Scene {
         this.state.ducksFound++;
         this.state.foundDuckIndices.add(index);
 
-        if (this.state.ducksFound >= this.DUCKS_TO_FIND) {
-            this.scene.start('MidCard');
+        // Create bounce animation
+        this.createBounceAnimation(container, () => {
+            if (this.state.ducksFound >= this.DUCKS_TO_FIND) {
+                this.scene.start('MidCard');
+            }
+        });
+    }
+
+    createBounceAnimation(container, onComplete) {
+        const config = GAME_CONFIG.SCENES.GAME.CHARACTER_ANIMATION;
+        const gameWidth = this.scale.width;
+        const gameHeight = this.scale.height;
+        const startX = container.x;
+        const startY = container.y;
+        
+        // Determine direction based on position
+        const isRightHalf = startX > gameWidth / 2;
+        const direction = isRightHalf ? 1 : -1;
+        
+        // Create bounce tweens array
+        const tweens = [];
+        let currentHeight = gameHeight * config.BOUNCE_HEIGHT;
+        
+        // First add the bounces in place
+        for (let i = 0; i < config.BOUNCE_COUNT; i++) {
+            // Up movement
+            tweens.push({
+                y: startY - currentHeight,
+                duration: config.EXIT_DURATION / (config.BOUNCE_COUNT * 3),
+                ease: 'Sine.Out'
+            });
+            
+            // Down movement with small anticipation
+            tweens.push({
+                y: {
+                    value: startY,
+                    duration: config.EXIT_DURATION / (config.BOUNCE_COUNT * 3),
+                    ease: 'Power2.Out'
+                },
+                scaleY: {
+                    value: 0.8,
+                    duration: 50,
+                    yoyo: true,
+                    ease: 'Quad.Out'
+                },
+                onComplete: () => {
+                    // Play sound when object hits the ground
+                    AudioUtils.playSound(this, config.BOUNCE_SOUND);
+                }
+            });
+
+            // Reduce height for next bounce
+            currentHeight *= config.BOUNCE_DECAY;
         }
+
+        // Finally add the exit movement with smooth acceleration
+        tweens.push({
+            x: direction > 0 ? gameWidth + 100 : -100,
+            duration: config.EXIT_DURATION / 3,
+            ease: 'Power1.In'
+        });
+
+        // Create the chain
+        this.tweens.chain({
+            targets: container,
+            tweens: tweens,
+            onComplete: onComplete
+        });
     }
 
     createPointer(gameWidth, gameHeight) {

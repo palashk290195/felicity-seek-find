@@ -26,6 +26,7 @@ import { map3PNG } from '../../media/images_map3.png.js';
 // import { mapWinterWonderlandPNG } from '../../media/images_map_winter_wonderland.png.js';
 //import { mapWinterWonderland11zonPNG } from '../../media/images_map_winter_wonderland_11zon.png.js';
 import { mapWinterlandResizedPNG } from '../../media/images_map_winterland_resized.png.js';
+import { SportsCityMapPNG } from '../../media/images_SportsCity_Map.png.js';
 // import { mapChristmasLandPNG } from '../../media/images_map_christmas_land.png.js';
 // import { mapWinterWonderlandWEBP } from '../../media/images_map_winter_wonderland.webp.js';
 // import { mapWinterWonderlandZIP } from '../../media/images_map_winter_wonderland.zip.js';
@@ -51,6 +52,9 @@ import { brownBearColoredPNG } from '../../media/images_brown_bear_colored.png.j
 // import { brownBearOutlineWEBP } from '../../media/images_brown_bear_outline.webp.js';
 import { brownBearOutlinedSmooth5PNG } from '../../media/images_brown_bear_outlined_smooth_5.png.js';
 // import { suspenseTheme2MP3 } from '../../media/audio_suspense_theme2.mp3.js';
+import { rugbyOutlinePNG } from '../../media/images_rugby-outline.png.js';
+import { rugbyPNG } from '../../media/images_rugby.png.js';
+
 import { seekBgMusicMP3 } from '../../media/audio_seek_bg_music.mp3.js';
 import { playbtnEnPNG } from '../../media/images_playbtn-en.png.js';
 import { playbtnRuPNG } from '../../media/images_playbtn-ru.png.js';
@@ -64,6 +68,7 @@ import { seekEnglishVoiceoverMP3 } from '../../media/audio_seek_english_voiceove
 import { seekGermanVoiceoverMP3 } from '../../media/audio_seek_german_voiceover.mp3.js';
 import { seekJapaneseVoiceoverMP3 } from '../../media/audio_seek_japanese_voiceover.mp3.js';
 import { seekRussianVoiceoverMP3 } from '../../media/audio_seek_russian_voiceover.mp3.js';
+import { bounceSoundMP3 } from '../../media/audio_bounce_sound.mp3.js';
 
 
 
@@ -92,13 +97,14 @@ export class Preloader extends Phaser.Scene
             { key: 'seek_german_voiceover', data: seekGermanVoiceoverMP3 },
             { key: 'seek_japanese_voiceover', data: seekJapaneseVoiceoverMP3 },
             { key: 'seek_russian_voiceover', data: seekRussianVoiceoverMP3 },
-            { key: 'seek_bg_music', data: seekBgMusicMP3 }
+            { key: 'seek_bg_music', data: seekBgMusicMP3 },
+            {key: 'bounce_sound', data: bounceSoundMP3}
         ]);
     
         
-        this.load.image('map_outlined_HQ', mapWinterlandResizedPNG);
-        this.load.image('duck_colored', brownBearColoredPNG);
-        this.load.image('duck_outline', brownBearOutlinedSmooth5PNG);
+        this.load.image('map_outlined_HQ', SportsCityMapPNG);
+        this.load.image('duck_colored', rugbyPNG);
+        this.load.image('duck_outline', rugbyOutlinePNG);
         this.load.image('Logo_image', LogoImagePNG);
         this.load.image('map1', map1PNG);
         this.load.image('map2', map2PNG);

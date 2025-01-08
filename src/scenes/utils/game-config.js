@@ -2,7 +2,7 @@
 
 export const GAME_CONFIG = {
     // Selected language for the game
-    SELECTED_LANGUAGE: 'ja',
+    SELECTED_LANGUAGE: 'en',
 
     // Selected theme for the game
     SELECTED_THEME: 'DEFAULT', // Can be DEFAULT, CHRISTMAS, WINTER, CITY
@@ -48,8 +48,8 @@ export const GAME_CONFIG = {
                 VOICEOVER: 'seek_english_voiceover',
             },
             TEXT: {
-                TITLE: "Where is the bear?",
-                HEADER: "\"I've tried 353 times but still can't find all 100 Bears\""
+                TITLE: "Where is the Rugby Ball?",
+                HEADER: "\"I've tried 353 times but still can't find all 100 Rugby Balls\""
             }
         },
         ru: {
@@ -91,7 +91,7 @@ export const GAME_CONFIG = {
     LAYOUT: {
         HEADER_HEIGHT_RATIO: 0.08,  // Ratio of game height
         BUTTON_SCALE_RATIO: 0.0007,  // Scale relative to min(gameWidth, gameHeight)
-        CHARACTER_CONTAINER_SIZE_RATIO: 0.15  // Size ratio relative to min(gameWidth, gameHeight)
+        CHARACTER_CONTAINER_SIZE_RATIO: 0.1  // Size ratio relative to min(gameWidth, gameHeight)
     },
 
     // Scene specific configurations
@@ -142,7 +142,14 @@ export const GAME_CONFIG = {
                 {x: 0.3, y: 0.75}, {x: 0.5, y: 0.75}, {x: 0.7, y: 0.75}, // Bottom row 1
                 {x: 0.2, y: 0.92}, {x: 0.4, y: 0.93}, {x: 0.6, y: 0.94}, // Bottom row 2
                 {x: 0.8, y: 0.5}, {x: 0.9, y: 0.94}                      // Far right
-            ]
+            ],
+            CHARACTER_ANIMATION: {
+                EXIT_DURATION: 2400,         // Slightly longer duration
+                BOUNCE_HEIGHT: 0.1,         // Slightly lower bounce
+                BOUNCE_DECAY: 0.7,          // Gentler decay
+                BOUNCE_COUNT: 3,
+                BOUNCE_SOUND: 'bounce_sound'
+            }
         },
         MID_CARD: {
             DURATION: 1000,  // milliseconds
