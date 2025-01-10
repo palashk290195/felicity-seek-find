@@ -419,16 +419,17 @@ export class Game extends Phaser.Scene {
     }
 
     updateElementPositions(gameWidth, gameHeight) {
+        // Update header height with new game height
+        this.headerHeight = gameHeight * GAME_CONFIG.LAYOUT.HEADER_HEIGHT_RATIO;
+
         // Update header
         if (this.headerContainer) {
-            // Update header height
-            this.headerHeight = gameHeight * GAME_CONFIG.LAYOUT.HEADER_HEIGHT_RATIO;
             this.headerContainer.setPosition(gameWidth / 2, 0);
             
             // Update header text size if needed
             const headerText = this.headerContainer.list[0];
             if (headerText) {
-                headerText.setPosition(0, this.headerHeight/2);  // Center vertically in header space
+                headerText.setPosition(0, this.headerHeight/2);
                 fitTextToContainer(headerText, {
                     width: gameWidth * 0.8,
                     height: this.headerHeight
@@ -436,9 +437,18 @@ export class Game extends Phaser.Scene {
             }
         }
 
-        // Update background
-        if (this.background) {
-            this.scaleBackground(gameWidth, gameHeight, gameHeight - this.headerHeight, this.headerHeight);
+        // Update background with new header height
+        if (this.background && this.gameContainer) {
+            // Update game container position with new header height
+            this.gameContainer.setPosition(0, this.headerHeight);
+            
+            // Scale background using new dimensions and header height
+            this.scaleBackground(
+                gameWidth, 
+                gameHeight, 
+                gameHeight - this.headerHeight,  // new available height
+                this.headerHeight                // new header height
+            );
         }
 
         // Update ducks relative to background
