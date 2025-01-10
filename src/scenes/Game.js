@@ -212,6 +212,10 @@ export class Game extends Phaser.Scene {
         container.remove(duck);
         duck.destroy();
         container.add(coloredDuck);
+        
+        // Set the container's depth to be above other containers
+        const TOP_LAYER_DEPTH = 1;
+        container.setDepth(TOP_LAYER_DEPTH);
 
         // Add particles
         const particles = this.add.particles(container.x, container.y, 'star', {
