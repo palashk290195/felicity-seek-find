@@ -2,7 +2,7 @@
 import * as Phaser from '../phaser/phaser-3.87.0-core.js';
 import { handleCtaPressed, networkPlugin, adStart, adEnd } from "../networkPlugin.js";
 import { config } from "../config.js";
-import { GAME_CONFIG, getCurrentLanguage, getSceneBackground } from "./utils/game-config.js";
+import { GAME_CONFIG, getCurrentLanguage, getSceneBackground, getCurrentPositions } from "./utils/game-config.js";
 import { fitImageToContainer, fitTextToContainer } from "./utils/layout-utils.js";
 import { AudioUtils } from '../utils/audio-utils.js';
 
@@ -22,7 +22,8 @@ export class Game extends Phaser.Scene {
             gameStartTime: 0,
             elapsedTime: 0,
             headerShown: false,
-            lastUpdateTime: 0
+            lastUpdateTime: 0,
+            currentPositions: [] // Store current positions
         };
 
         // Scene elements
@@ -92,14 +93,17 @@ export class Game extends Phaser.Scene {
         this.headerContainer = this.add.container(gameWidth / 2, 0);
         const currentLanguage = getCurrentLanguage();
         
+        // Calculate header dimensions
+        this.headerHeight = gameHeight * GAME_CONFIG.LAYOUT.HEADER_HEIGHT_RATIO;
         const containerWidth = gameWidth * 0.8;
-        const containerHeight = gameHeight * GAME_CONFIG.LAYOUT.HEADER_HEIGHT_RATIO;
+        const containerHeight = this.headerHeight;
 
-        const headerText = this.add.text(0, 0, currentLanguage.TEXT.HEADER, {
+        const headerText = this.add.text(0, containerHeight/2, currentLanguage.TEXT.HEADER, {
             fontFamily: 'Arial, sans-serif',
             fontWeight: 'bold',
-            fill: '#000000'
-        }).setOrigin(0.5, 0);
+            fill: '#000000',
+            align: 'center'
+        }).setOrigin(0.5, 0.5);  // Center align the text
 
         fitTextToContainer(headerText, { 
             width: containerWidth, 
@@ -107,7 +111,6 @@ export class Game extends Phaser.Scene {
         }, currentLanguage.TEXT.HEADER);
 
         this.headerContainer.add([headerText]);
-        this.headerHeight = this.headerContainer.getBounds().height;
         this.state.headerShown = true;
 
         // Animate header
@@ -147,21 +150,38 @@ export class Game extends Phaser.Scene {
     }
 
     createDucks(gameWidth, gameHeight) {
-        const duckPositions = GAME_CONFIG.SCENES.GAME.CHARACTER_POSITIONS;
+        // Update positions based on current orientation
+        this.updateCurrentPositions();
+        
         const duckContainerSize = Math.min(gameWidth, gameHeight) * GAME_CONFIG.LAYOUT.CHARACTER_CONTAINER_SIZE_RATIO;
 
-        this.ducks = duckPositions.map((pos, index) => {
-            const container = this.add.container(gameWidth * pos.x, gameHeight * pos.y);
+        // Get background image's actual display dimensions and position
+        const bgBounds = this.background.getBounds();
+        const bgX = bgBounds.x;
+        const bgY = bgBounds.y;
+        const bgWidth = bgBounds.width;
+        const bgHeight = bgBounds.height;
+
+        this.ducks = this.state.currentPositions.map((pos, index) => {
+            // Calculate position relative to background image
+            const x = bgX + (bgWidth * pos.x);
+            const y = bgY + (bgHeight * pos.y);
+            
+            const container = this.add.container(x, y);
             container.setSize(duckContainerSize, duckContainerSize);
+            // Store position ratios relative to background
+            container.setData('originalPosition', { 
+                x: pos.x,
+                y: pos.y,
+                isRelativeToBackground: true 
+            });
 
             // Create duck with correct state (found or not)
             if (this.state.foundDuckIndices.has(index)) {
-                // Create colored duck for found ones
                 const coloredDuck = this.add.image(0, 0, GAME_CONFIG.COMMON_ASSETS.CHARACTER);
                 fitImageToContainer(coloredDuck, container);
                 container.add(coloredDuck);
             } else {
-                // Create outline duck for unfound ones
                 const duck = this.add.image(0, 0, GAME_CONFIG.COMMON_ASSETS.CHARACTER_OUTLINE);
                 fitImageToContainer(duck, container);
                 container.add(duck);
@@ -175,8 +195,13 @@ export class Game extends Phaser.Scene {
 
     handleDuckClick(container, duck, index) {
         if (this.pointer) {
+            if (this.pointerTween) {
+                this.pointerTween.stop();
+                this.pointerTween.remove();
+                this.pointerTween = null;
+            }
             this.pointer.destroy();
-            this.pointerTween?.stop();
+            this.pointer = null;
         }
 
         // Play initial click sound
@@ -274,8 +299,9 @@ export class Game extends Phaser.Scene {
     createPointer(gameWidth, gameHeight) {
         // Only create pointer if we haven't found any ducks yet
         if (this.state.ducksFound === 0) {
-            const pointerX = gameWidth * this.TARGET_DUCK_POSITION.x;
-            const pointerY = gameHeight * this.TARGET_DUCK_POSITION.y;
+            const bgBounds = this.background.getBounds();
+            const pointerX = bgBounds.x + (bgBounds.width * this.TARGET_DUCK_POSITION.x);
+            const pointerY = bgBounds.y + (bgBounds.height * this.TARGET_DUCK_POSITION.y);
             const baseScale = Math.min(gameWidth, gameHeight) * 0.0002;
             
             this.pointer = this.add.image(pointerX, pointerY, 'Cursor_1')
@@ -337,15 +363,23 @@ export class Game extends Phaser.Scene {
             return;
         }
 
-        // Update elapsed time before recreating
+        // Update elapsed time
         this.updateElapsedTime();
 
-        // Stop all animations except audio
-        this.tweens.killAll();
+        // Check if orientation changed and positions need updating
+        const oldPositions = this.state.currentPositions;
+        this.updateCurrentPositions();
+        const positionsChanged = oldPositions !== this.state.currentPositions;
 
-        // Destroy and recreate all UI elements
-        this.destroySceneElements();
-        this.createSceneElements();
+        if (positionsChanged) {
+            // If positions changed, do full recreation
+            this.tweens.killAll();
+            this.destroySceneElements();
+            this.createSceneElements();
+        } else {
+            // Otherwise, just update positions
+            this.updateElementPositions(gameSize.width, gameSize.height);
+        }
         
         this.logState('resize');
     }
@@ -374,6 +408,95 @@ export class Game extends Phaser.Scene {
         const currentTime = this.time.now;
         this.state.elapsedTime += currentTime - this.state.lastUpdateTime;
         this.state.lastUpdateTime = currentTime;
+    }
+
+    updateCurrentPositions() {
+        this.state.currentPositions = getCurrentPositions(this);
+    }
+
+    updateElementPositions(gameWidth, gameHeight) {
+        // Update header
+        if (this.headerContainer) {
+            // Update header height
+            this.headerHeight = gameHeight * GAME_CONFIG.LAYOUT.HEADER_HEIGHT_RATIO;
+            this.headerContainer.setPosition(gameWidth / 2, 0);
+            
+            // Update header text size if needed
+            const headerText = this.headerContainer.list[0];
+            if (headerText) {
+                headerText.setPosition(0, this.headerHeight/2);  // Center vertically in header space
+                fitTextToContainer(headerText, {
+                    width: gameWidth * 0.8,
+                    height: this.headerHeight
+                }, getCurrentLanguage().TEXT.HEADER);
+            }
+        }
+
+        // Update background
+        if (this.background) {
+            this.scaleBackground(gameWidth, gameHeight, gameHeight - this.headerHeight, this.headerHeight);
+        }
+
+        // Update ducks relative to background
+        if (this.background) {
+            const bgBounds = this.background.getBounds();
+            const bgX = bgBounds.x;
+            const bgY = bgBounds.y;
+            const bgWidth = bgBounds.width;
+            const bgHeight = bgBounds.height;
+
+            this.ducks.forEach(container => {
+                const pos = container.getData('originalPosition');
+                if (pos.isRelativeToBackground) {
+                    container.setPosition(
+                        bgX + (bgWidth * pos.x),
+                        bgY + (bgHeight * pos.y)
+                    );
+                    
+                    // Update container size
+                    const newSize = Math.min(gameWidth, gameHeight) * GAME_CONFIG.LAYOUT.CHARACTER_CONTAINER_SIZE_RATIO;
+                    container.setSize(newSize, newSize);
+                    
+                    // Update duck scale
+                    const duck = container.list[0];
+                    if (duck) {
+                        fitImageToContainer(duck, container);
+                    }
+                }
+            });
+        }
+
+        // Update pointer with safety checks
+        if (this.pointer && !this.pointer.destroyed) {
+            const bgBounds = this.background.getBounds();
+            const pointerX = bgBounds.x + (bgBounds.width * this.TARGET_DUCK_POSITION.x);
+            const pointerY = bgBounds.y + (bgBounds.height * this.TARGET_DUCK_POSITION.y);
+            const baseScale = Math.min(gameWidth, gameHeight) * 0.0002;
+            
+            this.pointer.setPosition(pointerX, pointerY)
+                .setScale(baseScale);
+            
+            // Only update tween if it exists and is active
+            if (this.pointerTween && !this.pointerTween.destroyed && this.pointerTween.isPlaying()) {
+                try {
+                    this.pointerTween.updateTo('scale', baseScale * 1.2, true);
+                } catch (error) {
+                    console.log('[Game] Pointer tween update failed:', error);
+                    // Clean up invalid tween
+                    this.pointerTween = null;
+                }
+            }
+        }
+
+        // Update play now button
+        if (this.playNowButton) {
+            const buttonY = gameHeight * GAME_CONFIG.SCENES.GAME.PLAY_BUTTON_Y;
+            const buttonScale = Math.min(gameWidth, gameHeight) * GAME_CONFIG.LAYOUT.BUTTON_SCALE_RATIO;
+            
+            this.playNowButton
+                .setPosition(gameWidth / 2, buttonY)
+                .setScale(buttonScale);
+        }
     }
 
     update() {

@@ -1,174 +1,405 @@
-// game-config.js
-
 export const GAME_CONFIG = {
-    // Selected language for the game
-    SELECTED_LANGUAGE: 'en',
-
-    // Selected theme for the game
-    SELECTED_THEME: 'DEFAULT', // Can be DEFAULT, CHRISTMAS, WINTER, CITY
-
-    // Common assets across all languages
-    COMMON_ASSETS: {
-        LOGO: 'Logo_image',
-        RETRY_ICON: 'retryIcon',
-        STAR: 'star',
-        SCENE_BACKGROUNDS: {
-            START_CARD: {
-                DEFAULT: 'VideoBG',
-                CHRISTMAS: 'VideoBG',
-                WINTER: 'VideoBG',
-                CITY: 'VideoBG'
-            },
-            GAME: {
-                DEFAULT: 'map_outlined_HQ',
-                CHRISTMAS: 'christmas_map_outlined',
-                WINTER: 'winter_map_outlined',
-                CITY: 'city_map_outlined'
-            },
-            END_CARD: {
-                DEFAULT: 'VideoBG',
-                CHRISTMAS: 'VideoBG',
-                WINTER: 'VideoBG',
-                CITY: 'VideoBG'
-            }
-        },
-        PIXEL: ['pixel_green', 'pixel_white', 'pixel_yellow', 'pixel_blue', 'pixel_red'],
-        CHARACTER: 'duck_colored',
-        CHARACTER_OUTLINE: 'duck_outline',
-        DUCK_CLICK_SOUND: 'duck_click_sound',
-        BG_MUSIC: 'seek_bg_music'
+  "SELECTED_LANGUAGE": "en",
+  "SELECTED_THEME": "DEFAULT",
+  "COMMON_ASSETS": {
+    "LOGO": "Logo_image",
+    "RETRY_ICON": "retryIcon",
+    "STAR": "star",
+    "SCENE_BACKGROUNDS": {
+      "START_CARD": {
+        "DEFAULT": "VideoBG",
+        "CHRISTMAS": "VideoBG",
+        "WINTER": "VideoBG",
+        "CITY": "VideoBG"
+      },
+      "GAME": {
+        "DEFAULT": "map_outlined_HQ",
+        "CHRISTMAS": "christmas_map_outlined",
+        "WINTER": "winter_map_outlined",
+        "CITY": "city_map_outlined"
+      },
+      "END_CARD": {
+        "DEFAULT": "VideoBG",
+        "CHRISTMAS": "VideoBG",
+        "WINTER": "VideoBG",
+        "CITY": "VideoBG"
+      }
     },
-
-    // Language specific configurations
-    LANGUAGES: {
-        en: {
-            ASSETS: {
-                PLAY_BTN: 'playbtn_en',
-                PLAY_NOW: 'playnow_en',
-                VOICEOVER: 'seek_english_voiceover',
-            },
-            TEXT: {
-                TITLE: "Where is the Rugby Ball?",
-                HEADER: "\"I've tried 353 times but still can't find all 100 Rugby Balls\""
-            }
-        },
-        ru: {
-            ASSETS: {
-                PLAY_BTN: 'playbtn_ru',
-                PLAY_NOW: 'playnow_ru',
-                VOICEOVER: 'seek_russian_voiceover',
-            },
-            TEXT: {
-                TITLE: "Где медведь?",
-                HEADER: "\"Я пробовал 353 раза, но до сих пор не могу найти всех 100 медведей.\""
-            }
-        },
-        ja: {
-            ASSETS: {
-                PLAY_BTN: 'playbtn_ja',
-                PLAY_NOW: 'playnow_ja',
-                VOICEOVER: 'seek_japanese_voiceover',
-            },
-            TEXT: {
-                TITLE: "熊はどこですか？",
-                HEADER: "「353回試しましたが、\nまだ100匹のクマを\nすべて見つけることができません。」"
-            }
-        },
-        de: {
-            ASSETS: {
-                PLAY_BTN: 'playbtn_de',
-                PLAY_NOW: 'playnow_de',
-                VOICEOVER: 'seek_german_voiceover',
-            },
-            TEXT: {
-                TITLE: "Wo ist die Ente?",
-                HEADER: "\"Ich habe es 353 Mal versucht, aber ich kann immer noch nicht \nAlle 100 Enten finden.\""
-            }
-        }
+    "PIXEL": [
+      "pixel_green",
+      "pixel_white",
+      "pixel_yellow",
+      "pixel_blue",
+      "pixel_red"
+    ],
+    "CHARACTER": "duck_colored",
+    "CHARACTER_OUTLINE": "duck_outline",
+    "DUCK_CLICK_SOUND": "duck_click_sound",
+    "BG_MUSIC": "seek_bg_music"
+  },
+  "LANGUAGES": {
+    "en": {
+      "ASSETS": {
+        "PLAY_BTN": "playbtn_en",
+        "PLAY_NOW": "playnow_en",
+        "VOICEOVER": "seek_english_voiceover"
+      },
+      "TEXT": {
+        "TITLE": "Where is the Rugby Ball?",
+        "HEADER": "\"I've tried 353 times but still can't find all 100 Rugby Balls\""
+      }
     },
-
-    // Layout configurations
-    LAYOUT: {
-        HEADER_HEIGHT_RATIO: 0.08,  // Ratio of game height
-        BUTTON_SCALE_RATIO: 0.0007,  // Scale relative to min(gameWidth, gameHeight)
-        CHARACTER_CONTAINER_SIZE_RATIO: 0.1  // Size ratio relative to min(gameWidth, gameHeight)
+    "ru": {
+      "ASSETS": {
+        "PLAY_BTN": "playbtn_ru",
+        "PLAY_NOW": "playnow_ru",
+        "VOICEOVER": "seek_russian_voiceover"
+      },
+      "TEXT": {
+        "TITLE": "Где медведь?",
+        "HEADER": "\"Я пробовал 353 раза, но до сих пор не могу найти всех 100 медведей.\""
+      }
     },
-
-    // Scene specific configurations
-    SCENES: {
-        START_CARD: {
-            SCENE_DURATION: 5000,
-            ENTRY_DURATION: 2000,
-            WIGGLE_DURATION: 500,
-            EXIT_DURATION: 2000,
-            CHARACTER: {
-                PORTRAIT: {
-                    WIDTH: 0.9,   // Ratio of game width
-                    HEIGHT: 0.7,  // Ratio of game height
-                    X: 0.5,      // Ratio of game width
-                    Y: 0.6       // Ratio of game height
-                },
-                LANDSCAPE: {
-                    WIDTH: 0.6,
-                    HEIGHT: 0.5,
-                    X: 0.5,
-                    Y: 0.5
-                }
-            },
-            TEXT: {
-                PORTRAIT: {
-                    WIDTH: 0.8,
-                    HEIGHT: 0.1,
-                    Y: 0.3
-                },
-                LANDSCAPE: {
-                    WIDTH: 0.5,
-                    HEIGHT: 0.1,
-                    Y: 0.1
-                }
-            }
-        },
-        GAME: {
-            DURATION: 299,  // seconds
-            DUCKS_TO_FIND: 5,
-            TARGET_POSITION: { x: 0.15, y: 0.3 },  // Ratio of game dimensions
-            PLAY_BUTTON_Y: 0.85,  // Position in ratio of game height
-            // Character positions relative to game dimensions (width, height)
-            CHARACTER_POSITIONS: [
-                {x: 0.5, y: 0.5}, {x: 0.4, y: 0.43}, {x: 0.6, y: 0.22},  // Top cluster
-                {x: 0.15, y: 0.3}, {x: 0.25, y: 0.45}, {x: 0.1, y: 0.6}, // Left cluster
-                {x: 0.4, y: 0.35}, {x: 0.5, y: 0.5}, {x: 0.45, y: 0.65}, // Center cluster
-                {x: 0.7, y: 0.25}, {x: 0.8, y: 0.4}, {x: 0.75, y: 0.55}, // Right cluster
-                {x: 0.3, y: 0.75}, {x: 0.5, y: 0.75}, {x: 0.7, y: 0.75}, // Bottom row 1
-                {x: 0.2, y: 0.92}, {x: 0.4, y: 0.93}, {x: 0.6, y: 0.94}, // Bottom row 2
-                {x: 0.8, y: 0.5}, {x: 0.9, y: 0.94}                      // Far right
-            ],
-            CHARACTER_ANIMATION: {
-                EXIT_DURATION: 2400,         // Slightly longer duration
-                BOUNCE_HEIGHT: 0.1,         // Slightly lower bounce
-                BOUNCE_DECAY: 0.7,          // Gentler decay
-                BOUNCE_COUNT: 3,
-                BOUNCE_SOUND: 'bounce_sound'
-            }
-        },
-        MID_CARD: {
-            DURATION: 1000,  // milliseconds
-            PARTICLE_CONFIG: {
-                SPEED: 50,
-                MAX_PARTICLES: 100,
-                LIFESPAN: 1000
-            }
-        },
-        END_CARD: {
-            BUTTON_SCALE_RATIO: 0.001,  // Scale relative to min(gameWidth, gameHeight)
-            LOGO_SCALE_RATIO: 0.0015    // Scale relative to min(gameWidth, gameHeight)
-        }
+    "ja": {
+      "ASSETS": {
+        "PLAY_BTN": "playbtn_ja",
+        "PLAY_NOW": "playnow_ja",
+        "VOICEOVER": "seek_japanese_voiceover"
+      },
+      "TEXT": {
+        "TITLE": "熊はどこですか？",
+        "HEADER": "「353回試しましたが、\nまだ100匹のクマを\nすべて見つけることができません。」"
+      }
     },
-
-    // Audio configurations
-    AUDIO: {
-        BG_MUSIC_VOLUME: 0.9
+    "de": {
+      "ASSETS": {
+        "PLAY_BTN": "playbtn_de",
+        "PLAY_NOW": "playnow_de",
+        "VOICEOVER": "seek_german_voiceover"
+      },
+      "TEXT": {
+        "TITLE": "Wo ist die Ente?",
+        "HEADER": "\"Ich habe es 353 Mal versucht, aber ich kann immer noch nicht \nAlle 100 Enten finden.\""
+      }
     }
+  },
+  "LAYOUT": {
+    "HEADER_HEIGHT_RATIO": 0.08,
+    "BUTTON_SCALE_RATIO": 0.0007,
+    "CHARACTER_CONTAINER_SIZE_RATIO": 0.1
+  },
+  "SCENES": {
+    "START_CARD": {
+      "SCENE_DURATION": 5000,
+      "ENTRY_DURATION": 2000,
+      "WIGGLE_DURATION": 500,
+      "EXIT_DURATION": 2000,
+      "CHARACTER": {
+        "PORTRAIT": {
+          "WIDTH": 0.9,
+          "HEIGHT": 0.7,
+          "X": 0.5,
+          "Y": 0.6
+        },
+        "LANDSCAPE": {
+          "WIDTH": 0.6,
+          "HEIGHT": 0.5,
+          "X": 0.5,
+          "Y": 0.5
+        }
+      },
+      "TEXT": {
+        "PORTRAIT": {
+          "WIDTH": 0.8,
+          "HEIGHT": 0.1,
+          "Y": 0.3
+        },
+        "LANDSCAPE": {
+          "WIDTH": 0.5,
+          "HEIGHT": 0.1,
+          "Y": 0.1
+        }
+      }
+    },
+    "GAME": {
+      "DURATION": 299,
+      "DUCKS_TO_FIND": 5,
+      "USE_SEPARATE_POSITIONS": false,
+      "TARGET_POSITION": {
+        "x": 0.338,
+        "y": 0.141
+      },
+      "PLAY_BUTTON_Y": 0.85,
+      "CHARACTER_POSITIONS": [
+        {
+          "x": 0.21,
+          "y": 0.146
+        },
+        {
+          "x": 0.338,
+          "y": 0.141
+        },
+        {
+          "x": 0.492,
+          "y": 0.128
+        },
+        {
+          "x": 0.389,
+          "y": 0.094
+        },
+        {
+          "x": 0.683,
+          "y": 0.284
+        },
+        {
+          "x": 0.807,
+          "y": 0.3
+        },
+        {
+          "x": 0.893,
+          "y": 0.262
+        },
+        {
+          "x": 0.842,
+          "y": 0.262
+        },
+        {
+          "x": 0.789,
+          "y": 0.238
+        },
+        {
+          "x": 0.235,
+          "y": 0.458
+        },
+        {
+          "x": 0.198,
+          "y": 0.456
+        },
+        {
+          "x": 0.143,
+          "y": 0.666
+        },
+        {
+          "x": 0.265,
+          "y": 0.624
+        },
+        {
+          "x": 0.464,
+          "y": 0.661
+        },
+        {
+          "x": 0.135,
+          "y": 0.762
+        },
+        {
+          "x": 0.474,
+          "y": 0.847
+        },
+        {
+          "x": 0.436,
+          "y": 0.806
+        },
+        {
+          "x": 0.696,
+          "y": 0.788
+        },
+        {
+          "x": 0.649,
+          "y": 0.859
+        },
+        {
+          "x": 0.787,
+          "y": 0.85
+        }
+      ],
+      "PORTRAIT_POSITIONS": [
+        {
+          "x": 0.192,
+          "y": 0.219
+        },
+        {
+          "x": 0.315,
+          "y": 0.18
+        },
+        {
+          "x": 0.443,
+          "y": 0.196
+        },
+        {
+          "x": 0.696,
+          "y": 0.3
+        },
+        {
+          "x": 0.869,
+          "y": 0.312
+        },
+        {
+          "x": 0.888,
+          "y": 0.354
+        },
+        {
+          "x": 0.821,
+          "y": 0.352
+        },
+        {
+          "x": 0.336,
+          "y": 0.475
+        },
+        {
+          "x": 0.093,
+          "y": 0.475
+        },
+        {
+          "x": 0.181,
+          "y": 0.445
+        },
+        {
+          "x": 0.184,
+          "y": 0.498
+        },
+        {
+          "x": 0.048,
+          "y": 0.768
+        },
+        {
+          "x": 0.053,
+          "y": 0.708
+        },
+        {
+          "x": 0.224,
+          "y": 0.664
+        },
+        {
+          "x": 0.384,
+          "y": 0.655
+        },
+        {
+          "x": 0.469,
+          "y": 0.688
+        },
+        {
+          "x": 0.448,
+          "y": 0.712
+        },
+        {
+          "x": 0.381,
+          "y": 0.733
+        },
+        {
+          "x": 0.643,
+          "y": 0.904
+        },
+        {
+          "x": 0.589,
+          "y": 0.787
+        }
+      ],
+      "LANDSCAPE_POSITIONS": [
+        {
+          "x": 0.192,
+          "y": 0.219
+        },
+        {
+          "x": 0.31,
+          "y": 0.366
+        },
+        {
+          "x": 0.437,
+          "y": 0.382
+        },
+        {
+          "x": 0.399,
+          "y": 0.31
+        },
+        {
+          "x": 0.321,
+          "y": 0.517
+        },
+        {
+          "x": 0.321,
+          "y": 0.451
+        },
+        {
+          "x": 0.724,
+          "y": 0.735
+        },
+        {
+          "x": 0.819,
+          "y": 0.729
+        },
+        {
+          "x": 0.884,
+          "y": 0.743
+        },
+        {
+          "x": 0.884,
+          "y": 0.878
+        },
+        {
+          "x": 0.782,
+          "y": 0.918
+        },
+        {
+          "x": 0.72,
+          "y": 0.883
+        },
+        {
+          "x": 0.663,
+          "y": 0.732
+        },
+        {
+          "x": 0.03,
+          "y": 0.944
+        },
+        {
+          "x": 0.096,
+          "y": 0.968
+        },
+        {
+          "x": 0.13,
+          "y": 0.119
+        },
+        {
+          "x": 0.196,
+          "y": 0.077
+        },
+        {
+          "x": 0.952,
+          "y": 0.512
+        },
+        {
+          "x": 0.988,
+          "y": 0.557
+        },
+        {
+          "x": 0.809,
+          "y": 0.263
+        }
+      ],
+      "CHARACTER_ANIMATION": {
+        "EXIT_DURATION": 2400,
+        "BOUNCE_HEIGHT": 0.1,
+        "BOUNCE_DECAY": 0.7,
+        "BOUNCE_COUNT": 3,
+        "BOUNCE_SOUND": "bounce_sound"
+      }
+    },
+    "MID_CARD": {
+      "DURATION": 1000,
+      "PARTICLE_CONFIG": {
+        "SPEED": 50,
+        "MAX_PARTICLES": 100,
+        "LIFESPAN": 1000
+      }
+    },
+    "END_CARD": {
+      "BUTTON_SCALE_RATIO": 0.001,
+      "LOGO_SCALE_RATIO": 0.0015
+    }
+  },
+  "AUDIO": {
+    "BG_MUSIC_VOLUME": 0.9
+  }
 };
 
 // Helper function to get current language config
@@ -179,4 +410,17 @@ export const getCurrentLanguage = () => {
 // Helper function to get scene specific background based on theme
 export const getSceneBackground = (sceneName) => {
     return GAME_CONFIG.COMMON_ASSETS.SCENE_BACKGROUNDS[sceneName][GAME_CONFIG.SELECTED_THEME];
+};
+
+// Helper function to get current positions based on orientation
+export const getCurrentPositions = (scene) => {
+    const gameConfig = GAME_CONFIG.SCENES.GAME;
+    
+    if (!gameConfig.USE_SEPARATE_POSITIONS) {
+        return gameConfig.CHARACTER_POSITIONS;
+    }
+
+    return scene.scale.width > scene.scale.height ? 
+        gameConfig.LANDSCAPE_POSITIONS : 
+        gameConfig.PORTRAIT_POSITIONS;
 };
