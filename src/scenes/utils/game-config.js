@@ -45,8 +45,8 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_english_voiceover"
       },
       "TEXT": {
-        "TITLE": "Where is the Rugby Ball?",
-        "HEADER": "\"I've tried 353 times but still can't find all 100 Rugby Balls\""
+        "TITLE": "Where is the Ball?",
+        "HEADER": "\"I've tried 353 times but still can't find all 100 Balls\""
       }
     },
     "ru": {
