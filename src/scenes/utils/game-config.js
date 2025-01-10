@@ -1,5 +1,5 @@
 export const GAME_CONFIG = {
-  "SELECTED_LANGUAGE": "en",
+  "SELECTED_LANGUAGE": "de",
   "SELECTED_THEME": "DEFAULT",
   "COMMON_ASSETS": {
     "LOGO": "Logo_image",
@@ -45,8 +45,8 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_english_voiceover"
       },
       "TEXT": {
-        "TITLE": "Where is the Rugby Ball?",
-        "HEADER": "\"I've tried 353 times but still can't find all 100 Rugby Balls\""
+        "TITLE": "Where is the Duck?",
+        "HEADER": "\"I've tried 353 times but still can't find all 100 Ducks\""
       }
     },
     "ru": {
@@ -56,8 +56,8 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_russian_voiceover"
       },
       "TEXT": {
-        "TITLE": "Где медведь?",
-        "HEADER": "\"Я пробовал 353 раза, но до сих пор не могу найти всех 100 медведей.\""
+        "TITLE": "Где утка?",
+        "HEADER": "\"Я пробовал 353 раза, но до сих пор не могу найти всех 100 уток.\""
       }
     },
     "ja": {
@@ -67,8 +67,8 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_japanese_voiceover"
       },
       "TEXT": {
-        "TITLE": "熊はどこですか？",
-        "HEADER": "「353回試しましたが、\nまだ100匹のクマを\nすべて見つけることができません。」"
+        "TITLE": "アヒルはどこですか？",
+        "HEADER": "「353回試しましたが、\nまだ100羽のアヒルを\nすべて見つけることができません。」"
       }
     },
     "de": {
@@ -86,7 +86,7 @@ export const GAME_CONFIG = {
   "LAYOUT": {
     "HEADER_HEIGHT_RATIO": 0.08,
     "BUTTON_SCALE_RATIO": 0.0007,
-    "CHARACTER_CONTAINER_SIZE_RATIO": 0.1
+    "CHARACTER_CONTAINER_SIZE_RATIO": 0.08
   },
   "SCENES": {
     "START_CARD": {
@@ -97,13 +97,13 @@ export const GAME_CONFIG = {
       "CHARACTER": {
         "PORTRAIT": {
           "WIDTH": 0.9,
-          "HEIGHT": 0.7,
+          "HEIGHT": 0.3,
           "X": 0.5,
           "Y": 0.6
         },
         "LANDSCAPE": {
           "WIDTH": 0.6,
-          "HEIGHT": 0.5,
+          "HEIGHT": 0.3,
           "X": 0.5,
           "Y": 0.5
         }
@@ -380,7 +380,7 @@ export const GAME_CONFIG = {
         "EXIT_DURATION": 2400,
         "BOUNCE_HEIGHT": 0.1,
         "BOUNCE_DECAY": 0.7,
-        "BOUNCE_COUNT": 3,
+        "BOUNCE_COUNT": 0,
         "BOUNCE_SOUND": "bounce_sound"
       }
     },
