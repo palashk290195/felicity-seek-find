@@ -45,7 +45,7 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_english_voiceover"
       },
       "TEXT": {
-        "TITLE": "Where is the Ball?",
+        "TITLE": "The Hunt is On! Search for the Legendary Ball!",
         "HEADER": "\"I've tried 353 times but still can't find all 100 Balls\""
       }
     },
