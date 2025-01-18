@@ -45,7 +45,7 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_english_voiceover"
       },
       "TEXT": {
-        "TITLE": "Where is the Rugby Ball?",
+        "TITLE": "The Hunt is On! Search for the Legendary Ball!",
         "HEADER": "\"I've tried 353 times but still can't find all 100 Rugby Balls\""
       }
     },
@@ -56,8 +56,8 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_russian_voiceover"
       },
       "TEXT": {
-        "TITLE": "Где медведь?",
-        "HEADER": "\"Я пробовал 353 раза, но до сих пор не могу найти всех 100 медведей.\""
+        "TITLE": "Охота началась! Ищи легендарный мяч!",
+        "HEADER": "\"Я пытался 353 раза, но всё ещё не могу найти все 100 регбийных мячей\""
       }
     },
     "ja": {
@@ -67,8 +67,8 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_japanese_voiceover"
       },
       "TEXT": {
-        "TITLE": "熊はどこですか？",
-        "HEADER": "「353回試しましたが、\nまだ100匹のクマを\nすべて見つけることができません。」"
+        "TITLE": "狩りが始まった！伝説のボールを探せ！",
+        "HEADER": "「353回挑戦したけど、まだ100個のラグビーボールを全部見つけられない」"
       }
     },
     "de": {
@@ -78,8 +78,8 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_german_voiceover"
       },
       "TEXT": {
-        "TITLE": "Wo ist die Ente?",
-        "HEADER": "\"Ich habe es 353 Mal versucht, aber ich kann immer noch nicht \nAlle 100 Enten finden.\""
+        "TITLE": "Die Jagd beginnt! Suche den legendären Ball!",
+        "HEADER": "\"Ich habe es 353 Mal versucht, aber ich kann immer noch nicht alle 100 Rugbybälle finden.\""
       }
     }
   },
