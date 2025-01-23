@@ -69,6 +69,32 @@ import { seekGermanVoiceoverMP3 } from '../../media/audio_seek_german_voiceover.
 import { seekJapaneseVoiceoverMP3 } from '../../media/audio_seek_japanese_voiceover.mp3.js';
 import { seekRussianVoiceoverMP3 } from '../../media/audio_seek_russian_voiceover.mp3.js';
 import { bounceSoundMP3 } from '../../media/audio_bounce_sound.mp3.js';
+import { acidRiverPNG } from '../../media/images_waldo_drowning_acid_river.png.js';
+import { acidStreamPNG } from '../../media/images_waldo_drowning_acid_stream.png.js';
+import { acidWavePNG } from '../../media/images_waldo_drowning_acid_wave.png.js';
+import { blackTankPNG } from '../../media/images_waldo_drowning_black_tank.png.js';
+import { eye1PNG } from '../../media/images_waldo_drowning_eye1.png.js';
+import { eye2PNG } from '../../media/images_waldo_drowning_eye2.png.js';
+import { eye3PNG } from '../../media/images_waldo_drowning_eye3.png.js';
+import { handPNG } from '../../media/images_waldo_drowning_hand.png.js';
+import { heartBgPNG } from '../../media/images_waldo_drowning_heart_bg.png.js';
+import { heartMaskPNG } from '../../media/images_waldo_drowning_heart_mask.png.js';
+import { mouth1PNG } from '../../media/images_waldo_drowning_mouth1.png.js';
+import { mouth2PNG } from '../../media/images_waldo_drowning_mouth2.png.js';
+import { mouth3PNG } from '../../media/images_waldo_drowning_mouth3.png.js';
+import { mouth4PNG } from '../../media/images_waldo_drowning_mouth4.png.js';
+import { objectBenchPNG } from '../../media/images_waldo_drowning_object_bench.png.js';
+import { streamMaskBlackPNG } from '../../media/images_waldo_drowning_stream_mask_black.png.js';
+import { streamMaskWhitePNG } from '../../media/images_waldo_drowning_stream_mask_white.png.js';
+import { videoPNG } from '../../media/images_waldo_drowning_video.png.js';
+import { waldoBenchPNG } from '../../media/images_waldo_drowning_waldo_bench.png.js';
+import { waldoSeatingBodyPNG } from '../../media/images_waldo_drowning_waldo_seating_body.png.js';
+import { waldoSeatingRightHandPNG } from '../../media/images_waldo_drowning_waldo_seating_right_hand.png.js';
+import { waldoStandingPNG } from '../../media/images_waldo_drowning_waldo_standing.png.js';
+import { waldoStandingLeftHandPNG } from '../../media/images_waldo_drowning_waldo_standing_left_hand.png.js';
+import { waldoStandingRightHandPNG } from '../../media/images_waldo_drowning_waldo_standing_right_hand.png.js';
+import { wallStairsPNG } from '../../media/images_waldo_drowning_wall_stairs.png.js';
+
 
 
 
@@ -125,6 +151,33 @@ export class Preloader extends Phaser.Scene
         this.load.image('playnow_ru', PlayNowRuPNG);
         this.load.image('playnow_de', PlayNowDePNG);
         this.load.image('playnow_ja', PlayNowJaPNG);
+
+        // Load Waldo drowning animation assets
+        this.load.image('video', videoPNG);
+        this.load.image('object_bench', objectBenchPNG);
+        this.load.image('heart_bg', heartBgPNG);
+        this.load.image('waldo_bench', waldoBenchPNG);
+        this.load.image('heart_mask', heartMaskPNG);
+        this.load.image('waldo_seating_body', waldoSeatingBodyPNG);
+        this.load.image('waldo_seating_right_hand', waldoSeatingRightHandPNG);
+        this.load.image('mouth1', mouth1PNG);
+        this.load.image('mouth2', mouth2PNG);
+        this.load.image('mouth3', mouth3PNG);
+        this.load.image('mouth4', mouth4PNG);
+        this.load.image('eye1', eye1PNG);
+        this.load.image('eye2', eye2PNG);
+        this.load.image('eye3', eye3PNG);
+        this.load.image('waldo_standing', waldoStandingPNG);
+        this.load.image('waldo_standing_right_hand', waldoStandingRightHandPNG);
+        this.load.image('waldo_standing_left_hand', waldoStandingLeftHandPNG);
+        this.load.image('acid_stream', acidStreamPNG);
+        this.load.image('stream_mask_white', streamMaskWhitePNG);
+        this.load.image('stream_mask_black', streamMaskBlackPNG);
+        this.load.image('acid_river', acidRiverPNG);
+        this.load.image('acid_wave', acidWavePNG);
+        this.load.image('black_tank', blackTankPNG);
+        this.load.image('wall_stairs', wallStairsPNG);
+        this.load.image('hand', handPNG);
     }
 
     create ()
@@ -136,6 +189,6 @@ export class Preloader extends Phaser.Scene
     {
         adReady();
 
-        this.scene.start('StartCard');
+        this.scene.start('Game');
     }
 }
