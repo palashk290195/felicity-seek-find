@@ -36,10 +36,13 @@ export class WaldoManager {
                 return asset;
             }).filter(Boolean);
 
+            const sittingBody = this.scene.waldo_seating_body;
+
             this.idleParts = {
                 hand,
                 eyes,
-                mouths
+                mouths,
+                sittingBody
             };
 
             // Initialize lose state objects (hidden initially)
@@ -219,14 +222,21 @@ export class WaldoManager {
         if (!this.loseParts?.length) return;
 
         // Stop all tweens
-        this.scene.tweens.killAll();
+        // this.scene.tweens.killAll();
+
+        this.scene.time.removeAllEvents();
 
         // Hide idle state parts
         if (this.idleParts) {
             if (this.idleParts.hand) this.idleParts.hand.setVisible(false);
             if (this.idleParts.eyes) this.idleParts.eyes.forEach(eye => eye?.setVisible(false));
             if (this.idleParts.mouths) this.idleParts.mouths.forEach(mouth => mouth?.setVisible(false));
+            if (this.idleParts.sittingBody) this.idleParts.sittingBody.setVisible(false);
         }
+
+        if (this.scene.heart_bg) this.scene.heart_bg.setVisible(false);
+        if (this.scene.heart_mask) this.scene.heart_mask.setVisible(false);
+
 
         // Show and animate standing Waldo
         this.loseParts.forEach(part => part?.setVisible(true));
@@ -238,17 +248,27 @@ export class WaldoManager {
         if (leftHand && rightHand) {
             // Rotate hands
             this.scene.tweens.add({
-                targets: [leftHand, rightHand],
-                rotation: Math.PI * 2,
+                targets: leftHand,
+                rotation: -Math.PI/2,
+                duration: config.HAND_ROTATION_SPEED,
+                repeat: -1
+            });
+            this.scene.tweens.add({
+                targets: rightHand,
+                rotation: Math.PI/2,
                 duration: config.HAND_ROTATION_SPEED,
                 repeat: -1
             });
         }
+        
+        AudioUtils.playSound(this.scene, 'player_fall_audio');
+        AudioUtils.playSound(this.scene, 'player_fall_bg_audio');
 
-        if (this.loseParts.length > 0) {
+
+        if (this.scene.waldo_container) {
             // Fall animation
             this.scene.tweens.add({
-                targets: this.loseParts,
+                targets: this.scene.waldo_container,
                 y: `+=${this.scene.scale.height * 0.3}`,
                 duration: config.FALL_DURATION,
                 ease: 'Cubic.easeIn'

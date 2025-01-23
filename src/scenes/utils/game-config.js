@@ -443,8 +443,8 @@ export const GAME_CONFIG = {
     "LOSE": {
       "STANDING": {
         "PARTS": ["waldo_standing", "waldo_standing_left_hand", "waldo_standing_right_hand"],
-        "FALL_DURATION": 1000,
-        "HAND_ROTATION_SPEED": 200
+        "FALL_DURATION": 2000,
+        "HAND_ROTATION_SPEED": 300
       }
     }
   }

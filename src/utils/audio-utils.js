@@ -90,5 +90,5 @@ export const AudioUtils = {
             this.pendingSounds.add({ scene, key, config });
             return null;
         }
-    }
+    },
 };

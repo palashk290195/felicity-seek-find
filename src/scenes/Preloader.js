@@ -138,7 +138,9 @@ export class Preloader extends Phaser.Scene
             {key: 'user_tap_audio', data:userTapMP3},
             {key: 'wood_block_flying_audio', data:woodBlockFlyingMP3},
             {key: 'acid_flowing_audio', data:AcidFlowingMP3},
-            {key: 'acid_hole_audio', data: AcidHoleMP3}
+            {key: 'acid_hole_audio', data: AcidHoleMP3},
+            {key: 'player_fall_audio', data: playerFallMP3},
+            {key: 'player_fall_bg_audio', data: playerFallBGMP3}
         ]);
     
         
