@@ -399,6 +399,52 @@ export const GAME_CONFIG = {
   },
   "AUDIO": {
     "BG_MUSIC_VOLUME": 0.9
+  },
+  "WALDO": {
+    "IDLE": {
+      "HAND": {
+        "DEFAULT_ROTATION": - 7 * Math.PI / 8,
+        "WAVE": {
+          "UP_ROTATION": - Math.PI/6,
+          "DURATION": {
+            "RAISE": 300,
+            "WAVE": 200,
+            "LOWER": 400
+          },
+          "WAVE_COUNT": 2,
+          "INTERVAL": {
+            "MIN": 2000,
+            "MAX": 3000
+          }
+        }
+      },
+      "FACE": {
+        "BLINK": {
+          "FRAMES": ["eye1", "eye2", "eye3"],
+          "FRAME_DURATION": 400,
+          "INTERVAL": {
+            "MIN": 2000,
+            "MAX": 4000
+          }
+        },
+        "SPEAK": {
+          "FRAMES": ["mouth1", "mouth2", "mouth3", "mouth4"],
+          "FRAME_DURATION": 200,
+          "INTERVAL": {
+            "MIN": 3000,
+            "MAX": 5000
+          },
+          "SOUND": "help_audio"
+        }
+      }
+    },
+    "LOSE": {
+      "STANDING": {
+        "PARTS": ["waldo_standing", "waldo_standing_left_hand", "waldo_standing_right_hand"],
+        "FALL_DURATION": 1000,
+        "HAND_ROTATION_SPEED": 200
+      }
+    }
   }
 };
 

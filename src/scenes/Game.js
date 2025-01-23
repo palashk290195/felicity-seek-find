@@ -12,6 +12,7 @@ import { HeartManager } from './managers/HeartManager.js';
 import { BenchInteractionManager } from './managers/BenchInteractionManager.js';
 import { TutorialManager } from './managers/TutorialManager.js';
 import { ImageFitter } from './utils/image-fitter.js';
+import { WaldoManager } from './managers/WaldoManager.js';
 
 export class Game extends Phaser.Scene {
     constructor() {
@@ -21,6 +22,7 @@ export class Game extends Phaser.Scene {
         this.heartManager = null;
         this.benchManager = null;
         this.tutorialManager = null;
+        this.waldoManager = null;
     }
 
     create() {
@@ -58,6 +60,9 @@ export class Game extends Phaser.Scene {
         this.benchManager = new BenchInteractionManager(this, benches, heartBg);
         this.tutorialManager = new TutorialManager(this, hand);
 
+        // Initialize Waldo manager (animations start immediately)
+        this.waldoManager = new WaldoManager(this, this.layoutManager);
+
         // Setup state change handlers
         this.gameStateManager.onStateChange(GameState.PLAYING, () => {
             this.tutorialManager.stopTutorial();
@@ -69,6 +74,7 @@ export class Game extends Phaser.Scene {
         });
 
         this.gameStateManager.onStateChange(GameState.LOSE, () => {
+            this.waldoManager.transitionToLose();
             this.handleLose();
         });
 
@@ -76,16 +82,6 @@ export class Game extends Phaser.Scene {
         this.scale.on('resize', this.handleResize, this);
 
         // Play video
-        // const videoContainerWidth = this.scale.width;
-        // const videoContainerHeight = this.scale.height / 2;
-        // const orientation = width > height ? 'landscape' : 'portrait';
-
-        // this.layoutManager.updateAssetTransform("3658fc66-3c21-4a6f-bdb5-35c031bf77bf", orientation, {
-        //                 width: this.video_container.width,
-        //                 height: this.video_container.height,
-        //                 x: this.video_container.x,
-        //                 y: this.video_container.y
-        //             });
         this.video.play(true);
         this.recalculateScale(this.video_container);
     }
@@ -105,6 +101,9 @@ export class Game extends Phaser.Scene {
     }
 
     destroy() {
+        if (this.waldoManager) {
+            this.waldoManager.destroy();
+        }
         this.layoutManager.destroy();
         super.destroy();
     }
