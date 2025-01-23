@@ -86,7 +86,7 @@ import { mouth4PNG } from '../../media/images_waldo_drowning_mouth4.png.js';
 import { objectBenchPNG } from '../../media/images_waldo_drowning_object_bench.png.js';
 import { streamMaskBlackPNG } from '../../media/images_waldo_drowning_stream_mask_black.png.js';
 import { streamMaskWhitePNG } from '../../media/images_waldo_drowning_stream_mask_white.png.js';
-import { videoPNG } from '../../media/images_waldo_drowning_video.png.js';
+//import { videoPNG } from '../../media/images_waldo_drowning_video.png.js';
 import { waldoBenchPNG } from '../../media/images_waldo_drowning_waldo_bench.png.js';
 import { waldoSeatingBodyPNG } from '../../media/images_waldo_drowning_waldo_seating_body.png.js';
 import { waldoSeatingRightHandPNG } from '../../media/images_waldo_drowning_waldo_seating_right_hand.png.js';
@@ -94,6 +94,7 @@ import { waldoStandingPNG } from '../../media/images_waldo_drowning_waldo_standi
 import { waldoStandingLeftHandPNG } from '../../media/images_waldo_drowning_waldo_standing_left_hand.png.js';
 import { waldoStandingRightHandPNG } from '../../media/images_waldo_drowning_waldo_standing_right_hand.png.js';
 import { wallStairsPNG } from '../../media/images_waldo_drowning_wall_stairs.png.js';
+import MapVideoWEBM from '../../public/assets/videos/MapVideo.webm';
 
 
 
@@ -153,7 +154,7 @@ export class Preloader extends Phaser.Scene
         this.load.image('playnow_ja', PlayNowJaPNG);
 
         // Load Waldo drowning animation assets
-        this.load.image('video', videoPNG);
+        this.load.video('video', MapVideoWEBM, 'loadeddata', true);
         this.load.image('object_bench', objectBenchPNG);
         this.load.image('heart_bg', heartBgPNG);
         this.load.image('waldo_bench', waldoBenchPNG);

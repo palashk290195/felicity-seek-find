@@ -143,3 +143,4 @@ import { waldoStandingRightHandPNG } from '../../media/images_waldo_drowning_wal
 import { wallStairsPNG } from '../../media/images_waldo_drowning_wall_stairs.png.js';
 import { pixelJSON } from '../../media/spine_pixel.json.js';
 import { pixelPNG } from '../../media/spine_pixel.png.js';
+import { MapVideoWEBM } from '../../media/videos_MapVideo.webm.js';

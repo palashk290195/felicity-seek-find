@@ -7,6 +7,7 @@ export class LayoutManager {
         this.config = layoutConfig;
         this.containers = new Map();
         this.assets = new Map();
+        this.nameToId = new Map(); // Map to store name -> id mapping
         this.debugGraphics = null;
         
         this.initializeFromConfig();
@@ -20,6 +21,7 @@ export class LayoutManager {
     createContainersRecursive(containers, parentContainer = null) {
         Object.entries(containers).forEach(([containerId, containerConfig]) => {
             const container = this.createContainer(containerId, containerConfig, parentContainer);
+            console.log("create container recursive ", containerId);
             
             // Create assets for this container
             if (containerConfig.assets) {
@@ -50,6 +52,7 @@ export class LayoutManager {
         // Add reference to scene for easy access
         this.scene[containerId] = container;
         container.name = containerId;
+        console.log("createContainer ", containerId, config);
 
         if (this.scene.game.config.debug) {
             this.addDebugVisual(container, 0x00ff00, 0.3);
@@ -73,10 +76,12 @@ export class LayoutManager {
         const orientation = this.scene.scale.width > this.scene.scale.height ? 'landscape' : 'portrait';
         const initialTransform = config[orientation];
 
+        // Store both ID and name mappings
         this.assets.set(assetId, {
             gameObject,
             config,
             containerId,
+            name: config.name, // Store the name
             // Store last known position and transform for visibility toggling
             lastKnownState: {
                 x: 0,
@@ -86,24 +91,46 @@ export class LayoutManager {
                 transform: initialTransform
             }
         });
+        this.nameToId.set(config.name, assetId);
+        console.log("createAsset ", config.name);
 
-        // Add reference to scene for easy access
+        // Add reference to scene for easy access - both by ID and name
         this.scene[assetId] = gameObject;
-        gameObject.name = assetId;
+        this.scene[config.name] = gameObject; // Add reference by name as well
+        gameObject.name = config.name; // Use name instead of ID for the game object's name
 
         // Set initial visibility
         gameObject.setVisible(initialTransform.isVisible !== false);
 
         // Add methods for visibility control
-        gameObject.show = () => this.showAsset(assetId);
-        gameObject.hide = () => this.hideAsset(assetId);
-        gameObject.toggleVisibility = () => this.toggleAssetVisibility(assetId);
+        gameObject.show = () => this.showAsset(config.name);
+        gameObject.hide = () => this.hideAsset(config.name);
+        gameObject.toggleVisibility = () => this.toggleAssetVisibility(config.name);
 
         containerData.container.add(gameObject);
     }
 
     // Add these new methods for visibility control
-    showAsset(assetId) {
+    showAsset(nameOrId) {
+        // Try looking up by name first, then fall back to ID
+        const assetId = this.nameToId.get(nameOrId) || nameOrId;
+        return this._showAsset(assetId);
+    }
+
+    hideAsset(nameOrId) {
+        // Try looking up by name first, then fall back to ID
+        const assetId = this.nameToId.get(nameOrId) || nameOrId;
+        return this._hideAsset(assetId);
+    }
+
+    toggleAssetVisibility(nameOrId) {
+        // Try looking up by name first, then fall back to ID
+        const assetId = this.nameToId.get(nameOrId) || nameOrId;
+        return this._toggleAssetVisibility(assetId);
+    }
+
+    // Private methods that work with IDs internally
+    _showAsset(assetId) {
         const assetData = this.assets.get(assetId);
         if (!assetData) return;
 
@@ -122,7 +149,7 @@ export class LayoutManager {
         return gameObject;
     }
 
-    hideAsset(assetId) {
+    _hideAsset(assetId) {
         const assetData = this.assets.get(assetId);
         if (!assetData) return;
 
@@ -137,12 +164,12 @@ export class LayoutManager {
         return gameObject;
     }
 
-    toggleAssetVisibility(assetId) {
+    _toggleAssetVisibility(assetId) {
         const assetData = this.assets.get(assetId);
         if (!assetData) return;
 
         const { gameObject } = assetData;
-        return gameObject.visible ? this.hideAsset(assetId) : this.showAsset(assetId);
+        return gameObject.visible ? this._hideAsset(assetId) : this._showAsset(assetId);
     }
 
     updateAssetTransform(assetId, orientation, containerDimensions) {
@@ -161,31 +188,21 @@ export class LayoutManager {
         const boundingBox = this.calculateBoundingBox(transform, containerDimensions);
         if (!boundingBox) return;
 
-        // Calculate asset's own bounding box based on reference and size
-        const assetBoundingBox = {
-            width: boundingBox.width * transform.size.width,
-            height: boundingBox.height * transform.size.height
-        };
-
-        // Store the asset's bounding box for future reference
-        assetData.boundingBox = assetBoundingBox;
-
-        // Apply the transform using ImageFitter with the reference bounding box
+        // Apply the transform using ImageFitter
         const fitterOptions = {
             scaleMode: transform.scaleMode,
             maintainAspectRatio: transform.maintainAspectRatio,
-            widthPercentage: 1, // Use full bounding box since we've already applied size
+            widthPercentage: 1,
             heightPercentage: 1
         };
 
-        const fitResult = ImageFitter.fitToContainer(gameObject, assetBoundingBox, fitterOptions);
+        const fitResult = ImageFitter.fitToContainer(gameObject, boundingBox, fitterOptions);
 
         // Position the asset
         this.positionAsset(gameObject, transform, containerDimensions);
 
         // Apply rotation
         gameObject.setRotation(transform.rotation);
-        console.log("update asset transform ", assetId, boundingBox.width, boundingBox.height, transform.size.width, transform.size.height, assetBoundingBox.width, assetBoundingBox.height, gameObject.displayWidth, gameObject.displayHeight);
 
         // Update last known state
         assetData.lastKnownState = {
@@ -193,14 +210,14 @@ export class LayoutManager {
             y: gameObject.y,
             scale: fitResult.scale,
             rotation: transform.rotation,
-            transform: transform,
-            boundingBox: assetBoundingBox
+            transform: transform
         };
 
         // Set visibility (but don't override runtime changes)
         if (gameObject.visible !== !transform.isVisible) {
             gameObject.setVisible(transform.isVisible !== false);
         }
+        console.log("updateAssetTransform ", config.name, gameObject.width, gameObject.height, gameObject.x, gameObject.y);
     }
 
     updateLayout() {
@@ -215,11 +232,14 @@ export class LayoutManager {
             orientation
         });
 
+        console.log("updateLayout ", this.config.containers);
+
         this.updateContainersRecursive(this.config.containers, null, width, height, orientation);
     }
 
     updateContainersRecursive(containers, parentDimensions, sceneWidth, sceneHeight, orientation) {
         Object.entries(containers).forEach(([containerId, containerConfig]) => {
+            console.log("updateContainerRecursive ", containerId);
             const containerData = this.containers.get(containerId);
             if (!containerData) return;
 
@@ -234,33 +254,17 @@ export class LayoutManager {
 
             const containerWidth = parentWidth * config.width;
             const containerHeight = parentHeight * config.height;
-            const containerX = parentX + (parentWidth * config.x);
-            const containerY = parentY + (parentHeight * config.y);
+            const containerX = parentWidth * config.x;
+            const containerY = parentHeight * config.y;
 
             container.setPosition(containerX, containerY);
             container.setSize(containerWidth, containerHeight);
-
-            console.log(`\nContainer: ${containerId}`);
-            console.log('Config:', {
-                orientation,
-                original: config,
-                parent: parentDimensions ? {
-                    width: parentWidth,
-                    height: parentHeight,
-                    x: parentX,
-                    y: parentY
-                } : 'screen'
-            });
-            console.log('Calculated:', {
-                x: containerX,
-                y: containerY,
-                width: containerWidth,
-                height: containerHeight
-            });
+            console.log("updateContainerRecursive1 ", containerId, parentDimensions, containerX, containerY, containerWidth, containerHeight);
 
             // Update assets in this container
             if (containerConfig.assets) {
                 Object.entries(containerConfig.assets).forEach(([assetId, assetConfig]) => {
+                    console.log("container config assets ", containerId, assetId);
                     this.updateAssetTransform(assetId, orientation, {
                         width: containerWidth,
                         height: containerHeight,
@@ -286,22 +290,41 @@ export class LayoutManager {
 
     calculateBoundingBox(transform, containerDimensions) {
         if (transform.position.reference === 'container') {
-            return containerDimensions;
+            // For container references, multiply container dimensions by size values
+            const box = {
+                width: containerDimensions.width * transform.size.width,
+                height: containerDimensions.height * transform.size.height,
+                x: containerDimensions.x,
+                y: containerDimensions.y
+            };
+            console.log('Container-referenced bounding box:', box);
+            return box;
         }
 
-        const referenceAsset = this.assets.get(transform.position.reference);
+        // Look up the asset by name first, then fall back to ID if not found
+        const referenceAsset = this.assets.get(this.nameToId.get(transform.position.reference)) || this.assets.get(transform.position.reference);
         if (!referenceAsset) {
             console.warn(`Reference asset not found: ${transform.position.reference}`);
             return null;
         }
 
-        // Use the stored bounding box of the reference asset if available
-        // Otherwise fallback to its display dimensions
-        const box = referenceAsset.boundingBox || {
-            width: referenceAsset.gameObject.displayWidth,
-            height: referenceAsset.gameObject.displayHeight
+        // For asset references, multiply referenced asset's display dimensions by size values
+        const box = {
+            width: referenceAsset.gameObject.displayWidth * transform.size.width,
+            height: referenceAsset.gameObject.displayHeight * transform.size.height,
+            x: referenceAsset.gameObject.x,
+            y: referenceAsset.gameObject.y
         };
-
+        
+        console.log('Asset-referenced bounding box:', {
+            reference: transform.position.reference,
+            referenceDimensions: {
+                width: referenceAsset.gameObject.displayWidth,
+                height: referenceAsset.gameObject.displayHeight
+            },
+            sizeMultipliers: transform.size,
+            calculatedBox: box
+        });
         return box;
     }
 
@@ -317,7 +340,8 @@ export class LayoutManager {
                 transform.position.y * containerDimensions.height
             );
         } else {
-            const referenceAsset = this.assets.get(transform.position.reference);
+            // Look up the asset by name first, then fall back to ID if not found
+            const referenceAsset = this.assets.get(this.nameToId.get(transform.position.reference)) || this.assets.get(transform.position.reference);
             if (!referenceAsset) return;
 
             const refObject = referenceAsset.gameObject;
@@ -359,8 +383,10 @@ export class LayoutManager {
         return this.containers.get(id)?.container;
     }
 
-    getAsset(id) {
-        return this.assets.get(id)?.gameObject;
+    getAsset(nameOrId) {
+        // Try looking up by name first, then fall back to ID
+        const assetData = this.assets.get(this.nameToId.get(nameOrId)) || this.assets.get(nameOrId);
+        return assetData?.gameObject;
     }
 
     destroy() {
@@ -369,5 +395,6 @@ export class LayoutManager {
         });
         this.containers.clear();
         this.assets.clear();
+        this.nameToId.clear();
     }
 }

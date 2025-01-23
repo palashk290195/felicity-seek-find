@@ -30,6 +30,8 @@ export class Game extends Phaser.Scene {
         // Handle resize
         this.scale.on('resize', this.handleResize, this);
 
+        this.video.play(true);
+
         // Now you can access containers and assets directly:
         // this.video_container
         // this.character_container
