@@ -936,7 +936,7 @@ export const GAME_LAYOUT = {
                 "position": {
                   "reference": "b5903ced-4ed7-4703-bb6c-70bebf0b2f37",
                   "x": 0.029720562547261527,
-                  "y": -0.00905855427727858
+                  "y": 0.38
                 },
                 "size": {
                   "width": 0.8,
@@ -944,7 +944,7 @@ export const GAME_LAYOUT = {
                 },
                 "origin": {
                   "x": 0.5,
-                  "y": 0.5
+                  "y": 1
                 },
                 "scaleMode": "fit",
                 "maintainAspectRatio": true,
@@ -954,8 +954,8 @@ export const GAME_LAYOUT = {
               "landscape": {
                 "position": {
                   "reference": "b5903ced-4ed7-4703-bb6c-70bebf0b2f37",
-                  "x": 0.011773462966064992,
-                  "y": -0.025460436582934926
+                  "x": 0.03,
+                  "y": 0.37
                 },
                 "size": {
                   "width": 0.8,
@@ -963,7 +963,7 @@ export const GAME_LAYOUT = {
                 },
                 "origin": {
                   "x": 0.5,
-                  "y": 0.5
+                  "y": 1
                 },
                 "scaleMode": "fit",
                 "maintainAspectRatio": true,
@@ -1071,8 +1071,8 @@ export const GAME_LAYOUT = {
                   "y": -0.4197882941474201
                 },
                 "size": {
-                  "width": 0.2,
-                  "height": -1.7
+                  "width": 3,
+                  "height": 3
                 },
                 "origin": {
                   "x": 0.5,
@@ -1090,8 +1090,8 @@ export const GAME_LAYOUT = {
                   "y": -0.05506344284756472
                 },
                 "size": {
-                  "width": 0.2,
-                  "height": 0.35
+                  "width": 3,
+                  "height": 3
                 },
                 "origin": {
                   "x": 0.5,
@@ -1115,8 +1115,8 @@ export const GAME_LAYOUT = {
                   "y": -0.35603021520004846
                 },
                 "size": {
-                  "width": 0.2289272792914706,
-                  "height": 0.2289272792914706
+                  "width": 0.4,
+                  "height": -0.5
                 },
                 "origin": {
                   "x": 1,
@@ -1130,12 +1130,12 @@ export const GAME_LAYOUT = {
               "landscape": {
                 "position": {
                   "reference": "d3275915-00be-4e07-83a1-f2b7d562a39d",
-                  "x": -0.13372612775549975,
+                  "x": -0.14372612775549976,
                   "y": -0.450993353416082
                 },
                 "size": {
-                  "width": 0.20424239137165662,
-                  "height": 0.20424239137165665
+                  "width": 0.4,
+                  "height": 0.4
                 },
                 "origin": {
                   "x": 1,
@@ -1159,8 +1159,8 @@ export const GAME_LAYOUT = {
                   "y": -0.3860302152000485
                 },
                 "size": {
-                  "width": 0.2289272792914706,
-                  "height": 0.2289272792914706
+                  "width": 0.4,
+                  "height": -0.5
                 },
                 "origin": {
                   "x": 0,
@@ -1178,8 +1178,8 @@ export const GAME_LAYOUT = {
                   "y": -0.470993353416082
                 },
                 "size": {
-                  "width": 0.20424239137165662,
-                  "height": 0.20424239137165665
+                  "width": 0.4,
+                  "height": 0.4
                 },
                 "origin": {
                   "x": 0,

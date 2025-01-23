@@ -96,6 +96,14 @@ import { waldoStandingRightHandPNG } from '../../media/images_waldo_drowning_wal
 import { wallStairsPNG } from '../../media/images_waldo_drowning_wall_stairs.png.js';
 import MapVideoWEBM from '../../public/assets/videos/MapVideo.webm';
 
+import { AcidFlowingMP3 } from '../../media/audio_waldo_audio_AcidFlowing.mp3.js';
+import { AcidHoleMP3 } from '../../media/audio_waldo_audio_AcidHole.mp3.js';
+import { helpMP3 } from '../../media/audio_waldo_audio_help.mp3.js';
+import { playerFallMP3 } from '../../media/audio_waldo_audio_playerFall.mp3.js';
+import { playerFallBGMP3 } from '../../media/audio_waldo_audio_playerFallBG.mp3.js';
+import { userTapMP3 } from '../../media/audio_waldo_audio_userTap.mp3.js';
+import { woodBlockFlyingMP3 } from '../../media/audio_waldo_audio_woodBlockFlying.mp3.js';
+
 
 
 
@@ -125,7 +133,8 @@ export class Preloader extends Phaser.Scene
             { key: 'seek_japanese_voiceover', data: seekJapaneseVoiceoverMP3 },
             { key: 'seek_russian_voiceover', data: seekRussianVoiceoverMP3 },
             { key: 'seek_bg_music', data: seekBgMusicMP3 },
-            {key: 'bounce_sound', data: bounceSoundMP3}
+            {key: 'bounce_sound', data: bounceSoundMP3},
+            {key: 'help_audio', data: helpMP3}
         ]);
     
         

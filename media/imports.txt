@@ -1,4 +1,5 @@
 import { .DSStore } from '../../media/.DS_Store.js';
+import { .DSStore } from '../../media/audio_.DS_Store.js';
 import { bounceSoundMP3 } from '../../media/audio_bounce_sound.mp3.js';
 import { duckClickSoundMP3 } from '../../media/audio_duck_click_sound.mp3.js';
 import { seekBgMusicMP3 } from '../../media/audio_seek_bg_music.mp3.js';
@@ -9,6 +10,13 @@ import { seekRussianVoiceoverMP3 } from '../../media/audio_seek_russian_voiceove
 import { suspenseTheme1MP3 } from '../../media/audio_suspense_theme1.mp3.js';
 import { suspenseTheme2MP3 } from '../../media/audio_suspense_theme2.mp3.js';
 import { suspenseTheme3MP3 } from '../../media/audio_suspense_theme3.mp3.js';
+import { AcidFlowingMP3 } from '../../media/audio_waldo_audio_AcidFlowing.mp3.js';
+import { AcidHoleMP3 } from '../../media/audio_waldo_audio_AcidHole.mp3.js';
+import { helpMP3 } from '../../media/audio_waldo_audio_help.mp3.js';
+import { playerFallMP3 } from '../../media/audio_waldo_audio_playerFall.mp3.js';
+import { playerFallBGMP3 } from '../../media/audio_waldo_audio_playerFallBG.mp3.js';
+import { userTapMP3 } from '../../media/audio_waldo_audio_userTap.mp3.js';
+import { woodBlockFlyingMP3 } from '../../media/audio_waldo_audio_woodBlockFlying.mp3.js';
 import { .DSStore } from '../../media/images_.DS_Store.js';
 import { Cursor1PNG } from '../../media/images_Cursor_1.png.js';
 import { LogoImagePNG } from '../../media/images_Logo_image.png.js';
