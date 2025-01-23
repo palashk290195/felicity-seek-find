@@ -403,15 +403,17 @@ export const GAME_CONFIG = {
   "WALDO": {
     "IDLE": {
       "HAND": {
-        "DEFAULT_ROTATION": - 7 * Math.PI / 8,
+        "DEFAULT_ROTATION": 0,
         "WAVE": {
-          "UP_ROTATION": - Math.PI/6,
-          "DURATION": {
-            "RAISE": 300,
-            "WAVE": 200,
-            "LOWER": 400
+          "ROTATIONS": {
+            "FIRST": -3,
+            "SECOND": -2.25
           },
-          "WAVE_COUNT": 2,
+          "DURATION": {
+            "WAVE": 250,
+            "RETURN": 400
+          },
+          "WAVE_PAIRS": 2,
           "INTERVAL": {
             "MIN": 2000,
             "MAX": 3000

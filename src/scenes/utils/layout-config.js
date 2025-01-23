@@ -734,6 +734,182 @@ export const GAME_LAYOUT = {
             "rotation": 0,
             "isVisible": true
           }
+        },
+        "6425389e-b4e8-4775-a95c-0b8e8b042aa3": {
+          "id": "6425389e-b4e8-4775-a95c-0b8e8b042aa3",
+          "name": "stream_mask_white2",
+          "type": "image",
+          "key": "stream_mask_white",
+          "portrait": {
+            "position": {
+              "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
+              "x": 0.10434785628772052,
+              "y": 0.0965060556091578
+            },
+            "size": {
+              "width": 0.6311851500925912,
+              "height": 4.361023384901388
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          },
+          "landscape": {
+            "position": {
+              "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
+              "x": -0.000874755042160887,
+              "y": 0.08871119092475949
+            },
+            "size": {
+              "width": 0.7006911480158772,
+              "height": 3.6763535558235634
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
+        },
+        "1527ba8c-8240-41f8-8f79-38391ba06609": {
+          "id": "1527ba8c-8240-41f8-8f79-38391ba06609",
+          "name": "stream_mask_black2",
+          "type": "image",
+          "key": "stream_mask_black",
+          "portrait": {
+            "position": {
+              "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
+              "x": -0.06543594238384452,
+              "y": 0.09552612427257483
+            },
+            "size": {
+              "width": 0.6908570608469681,
+              "height": 3.59427739265943
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          },
+          "landscape": {
+            "position": {
+              "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
+              "x": -0.011274289360720597,
+              "y": 0.08422965435449219
+            },
+            "size": {
+              "width": 0.7776475079684103,
+              "height": 3.0985680225961048
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
+        },
+        "50fba31d-ae5d-4350-bfcd-907ac542edae": {
+          "id": "50fba31d-ae5d-4350-bfcd-907ac542edae",
+          "name": "acid_river2",
+          "type": "image",
+          "key": "acid_river",
+          "portrait": {
+            "position": {
+              "reference": "container",
+              "x": 0.8120173446465482,
+              "y": 0.1376196033490355
+            },
+            "size": {
+              "width": 1.5,
+              "height": 1.5
+            },
+            "origin": {
+              "x": 1,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          },
+          "landscape": {
+            "position": {
+              "reference": "container",
+              "x": 0.5022775606572301,
+              "y": -0.12259647238940685
+            },
+            "size": {
+              "width": 1,
+              "height": 1
+            },
+            "origin": {
+              "x": 1,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
+        },
+        "2c79f077-a463-479c-965d-3cf25c398666": {
+          "id": "2c79f077-a463-479c-965d-3cf25c398666",
+          "name": "acid_wave2",
+          "type": "image",
+          "key": "acid_wave",
+          "portrait": {
+            "position": {
+              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
+              "x": -0.5021373758511736,
+              "y": 0.7051864219393429
+            },
+            "size": {
+              "width": 1,
+              "height": 1
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          },
+          "landscape": {
+            "position": {
+              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
+              "x": -0.49684954472854426,
+              "y": 0.7429176899179556
+            },
+            "size": {
+              "width": 1,
+              "height": 1
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
         }
       },
       "children": {
@@ -891,39 +1067,39 @@ export const GAME_LAYOUT = {
               "portrait": {
                 "position": {
                   "reference": "6ca1e567-f057-47f6-bd13-ac552e393f60",
-                  "x": 0.10714926799081723,
-                  "y": -0.45810834863548
+                  "x": 0.02714926799081724,
+                  "y": -0.48810834863548
                 },
                 "size": {
                   "width": 0.7000000000000004,
                   "height": 0.4700000000000001
                 },
                 "origin": {
-                  "x": 0.91,
-                  "y": 0
+                  "x": 0.512,
+                  "y": 0.127
                 },
                 "scaleMode": "fit",
                 "maintainAspectRatio": true,
-                "rotation": 0,
+                "rotation": 15,
                 "isVisible": true
               },
               "landscape": {
                 "position": {
                   "reference": "6ca1e567-f057-47f6-bd13-ac552e393f60",
-                  "x": 0.10232723913301071,
-                  "y": -0.43864727594398656
+                  "x": 0.02232723913301072,
+                  "y": -0.4686472759439866
                 },
                 "size": {
                   "width": 0.21681913926733248,
                   "height": 0.5048830806050969
                 },
                 "origin": {
-                  "x": 0.91,
-                  "y": 0.035
+                  "x": 0.512,
+                  "y": 0.127
                 },
                 "scaleMode": "fit",
                 "maintainAspectRatio": true,
-                "rotation": 0,
+                "rotation": 15,
                 "isVisible": true
               }
             },
@@ -1103,48 +1279,48 @@ export const GAME_LAYOUT = {
                 "isVisible": false
               }
             },
-            "0469793e-d689-4601-91b8-4faf2e736194": {
-              "id": "0469793e-d689-4601-91b8-4faf2e736194",
-              "name": "waldo_standing_right_hand",
+            "e9c1aa1e-48ec-4b6c-9397-d99a863b287a": {
+              "id": "e9c1aa1e-48ec-4b6c-9397-d99a863b287a",
+              "name": "waldo_seating_right_hand",
               "type": "image",
-              "key": "waldo_standing_right_hand",
+              "key": "waldo_seating_right_hand",
               "portrait": {
                 "position": {
-                  "reference": "d3275915-00be-4e07-83a1-f2b7d562a39d",
-                  "x": -0.1641285330965203,
-                  "y": -0.35603021520004846
+                  "reference": "6ca1e567-f057-47f6-bd13-ac552e393f60",
+                  "x": 0.017149267990817237,
+                  "y": -0.43810834863548
                 },
                 "size": {
-                  "width": 0.4,
-                  "height": -0.5
+                  "width": 0.7000000000000004,
+                  "height": 0.4700000000000001
                 },
                 "origin": {
-                  "x": 1,
-                  "y": 0
+                  "x": 0.1,
+                  "y": 0.05
                 },
                 "scaleMode": "fit",
                 "maintainAspectRatio": true,
                 "rotation": 0,
-                "isVisible": false
+                "isVisible": true
               },
               "landscape": {
                 "position": {
-                  "reference": "d3275915-00be-4e07-83a1-f2b7d562a39d",
-                  "x": -0.14372612775549976,
-                  "y": -0.450993353416082
+                  "reference": "6ca1e567-f057-47f6-bd13-ac552e393f60",
+                  "x": 0.03232723913301072,
+                  "y": -0.43864727594398656
                 },
                 "size": {
-                  "width": 0.4,
-                  "height": 0.4
+                  "width": 0.21681913926733248,
+                  "height": 0.5048830806050969
                 },
                 "origin": {
-                  "x": 1,
-                  "y": 0
+                  "x": 0.1,
+                  "y": 0.05
                 },
                 "scaleMode": "fit",
                 "maintainAspectRatio": true,
                 "rotation": 0,
-                "isVisible": false
+                "isVisible": true
               }
             },
             "7d18e832-02bc-4956-92b3-77e686892d50": {
@@ -1184,6 +1360,50 @@ export const GAME_LAYOUT = {
                 "origin": {
                   "x": 0,
                   "y": 0
+                },
+                "scaleMode": "fit",
+                "maintainAspectRatio": true,
+                "rotation": 0,
+                "isVisible": false
+              }
+            },
+            "0469793e-d689-4601-91b8-4faf2e736194": {
+              "id": "0469793e-d689-4601-91b8-4faf2e736194",
+              "name": "waldo_standing_right_hand",
+              "type": "image",
+              "key": "waldo_standing_right_hand",
+              "portrait": {
+                "position": {
+                  "reference": "d3275915-00be-4e07-83a1-f2b7d562a39d",
+                  "x": -0.1641285330965203,
+                  "y": -0.35603021520004846
+                },
+                "size": {
+                  "width": 0.2289272792914706,
+                  "height": 0.2289272792914706
+                },
+                "origin": {
+                  "x": 0.592,
+                  "y": 0.191
+                },
+                "scaleMode": "fit",
+                "maintainAspectRatio": true,
+                "rotation": 0,
+                "isVisible": false
+              },
+              "landscape": {
+                "position": {
+                  "reference": "d3275915-00be-4e07-83a1-f2b7d562a39d",
+                  "x": -0.13372612775549975,
+                  "y": -0.450993353416082
+                },
+                "size": {
+                  "width": 0.20424239137165662,
+                  "height": 0.20424239137165665
+                },
+                "origin": {
+                  "x": 0.592,
+                  "y": 0.191
                 },
                 "scaleMode": "fit",
                 "maintainAspectRatio": true,

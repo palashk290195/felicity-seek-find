@@ -96,50 +96,51 @@ export class WaldoManager {
         const hand = this.idleParts.hand;
         
         const createWaveSequence = async () => {
-            // Set initial position if not already set
+            // Ensure hand is at default position
             hand.setRotation(config.DEFAULT_ROTATION);
 
-            // Create the wave sequence
             const waveSequence = async () => {
-                // 1. Raise hand to original position
-                this.scene.tweens.add({
-                    targets: hand,
-                    rotation: 0,
-                    duration: config.WAVE.DURATION.RAISE,
-                    ease: 'Cubic.easeOut'
-                });
-                await this.delay(config.WAVE.DURATION.RAISE);
-
-                // 2. Perform wave movements
-                for (let i = 0; i < config.WAVE.WAVE_COUNT; i++) {
-                    // Wave up
+                // Perform wave pairs (120° -> 150° sequences)
+                for (let pair = 0; pair < config.WAVE.WAVE_PAIRS; pair++) {
+                    // Wave to 120°
                     this.scene.tweens.add({
                         targets: hand,
-                        rotation: config.WAVE.UP_ROTATION,
+                        rotation: config.WAVE.ROTATIONS.FIRST,
+                        duration: config.WAVE.DURATION.WAVE,
+                        ease: 'Cubic.easeOut'
+                    });
+                    await this.delay(config.WAVE.DURATION.WAVE);
+
+                    // Wave to 150°
+                    this.scene.tweens.add({
+                        targets: hand,
+                        rotation: config.WAVE.ROTATIONS.SECOND,
                         duration: config.WAVE.DURATION.WAVE,
                         ease: 'Cubic.easeInOut'
                     });
                     await this.delay(config.WAVE.DURATION.WAVE);
 
-                    // Wave down
-                    this.scene.tweens.add({
-                        targets: hand,
-                        rotation: 0,
-                        duration: config.WAVE.DURATION.WAVE,
-                        ease: 'Cubic.easeInOut'
-                    });
-                    await this.delay(config.WAVE.DURATION.WAVE);
+                    // If not the last pair, go back to 120° before next pair
+                    if (pair < config.WAVE.WAVE_PAIRS - 1) {
+                        this.scene.tweens.add({
+                            targets: hand,
+                            rotation: config.WAVE.ROTATIONS.FIRST,
+                            duration: config.WAVE.DURATION.WAVE,
+                            ease: 'Cubic.easeInOut'
+                        });
+                        await this.delay(config.WAVE.DURATION.WAVE);
+                    }
                 }
 
-                // 3. Lower hand back to default position
+                // Return to default position
                 this.scene.tweens.add({
                     targets: hand,
                     rotation: config.DEFAULT_ROTATION,
-                    duration: config.WAVE.DURATION.LOWER,
+                    duration: config.WAVE.DURATION.RETURN,
                     ease: 'Cubic.easeIn'
                 });
 
-                // 4. Schedule next wave sequence
+                // Schedule next wave sequence
                 const nextInterval = Phaser.Math.Between(
                     config.WAVE.INTERVAL.MIN,
                     config.WAVE.INTERVAL.MAX

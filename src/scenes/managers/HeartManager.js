@@ -8,6 +8,9 @@ export class HeartManager {
         this.decayTimer = null;
         this.isDecaying = false;
 
+        // Set depths to ensure heart bg is above mask
+        this.heartBg.setDepth(100); // Higher depth than mask
+
         // Set initial mask properties
         this.heartMask.setOrigin(0.5, 1); // Set origin to bottom center for bottom-up reveal
         this.updateHeartVisibility(); // Set initial visibility

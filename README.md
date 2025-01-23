@@ -255,3 +255,14 @@ The downside of Meta requiring everything as base64 is that the files are huge. 
 Use JPEG where possible and you don't need transparency. Use 8-bit PNGs that have been palette reduced via a site like https://tinypng.com/ to shave important bytes off. Use audio formats and encodings that optimize space vs. clarity.
 
 There's nothing this template can do to crunch your assets, that needs to become part of your workflow. Good luck! Shaving bytes is a challenge all playable ad devs face. It's an eternal struggle.
+
+
+To do
+1. Heart mask behind heart bg: Done
+2. Benches and hand pointer in resize handling: Done
+3  Hand movement anti clockwise: Done
+4. Lose state handling
+5. waldo container rotation and upward sidewards movement
+6. Compression and asset resizing
+7. Ad networks testing
+8. Tween benches

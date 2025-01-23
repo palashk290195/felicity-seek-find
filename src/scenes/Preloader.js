@@ -134,7 +134,11 @@ export class Preloader extends Phaser.Scene
             { key: 'seek_russian_voiceover', data: seekRussianVoiceoverMP3 },
             { key: 'seek_bg_music', data: seekBgMusicMP3 },
             {key: 'bounce_sound', data: bounceSoundMP3},
-            {key: 'help_audio', data: helpMP3}
+            {key: 'help_audio', data: helpMP3},
+            {key: 'user_tap_audio', data:userTapMP3},
+            {key: 'wood_block_flying_audio', data:woodBlockFlyingMP3},
+            {key: 'acid_flowing_audio', data:AcidFlowingMP3},
+            {key: 'acid_hole_audio', data: AcidHoleMP3}
         ]);
     
         
