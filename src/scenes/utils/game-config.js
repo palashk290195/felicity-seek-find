@@ -438,6 +438,17 @@ export const GAME_CONFIG = {
           },
           "SOUND": "help_audio"
         }
+      },
+      "WAVE_MOVEMENT": {
+        "ROTATION": {
+          "MAX_ANGLE": 15,
+          "DURATION": 1000,
+          "PAUSE_DURATION": 2000
+        },
+        "MOVEMENT": {
+          "RIGHT_SPEED": 0.01,
+          "UP_SPEED": 0.005
+        }
       }
     },
     "LOSE": {

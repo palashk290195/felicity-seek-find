@@ -90,6 +90,9 @@ export class WaldoManager {
         if (this.idleParts?.mouths?.length > 0) {
             this.startSpeaking();
         }
+        if (this.scene.waldo_container) {
+            this.startWaveMovement();
+        }
     }
 
     startHandWave() {
@@ -218,6 +221,67 @@ export class WaldoManager {
         speak();
     }
 
+    startWaveMovement() {
+        const config = this.config.IDLE.WAVE_MOVEMENT;
+        const container = this.scene.waldo_container;
+        const gameWidth = this.scene.scale.width;
+        const gameHeight = this.scene.scale.height;
+
+        // Convert degrees to radians for rotation
+        const maxAngleRad = Phaser.Math.DegToRad(config.ROTATION.MAX_ANGLE);
+
+        const createWaveMovement = async () => {
+            // Rotate clockwise
+            this.scene.tweens.add({
+                targets: container,
+                rotation: maxAngleRad,
+                duration: config.ROTATION.DURATION,
+                ease: 'Sine.easeInOut',
+                yoyo: true,
+                onComplete: () => {
+                    // Pause before counter-clockwise rotation
+                    this.scene.time.delayedCall(config.ROTATION.PAUSE_DURATION, () => {
+                        // Rotate counter-clockwise
+                        this.scene.tweens.add({
+                            targets: container,
+                            rotation: -maxAngleRad,
+                            duration: config.ROTATION.DURATION,
+                            ease: 'Sine.easeInOut',
+                            yoyo: true,
+                            onComplete: () => {
+                                // Pause before next cycle
+                                this.scene.time.delayedCall(config.ROTATION.PAUSE_DURATION, createWaveMovement);
+                            }
+                        });
+                    });
+                }
+            });
+        };
+
+        // Start the wave rotation
+        createWaveMovement();
+
+        // Store initial position
+        const startX = container.x;
+        const startY = container.y;
+
+        // Calculate movement per second
+        const rightMovement = gameWidth * config.MOVEMENT.RIGHT_SPEED;
+        const upMovement = gameHeight * config.MOVEMENT.UP_SPEED;
+
+        // Create continuous movement function
+        const move = () => {
+            container.x += rightMovement/100; //per 100 ms
+            container.y -= upMovement/100; //per 100 ms
+
+            // Schedule next movement
+            this.scene.time.delayedCall(10, move);
+        };
+
+        // Start movement
+        move();
+    }
+
     transitionToLose() {
         if (!this.loseParts?.length) return;
 
@@ -269,7 +333,7 @@ export class WaldoManager {
             // Fall animation
             this.scene.tweens.add({
                 targets: this.scene.waldo_container,
-                y: `+=${this.scene.scale.height * 0.3}`,
+                y: `+=${this.scene.scale.height * 1}`,
                 duration: config.FALL_DURATION,
                 ease: 'Cubic.easeIn'
             });

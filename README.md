@@ -261,7 +261,7 @@ To do
 1. Heart mask behind heart bg: Done
 2. Benches and hand pointer in resize handling: Done
 3  Hand movement anti clockwise: Done
-4. Lose state handling
+4. Lose state handling: Done
 5. waldo container rotation and upward sidewards movement
 6. Compression and asset resizing (especially video)
 7. Ad networks testing
