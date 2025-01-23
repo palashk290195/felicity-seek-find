@@ -446,8 +446,8 @@ export const GAME_CONFIG = {
           "PAUSE_DURATION": 2000
         },
         "MOVEMENT": {
-          "RIGHT_SPEED": 0.01,
-          "UP_SPEED": 0.005
+          "RIGHT_SPEED": 0.01, // * gamewidth per second
+          "UP_SPEED": 0.005 // * gameheight per second
         }
       }
     },
