@@ -86,6 +86,7 @@ export class Game extends Phaser.Scene {
         // river
         this.setupRiver()
         this.setupWave()
+        this.setupTank()
         
 
         AudioUtils.playSound(this, 'acid_flowing_audio', {
@@ -103,6 +104,9 @@ export class Game extends Phaser.Scene {
         this.layoutManager.updateLayout();
         // Emit event for managers to handle layout changes
         this.events.emit('layout-updated');
+        this.setupRiver();
+        this.setupStream();
+        this.setupStream();
     }
 
     handleWin() {
@@ -170,9 +174,9 @@ export class Game extends Phaser.Scene {
         // Position streams
         Object.values(streams).forEach(stream => {
             stream.setRotation(position.rotation);
-            stream.setScale(0.45)
-            // stream.setScale(position.scale.x, position.scale.y);
-            // stream.setMask(mask);
+            // stream.setScale(0.45)
+            stream.setScale(position.scale.x, position.scale.y);
+            stream.setMask(mask);
         });
         
         const FLOW_SPEED_BLACK = GAME_CONFIG.SCENES.GAME.SPEED_STREAM_BLACK;
@@ -184,9 +188,11 @@ export class Game extends Phaser.Scene {
         // streams.whiteMask1.y = streams.whiteMask1.y;
         
         // Ensure masks overlap at transition points
+        // streams.blackMask2.y = streams.blackMask1.y - streams.blackMask1.displayHeight*.997;
+        // streams.whiteMask2.y = streams.whiteMask1.y - streams.whiteMask1.displayHeight*.997;
+        
         streams.blackMask2.y = streams.blackMask1.y - streams.blackMask1.displayHeight*.997;
         streams.whiteMask2.y = streams.whiteMask1.y - streams.whiteMask1.displayHeight*.997;
-        
         const endY = streams.blackMask1.y + streams.blackMask1.displayHeight*.997;
     
         // Set depths
@@ -234,7 +240,7 @@ export class Game extends Phaser.Scene {
         
         // acidRiver2.x = acidRiver2.x;
         
-        const RIVER_FLOW_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_HORIZONTAL*5;
+        const RIVER_FLOW_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_HORIZONTAL;
         const VERTICAL_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_VERTICAL;
         const startX1 = acidRiver1.x;
         const startX2 = startX1 - acidRiver1.displayWidth*0.995;
@@ -348,5 +354,11 @@ export class Game extends Phaser.Scene {
         createRiverVerticalTween(acidRiver1);
         createRiverVerticalTween(acidRiver2);
         createRiverVerticalTween(acidRiver3);
+    }
+
+    setupTank() {
+        const tank = this.layoutManager.getAsset("black_tank")
+        tank.x = 50
+        tank.y = 50
     }
 }
