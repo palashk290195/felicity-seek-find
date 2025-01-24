@@ -265,9 +265,10 @@ To do
 5. waldo container rotation and upward sidewards movement: done
 6. Fix how assets are looking
 6. Compression and asset resizing (especially video)
-7. Ad networks testing
+7. Ad networks testing (Applovin)
 8. Tween benches / add bench glow (check opacity)
 9. Add delay before moving to mid card
 10. After 5 minutes if no interaction, move to end card
 11. Start Card
 12. video should start from bottom to mid
+13. remove unused assets
