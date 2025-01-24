@@ -87,14 +87,26 @@ export class Game extends Phaser.Scene {
         this.setupRiver()
         this.setupWave()
         
+
+        AudioUtils.playSound(this, 'acid_flowing_audio', {
+            loop: true,
+            volume: 1
+        });
+
+        AudioUtils.playSound(this, 'acid_hole_audio', {
+            loop: true,
+            volume: 1
+        });
     }
 
     handleResize() {
         this.layoutManager.updateLayout();
+        // Emit event for managers to handle layout changes
+        this.events.emit('layout-updated');
     }
 
     handleWin() {
-        // TODO: Implement win state handling
+        this.scene.start('MidCard');
         console.log('Game Won!');
     }
 

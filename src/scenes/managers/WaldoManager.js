@@ -36,10 +36,13 @@ export class WaldoManager {
                 return asset;
             }).filter(Boolean);
 
+            const sittingBody = this.scene.waldo_seating_body;
+
             this.idleParts = {
                 hand,
                 eyes,
-                mouths
+                mouths,
+                sittingBody
             };
 
             // Initialize lose state objects (hidden initially)
@@ -87,6 +90,9 @@ export class WaldoManager {
         if (this.idleParts?.mouths?.length > 0) {
             this.startSpeaking();
         }
+        if (this.scene.waldo_container) {
+            this.startWaveMovement();
+        }
     }
 
     startHandWave() {
@@ -96,50 +102,51 @@ export class WaldoManager {
         const hand = this.idleParts.hand;
         
         const createWaveSequence = async () => {
-            // Set initial position if not already set
+            // Ensure hand is at default position
             hand.setRotation(config.DEFAULT_ROTATION);
 
-            // Create the wave sequence
             const waveSequence = async () => {
-                // 1. Raise hand to original position
-                this.scene.tweens.add({
-                    targets: hand,
-                    rotation: 0,
-                    duration: config.WAVE.DURATION.RAISE,
-                    ease: 'Cubic.easeOut'
-                });
-                await this.delay(config.WAVE.DURATION.RAISE);
-
-                // 2. Perform wave movements
-                for (let i = 0; i < config.WAVE.WAVE_COUNT; i++) {
-                    // Wave up
+                // Perform wave pairs (120° -> 150° sequences)
+                for (let pair = 0; pair < config.WAVE.WAVE_PAIRS; pair++) {
+                    // Wave to 120°
                     this.scene.tweens.add({
                         targets: hand,
-                        rotation: config.WAVE.UP_ROTATION,
+                        rotation: config.WAVE.ROTATIONS.FIRST,
+                        duration: config.WAVE.DURATION.WAVE,
+                        ease: 'Cubic.easeOut'
+                    });
+                    await this.delay(config.WAVE.DURATION.WAVE);
+
+                    // Wave to 150°
+                    this.scene.tweens.add({
+                        targets: hand,
+                        rotation: config.WAVE.ROTATIONS.SECOND,
                         duration: config.WAVE.DURATION.WAVE,
                         ease: 'Cubic.easeInOut'
                     });
                     await this.delay(config.WAVE.DURATION.WAVE);
 
-                    // Wave down
-                    this.scene.tweens.add({
-                        targets: hand,
-                        rotation: 0,
-                        duration: config.WAVE.DURATION.WAVE,
-                        ease: 'Cubic.easeInOut'
-                    });
-                    await this.delay(config.WAVE.DURATION.WAVE);
+                    // If not the last pair, go back to 120° before next pair
+                    if (pair < config.WAVE.WAVE_PAIRS - 1) {
+                        this.scene.tweens.add({
+                            targets: hand,
+                            rotation: config.WAVE.ROTATIONS.FIRST,
+                            duration: config.WAVE.DURATION.WAVE,
+                            ease: 'Cubic.easeInOut'
+                        });
+                        await this.delay(config.WAVE.DURATION.WAVE);
+                    }
                 }
 
-                // 3. Lower hand back to default position
+                // Return to default position
                 this.scene.tweens.add({
                     targets: hand,
                     rotation: config.DEFAULT_ROTATION,
-                    duration: config.WAVE.DURATION.LOWER,
+                    duration: config.WAVE.DURATION.RETURN,
                     ease: 'Cubic.easeIn'
                 });
 
-                // 4. Schedule next wave sequence
+                // Schedule next wave sequence
                 const nextInterval = Phaser.Math.Between(
                     config.WAVE.INTERVAL.MIN,
                     config.WAVE.INTERVAL.MAX
@@ -214,18 +221,86 @@ export class WaldoManager {
         speak();
     }
 
+    startWaveMovement() {
+        const config = this.config.IDLE.WAVE_MOVEMENT;
+        const container = this.scene.waldo_container;
+        const gameWidth = this.scene.scale.width;
+        const gameHeight = this.scene.scale.height;
+
+        // Convert degrees to radians for rotation
+        const maxAngleRad = Phaser.Math.DegToRad(config.ROTATION.MAX_ANGLE);
+
+        const createWaveMovement = async () => {
+            // Rotate clockwise
+            this.scene.tweens.add({
+                targets: container,
+                rotation: maxAngleRad,
+                duration: config.ROTATION.DURATION,
+                ease: 'Sine.easeInOut',
+                yoyo: true,
+                onComplete: () => {
+                    // Pause before counter-clockwise rotation
+                    this.scene.time.delayedCall(config.ROTATION.PAUSE_DURATION, () => {
+                        // Rotate counter-clockwise
+                        this.scene.tweens.add({
+                            targets: container,
+                            rotation: -maxAngleRad,
+                            duration: config.ROTATION.DURATION,
+                            ease: 'Sine.easeInOut',
+                            yoyo: true,
+                            onComplete: () => {
+                                // Pause before next cycle
+                                this.scene.time.delayedCall(config.ROTATION.PAUSE_DURATION, createWaveMovement);
+                            }
+                        });
+                    });
+                }
+            });
+        };
+
+        // Start the wave rotation
+        createWaveMovement();
+
+        // Store initial position
+        const startX = container.x;
+        const startY = container.y;
+
+        // Calculate movement per second
+        const rightMovement = gameWidth * config.MOVEMENT.RIGHT_SPEED;
+        const upMovement = gameHeight * config.MOVEMENT.UP_SPEED;
+
+        // Create continuous movement function
+        const move = () => {
+            container.x += rightMovement/100; //per 100 ms
+            container.y -= upMovement/100; //per 100 ms
+
+            // Schedule next movement
+            this.scene.time.delayedCall(10, move);
+        };
+
+        // Start movement
+        move();
+    }
+
     transitionToLose() {
         if (!this.loseParts?.length) return;
 
         // Stop all tweens
-        this.scene.tweens.killAll();
+        // this.scene.tweens.killAll();
+
+        this.scene.time.removeAllEvents();
 
         // Hide idle state parts
         if (this.idleParts) {
             if (this.idleParts.hand) this.idleParts.hand.setVisible(false);
             if (this.idleParts.eyes) this.idleParts.eyes.forEach(eye => eye?.setVisible(false));
             if (this.idleParts.mouths) this.idleParts.mouths.forEach(mouth => mouth?.setVisible(false));
+            if (this.idleParts.sittingBody) this.idleParts.sittingBody.setVisible(false);
         }
+
+        if (this.scene.heart_bg) this.scene.heart_bg.setVisible(false);
+        if (this.scene.heart_mask) this.scene.heart_mask.setVisible(false);
+
 
         // Show and animate standing Waldo
         this.loseParts.forEach(part => part?.setVisible(true));
@@ -237,18 +312,28 @@ export class WaldoManager {
         if (leftHand && rightHand) {
             // Rotate hands
             this.scene.tweens.add({
-                targets: [leftHand, rightHand],
-                rotation: Math.PI * 2,
+                targets: leftHand,
+                rotation: -Math.PI/2,
+                duration: config.HAND_ROTATION_SPEED,
+                repeat: -1
+            });
+            this.scene.tweens.add({
+                targets: rightHand,
+                rotation: Math.PI/2,
                 duration: config.HAND_ROTATION_SPEED,
                 repeat: -1
             });
         }
+        
+        AudioUtils.playSound(this.scene, 'player_fall_audio');
+        AudioUtils.playSound(this.scene, 'player_fall_bg_audio');
 
-        if (this.loseParts.length > 0) {
+
+        if (this.scene.waldo_container) {
             // Fall animation
             this.scene.tweens.add({
-                targets: this.loseParts,
-                y: `+=${this.scene.scale.height * 0.3}`,
+                targets: this.scene.waldo_container,
+                y: `+=${this.scene.scale.height * 1}`,
                 duration: config.FALL_DURATION,
                 ease: 'Cubic.easeIn'
             });

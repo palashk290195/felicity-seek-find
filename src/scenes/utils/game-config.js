@@ -417,15 +417,17 @@ export const GAME_CONFIG = {
   "WALDO": {
     "IDLE": {
       "HAND": {
-        "DEFAULT_ROTATION": - 7 * Math.PI / 8,
+        "DEFAULT_ROTATION": 0,
         "WAVE": {
-          "UP_ROTATION": - Math.PI/6,
-          "DURATION": {
-            "RAISE": 300,
-            "WAVE": 200,
-            "LOWER": 400
+          "ROTATIONS": {
+            "FIRST": -3,
+            "SECOND": -2.25
           },
-          "WAVE_COUNT": 2,
+          "DURATION": {
+            "WAVE": 250,
+            "RETURN": 400
+          },
+          "WAVE_PAIRS": 2,
           "INTERVAL": {
             "MIN": 2000,
             "MAX": 3000
@@ -450,13 +452,24 @@ export const GAME_CONFIG = {
           },
           "SOUND": "help_audio"
         }
+      },
+      "WAVE_MOVEMENT": {
+        "ROTATION": {
+          "MAX_ANGLE": 15,
+          "DURATION": 1000,
+          "PAUSE_DURATION": 2000
+        },
+        "MOVEMENT": {
+          "RIGHT_SPEED": 0.01, // * gamewidth per second
+          "UP_SPEED": 0.005 // * gameheight per second
+        }
       }
     },
     "LOSE": {
       "STANDING": {
         "PARTS": ["waldo_standing", "waldo_standing_left_hand", "waldo_standing_right_hand"],
-        "FALL_DURATION": 1000,
-        "HAND_ROTATION_SPEED": 200
+        "FALL_DURATION": 2000,
+        "HAND_ROTATION_SPEED": 300
       }
     }
   }
