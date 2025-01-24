@@ -385,12 +385,12 @@ export const GAME_CONFIG = {
       "RIVER" : {
         "SPEED_HORIZONTAL":0.05,
         "SPEED_VERTICAL":0.007,
-        "DISTANCE_VERTICAL":0.1,
+        "DISTANCE_VERTICAL":0.05,
       },
       "WAVE" : {
           "SPEED_HORIZONTAL":0.10,
           "SPEED_VERTICAL":0.005,
-          "DISTANCE_VERTICAL":0.1,
+          "DISTANCE_VERTICAL":0.05,
 
       },
       "TANK": {

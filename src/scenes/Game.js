@@ -346,9 +346,8 @@ export class Game extends Phaser.Scene {
         // acidBubble12.x = acidBubble12.displayWidth
         // acidBubble12.y = acidRiver1.y
 
-        acidBubble11.x = screenWidth/2
         acidBubble11.y = acidRiver1.y
-        acidBubble12.x = acidBubble11.x - acidBubble12.displayWidth/2
+        acidBubble12.x = acidBubble11.x - acidBubble12.displayWidth
         acidBubble12.y = acidRiver2.y 
         const startacidBubble = acidBubble12.x
         const endacidBubble = screenWidth + acidBubble12.displayWidth
