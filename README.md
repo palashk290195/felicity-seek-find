@@ -264,7 +264,7 @@ To do
 4. Lose state handling: Done
 5. waldo container rotation and upward sidewards movement: done
 6. Fix how assets are looking
-6. Compression and asset resizing (especially video)
+6. Compression and asset resizing (especially video): done
 7. Ad networks testing (Applovin)
 8. Tween benches / add bench glow (check opacity)
 9. Add delay before moving to mid card
@@ -272,3 +272,7 @@ To do
 11. Start Card
 12. video should start from bottom to mid
 13. remove unused assets
+14. waldo upward and sidewards movement limits
+15. Hand pointer and benches getting removed on resize
+16. Change eyes
+17. Add acid bubble

@@ -131,6 +131,7 @@ import { blackTankPNG } from '../../media/images_waldo_drowning_black_tank.png.j
 import { eye1PNG } from '../../media/images_waldo_drowning_eye1.png.js';
 import { eye2PNG } from '../../media/images_waldo_drowning_eye2.png.js';
 import { eye3PNG } from '../../media/images_waldo_drowning_eye3.png.js';
+import { eye4PNG } from '../../media/images_waldo_drowning_eye4.png.js';
 import { handPNG } from '../../media/images_waldo_drowning_hand.png.js';
 import { heartBgPNG } from '../../media/images_waldo_drowning_heart_bg.png.js';
 import { heartMaskPNG } from '../../media/images_waldo_drowning_heart_mask.png.js';

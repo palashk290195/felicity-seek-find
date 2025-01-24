@@ -76,6 +76,7 @@ import { blackTankPNG } from '../../media/images_waldo_drowning_black_tank.png.j
 import { eye1PNG } from '../../media/images_waldo_drowning_eye1.png.js';
 import { eye2PNG } from '../../media/images_waldo_drowning_eye2.png.js';
 import { eye3PNG } from '../../media/images_waldo_drowning_eye3.png.js';
+import { eye4PNG } from '../../media/images_waldo_drowning_eye4.png.js';
 import { handPNG } from '../../media/images_waldo_drowning_hand.png.js';
 import { heartBgPNG } from '../../media/images_waldo_drowning_heart_bg.png.js';
 import { heartMaskPNG } from '../../media/images_waldo_drowning_heart_mask.png.js';
@@ -169,7 +170,22 @@ export class Preloader extends Phaser.Scene
         this.load.image('playnow_ja', PlayNowJaPNG);
 
         // Load Waldo drowning animation assets
-        this.load.video('video', MapVideoWEBM, 'loadeddata', true);
+        this.load.video('video', MapVideoWEBM, 'loadedmetadata', true);
+        
+        // Add video load complete handler
+        this.load.on('filecomplete-video-video', () => {
+            console.log('[Preloader] Video metadata loaded');
+            // Try to get video dimensions
+            const video = this.cache.video.get('video');
+            if (video) {
+                console.log('[Preloader] Video dimensions:', {
+                    videoWidth: video.videoWidth,
+                    videoHeight: video.videoHeight,
+                    width: video.width,
+                    height: video.height
+                });
+            }
+        });
         this.load.image('object_bench', objectBenchPNG);
         this.load.image('heart_bg', heartBgPNG);
         this.load.image('waldo_bench', waldoBenchPNG);
@@ -183,6 +199,7 @@ export class Preloader extends Phaser.Scene
         this.load.image('eye1', eye1PNG);
         this.load.image('eye2', eye2PNG);
         this.load.image('eye3', eye3PNG);
+        this.load.image('eye4', eye4PNG);
         this.load.image('waldo_standing', waldoStandingPNG);
         this.load.image('waldo_standing_right_hand', waldoStandingRightHandPNG);
         this.load.image('waldo_standing_left_hand', waldoStandingLeftHandPNG);

@@ -81,9 +81,10 @@ export class Game extends Phaser.Scene {
         // Handle resize
         this.scale.on('resize', this.handleResize, this);
 
-        // Play video
-        this.video.play(true);
-        this.recalculateScale(this.video_container);
+        // Get video from layout manager and play it
+        const video = this.layoutManager.getAsset('video');
+        video.setScale(video.scaleX / 2.8, video.scaleY / 1.8);
+        video.play(true);
 
         AudioUtils.playSound(this, 'acid_flowing_audio', {
             loop: true,
@@ -128,15 +129,16 @@ export class Game extends Phaser.Scene {
         const containerHeight = container.height;
 
         const videoAspectRatio = video_width / video_height;
-        const gameAspectRatio = containerWidth / containerHeight;
+        const containerAspectRatio = containerWidth / containerHeight;
 
         let scale;
-        if (videoAspectRatio > gameAspectRatio) {
+        if (videoAspectRatio > containerAspectRatio) {
             scale = containerHeight / video_height;
         } else {
             scale = containerWidth / video_width;
         }
 
+        console.log("video3 ", containerWidth, containerHeight, containerAspectRatio, videoAspectRatio);
         this.video.setScale(scale*5);
     }
 }

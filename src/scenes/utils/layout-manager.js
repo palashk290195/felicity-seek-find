@@ -68,6 +68,7 @@ export class LayoutManager {
         let gameObject;
         if (config.type === 'video') {
             gameObject = this.scene.add.video(0, 0, config.key);
+            // Force video dimensions to match the actual video size
         } else {
             gameObject = this.scene.add.image(0, 0, config.key);
         }

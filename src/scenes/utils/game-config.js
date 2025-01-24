@@ -436,7 +436,11 @@ export const GAME_CONFIG = {
             "MIN": 3000,
             "MAX": 5000
           },
-          "SOUND": "help_audio"
+          "SOUND": "help_audio",
+          "EYE": {
+            "FRAME": "eye4",
+            "DURATION": 1000
+          }
         }
       },
       "WAVE_MOVEMENT": {

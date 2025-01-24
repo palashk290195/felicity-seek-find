@@ -1586,6 +1586,50 @@ export const GAME_LAYOUT = {
                 "rotation": 0,
                 "isVisible": false
               }
+            },
+            "2ba6e71e-31a0-458f-8f8c-9b7113f14610": {
+              "id": "2ba6e71e-31a0-458f-8f8c-9b7113f14610",
+              "name": "eye4",
+              "type": "image",
+              "key": "eye4",
+              "portrait": {
+                "position": {
+                  "reference": "6ca1e567-f057-47f6-bd13-ac552e393f60",
+                  "x": 0.3100000000000001,
+                  "y": -0.5
+                },
+                "size": {
+                  "width": 0.25000000000000006,
+                  "height": 0.35
+                },
+                "origin": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "scaleMode": "fit",
+                "maintainAspectRatio": true,
+                "rotation": 0,
+                "isVisible": false
+              },
+              "landscape": {
+                "position": {
+                  "reference": "6ca1e567-f057-47f6-bd13-ac552e393f60",
+                  "x": 0.3100000000000001,
+                  "y": -0.5
+                },
+                "size": {
+                  "width": 0.25000000000000006,
+                  "height": -0.5
+                },
+                "origin": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "scaleMode": "fit",
+                "maintainAspectRatio": true,
+                "rotation": 0,
+                "isVisible": false
+              }
             }
           }
         }
