@@ -559,50 +559,6 @@ export const GAME_LAYOUT = {
             "isVisible": true
           }
         },
-        "f7c23953-3e23-4c62-828e-e27eb71065c2": {
-          "id": "f7c23953-3e23-4c62-828e-e27eb71065c2",
-          "name": "stream_mask_black",
-          "type": "image",
-          "key": "stream_mask_black",
-          "portrait": {
-            "position": {
-              "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
-              "x": 0,
-              "y": 0
-            },
-            "size": {
-              "width": 1,
-              "height": 3.59427739265943
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 0
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          },
-          "landscape": {
-            "position": {
-              "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
-              "x": 0,
-              "y": 0
-            },
-            "size": {
-              "width": 1,
-              "height": 3.0985680225961048
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 0
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          }
-        },
         "0ad9d601-4c34-4161-85ef-fca80068f5e6": {
           "id": "0ad9d601-4c34-4161-85ef-fca80068f5e6",
           "name": "stream_mask_white2",
@@ -636,6 +592,50 @@ export const GAME_LAYOUT = {
             "size": {
               "width": 1,
               "height": 3.6763535558235634
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
+        },
+        "f7c23953-3e23-4c62-828e-e27eb71065c2": {
+          "id": "f7c23953-3e23-4c62-828e-e27eb71065c2",
+          "name": "stream_mask_black",
+          "type": "image",
+          "key": "stream_mask_black",
+          "portrait": {
+            "position": {
+              "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
+              "x": 0,
+              "y": 0
+            },
+            "size": {
+              "width": 1,
+              "height": 3.59427739265943
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          },
+          "landscape": {
+            "position": {
+              "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
+              "x": 0,
+              "y": 0
+            },
+            "size": {
+              "width": 1,
+              "height": 3.0985680225961048
             },
             "origin": {
               "x": 0.5,
