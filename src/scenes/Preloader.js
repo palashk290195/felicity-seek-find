@@ -192,7 +192,7 @@ export class Preloader extends Phaser.Scene
         this.load.image('stream_mask_black', streamMaskBlackPNG);
         this.load.image('stream_mask_white_2', streamMaskWhitePNG);
         this.load.image('stream_mask_black_2', streamMaskBlackPNG);
-        this.load.image('acid_river', acidRiverNewPNG);
+        this.load.image('acid_river', acidRiverPNG);
         this.load.image('acid_wave', acidWavePNG);
         this.load.image('black_tank', blackTankPNG);
         this.load.image('wall_stairs', wallStairsPNG);

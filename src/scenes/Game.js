@@ -155,12 +155,12 @@ export class Game extends Phaser.Scene {
 
         // Create mask matching baseAcid
         const maskGraphics = this.make.graphics();
-        const width = baseAcid.displayWidth;
-    const height = baseAcid.displayHeight;
+        const width = baseAcid.displayWidth*.99;
+        const height = baseAcid.displayHeight;
         const startX = position.x; // Adjust for origin
         const startY = position.y;
-        console.log(startX,startY)
-        console.log("width,height",width,height)
+        // console.log(startX,startY)
+        // console.log("width,height",width,height)
         maskGraphics.beginPath();
         maskGraphics.fillStyle(0xffffff, 1);
         // maskGraphics.fillRect(startX, startY + height/4, width, height*3/4);
@@ -180,7 +180,7 @@ export class Game extends Phaser.Scene {
 
         // Position streams with transforms
         Object.values(streams).forEach(stream => {
-            stream.setDisplaySize(width, height);
+            // stream.setDisplaySize(width, height);
             stream.setRotation(position.rotation);
             stream.setScale(position.scale.x, position.scale.y);
             // stream.setBlendMode(Phaser.BlendModes.SCREEN);
@@ -191,14 +191,21 @@ export class Game extends Phaser.Scene {
         const FLOW_SPEED_BLACK = GAME_CONFIG.SCENES.GAME.SPEED_STREAM_BLACK;
         const FLOW_SPEED_WHITE = GAME_CONFIG.SCENES.GAME.SPEED_STREAM_WHITE;
         const startY1 = baseAcid.y;
-        const startY2 = baseAcid.y - streams.blackMask1.displayHeight;
-        const endY = baseAcid.y + streams.blackMask1.displayHeight;
-    
-        // Set initial positions
         streams.blackMask1.y = startY1;
-        streams.blackMask2.y = startY2;
         streams.whiteMask1.y = startY1;
-        streams.whiteMask2.y = startY2;
+        console.log("streams.blackMask1.y",streams.blackMask1.y);
+        console.log("streams.whiteMask1.y",streams.whiteMask1.y);
+        console.log("streams.blackMask1.displayHeight",streams.blackMask1.displayHeight);
+        console.log("streams.whiteMask1.displayHeight",streams.whiteMask1.displayHeight);
+        const startY2 = streams.blackMask1.y - streams.blackMask1.displayHeight;
+        const startY3 = streams.whiteMask1.y - streams.whiteMask1.displayHeight;
+        const endY2 = streams.blackMask1.y + streams.blackMask1.displayHeight;
+        const endY3 = streams.whiteMask1.y + streams.whiteMask1.displayHeight;
+        // Set initial positions
+        streams.blackMask2.y = startY2;
+        streams.whiteMask2.y = startY3;
+        console.log("streams.whiteMask2.y",streams.whiteMask2.y);
+        console.log("streams.blackMask2.y",streams.blackMask2.y);
     
         [baseAcid, ...Object.values(streams)].forEach((obj, i) => {
             obj.setDepth(i);
@@ -211,54 +218,68 @@ export class Game extends Phaser.Scene {
                 duration: (endY - initialY) / FLOW_SPEED * 1000,
                 ease: 'Linear',
                 onComplete: () => {
-                    mask.y = startY2;
+                    mask.y = startY2+1;
                     createTween(mask, startY2, endY, FLOW_SPEED);
                 }
             });
         };
     
         [streams.blackMask1, streams.blackMask2].forEach(stream => {
-            createTween(stream, stream.y, endY, FLOW_SPEED_BLACK);
+            createTween(stream, stream.y, endY2, FLOW_SPEED_BLACK);
         });
         
         [streams.whiteMask1, streams.whiteMask2].forEach(stream => {
-            createTween(stream, stream.y, endY, FLOW_SPEED_WHITE);
+            createTween(stream, stream.y, endY3, FLOW_SPEED_WHITE);
         });
     }
 
     setupRiver() {
         const acidRiver1 = this.layoutManager.getAsset("acid_river")
         const acidRiver2 = this.layoutManager.getAsset("acid_river2")
-        acidRiver1.setDepth(100)
-        acidRiver2.setDepth(100)
+        const acidRiver3 = this.layoutManager.getAsset("acid_river3")
+
         acidRiver2.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
-        
+        acidRiver3.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
         // Initial Y position
         const initialY = acidRiver1.y;
         acidRiver1.y = initialY;
         acidRiver2.y = initialY;
+        acidRiver3.y = initialY;
         
-        acidRiver2.x = acidRiver2.x+10;
+        // acidRiver2.x = acidRiver2.x;
         
         const RIVER_FLOW_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_HORIZONTAL;
         const VERTICAL_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_VERTICAL;
         const startX1 = acidRiver1.x;
-        const startX2 = startX1 - acidRiver1.displayWidth + 28;
-        const endX = startX1 + acidRiver1.displayWidth - 28;
+        // const startX2 = startX1 - acidRiver1.displayWidth;
+        // const startX3 = startX2 - acidRiver2.displayWidth;
+        const startX2 = acidRiver2.x
+        const startX3 = acidRiver3.x
+        const endX = startX1 + acidRiver1.displayWidth;
         
         const verticalDistance = GAME_CONFIG.SCENES.GAME.RIVER.DISTANCE_VERTICAL; // Keep movement distance constant
+        
+        let totalverticalDistance = 0
         const createRiverVerticalTween = (river) => {
-            this.tweens.add({
-                targets: [acidRiver1, acidRiver2],
-                y: `-=${verticalDistance}`,
-                duration: (verticalDistance / VERTICAL_SPEED) * 1000, // Convert to milliseconds
-                ease: 'Linear',
-                // repeat: -1,
-                // onComplete: () => {
-                //     // river.x = startX2;
-                //     createRiverVerticalTween(river);
-                // }
-            });
+            // const screenBottom = this.scale.height;
+            // const riverBottom = river.y;    
+            // if (riverBottom < screenBottom) {
+                this.tweens.add({
+                    targets: [acidRiver1, acidRiver2,acidRiver3],
+                    y: `-=${verticalDistance}`,
+                    duration: (verticalDistance / VERTICAL_SPEED) * 1000, // Convert to milliseconds
+                    ease: 'Linear',
+                    // repeat: -1,
+                    onComplete: () => {
+                        // river.x = startX2;
+                            totalverticalDistance += verticalDistance
+                            if (totalverticalDistance < river.displayHeight*0.5) {
+                                createRiverVerticalTween(river);    
+                            }
+                            
+                        }
+                    });
+                    
         };
         const createRiverTween = (river, startX, endX, flowSpeed) => {
             this.tweens.add({
@@ -267,49 +288,59 @@ export class Game extends Phaser.Scene {
                 duration: (endX-startX) / flowSpeed * 1000,
                 ease: 'Linear',
                 onComplete: () => {
-                    river.x = startX2;
-                    createRiverTween(river, startX2, endX, flowSpeed);
+                    river.x = startX3+10;
+                    createRiverTween(river, startX3, endX, flowSpeed);
                 }
             });
         };
 
         createRiverTween(acidRiver1, startX1, endX, RIVER_FLOW_SPEED);
         createRiverTween(acidRiver2, startX2, endX, RIVER_FLOW_SPEED);
+        createRiverTween(acidRiver3, startX3, endX, RIVER_FLOW_SPEED);
+        
         createRiverVerticalTween(acidRiver1);
         createRiverVerticalTween(acidRiver2);
-    }
+        createRiverVerticalTween(acidRiver3);
+    };
 
     setupWave() {
         const acidRiver1 = this.layoutManager.getAsset("acid_wave")
         const acidRiver2 = this.layoutManager.getAsset("acid_wave2")
-        acidRiver1.setDepth(100)
-        acidRiver2.setDepth(100)
-        acidRiver2.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
+        const acidRiver3 = this.layoutManager.getAsset("acid_wave3")
         
+        acidRiver2.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
+        acidRiver3.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
         // Initial Y position
         const initialY = acidRiver1.y;
         acidRiver1.y = initialY;
         acidRiver2.y = initialY;
+        acidRiver3.y = initialY;
         
         const RIVER_FLOW_SPEED = GAME_CONFIG.SCENES.GAME.WAVE.SPEED_HORIZONTAL;
         const VERTICAL_SPEED = GAME_CONFIG.SCENES.GAME.WAVE.SPEED_VERTICAL;
         const startX1 = acidRiver1.x;
-        const startX2 = startX1 - acidRiver1.displayWidth + 28;
-        const endX = startX1 + acidRiver1.displayWidth - 28;
+        const startX2 = startX1 - acidRiver1.displayWidth + 1;
+        const startX3 = startX2 - acidRiver2.displayWidth + 1;
+        const endX = startX1 + acidRiver1.displayWidth;
         
         const verticalDistance = GAME_CONFIG.SCENES.GAME.WAVE.DISTANCE_VERTICAL; // Keep movement distance constant
+        let totalverticalDistance = 0
         const createRiverVerticalTween = (river) => {
             this.tweens.add({
-                targets: [acidRiver1, acidRiver2],
+                targets: [acidRiver1, acidRiver2, acidRiver3],
                 y: `-=${verticalDistance}`,
                 duration: (verticalDistance / VERTICAL_SPEED) * 1000, // Convert to milliseconds
                 ease: 'Linear',
                 // repeat: -1,
-                // onComplete: () => {
-                //     // river.x = startX2;
-                //     createRiverVerticalTween(river);
-                // }
-            });
+                onComplete: () => {
+                    // river.x = startX2;
+                        totalverticalDistance += verticalDistance
+                        if (totalverticalDistance < river.displayHeight) {
+                            createRiverVerticalTween(river);    
+                        }
+                        
+                    }
+                });
         };
 
         const createRiverTween = (river, startX, endX, flowSpeed) => {
@@ -319,15 +350,17 @@ export class Game extends Phaser.Scene {
                 duration: (endX-startX) / flowSpeed * 1000,
                 ease: 'Linear',
                 onComplete: () => {
-                    river.x = startX2;
-                    createRiverTween(river, startX2, endX, flowSpeed);
+                    river.x = startX3;
+                    createRiverTween(river, startX3, endX, flowSpeed);
                 }
             });
         };
 
         createRiverTween(acidRiver1, startX1, endX, RIVER_FLOW_SPEED);
         createRiverTween(acidRiver2, startX2, endX, RIVER_FLOW_SPEED);
+        createRiverTween(acidRiver3, startX3, endX, RIVER_FLOW_SPEED);
         createRiverVerticalTween(acidRiver1);
         createRiverVerticalTween(acidRiver2);
+        createRiverVerticalTween(acidRiver3);
     }
 }

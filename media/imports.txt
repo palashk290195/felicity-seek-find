@@ -1,8 +1,3 @@
-<<<<<<< Updated upstream
-import { .DSStore } from '../../media/.DS_Store.js';
-import { .DSStore } from '../../media/audio_.DS_Store.js';
-=======
->>>>>>> Stashed changes
 import { bounceSoundMP3 } from '../../media/audio_bounce_sound.mp3.js';
 import { duckClickSoundMP3 } from '../../media/audio_duck_click_sound.mp3.js';
 import { seekBgMusicMP3 } from '../../media/audio_seek_bg_music.mp3.js';
@@ -130,8 +125,11 @@ import { acidRiverNewPNG } from '../../media/images_waldo_drowning_acid_river_ne
 import { acidStreamPNG } from '../../media/images_waldo_drowning_acid_stream.png.js';
 import { acidWavePNG } from '../../media/images_waldo_drowning_acid_wave.png.js';
 import { blackTankPNG } from '../../media/images_waldo_drowning_black_tank.png.js';
+import { eye1 copyPNG } from '../../media/images_waldo_drowning_eye1 copy.png.js';
 import { eye1PNG } from '../../media/images_waldo_drowning_eye1.png.js';
+import { eye2 copyPNG } from '../../media/images_waldo_drowning_eye2 copy.png.js';
 import { eye2PNG } from '../../media/images_waldo_drowning_eye2.png.js';
+import { eye3 copyPNG } from '../../media/images_waldo_drowning_eye3 copy.png.js';
 import { eye3PNG } from '../../media/images_waldo_drowning_eye3.png.js';
 import { handPNG } from '../../media/images_waldo_drowning_hand.png.js';
 import { heartBgPNG } from '../../media/images_waldo_drowning_heart_bg.png.js';
@@ -140,13 +138,17 @@ import { mouth1PNG } from '../../media/images_waldo_drowning_mouth1.png.js';
 import { mouth2PNG } from '../../media/images_waldo_drowning_mouth2.png.js';
 import { mouth3PNG } from '../../media/images_waldo_drowning_mouth3.png.js';
 import { mouth4PNG } from '../../media/images_waldo_drowning_mouth4.png.js';
+import { objectBench copyPNG } from '../../media/images_waldo_drowning_object_bench copy.png.js';
 import { objectBenchPNG } from '../../media/images_waldo_drowning_object_bench.png.js';
 import { streamMaskBlackPNG } from '../../media/images_waldo_drowning_stream_mask_black.png.js';
 import { streamMaskWhitePNG } from '../../media/images_waldo_drowning_stream_mask_white.png.js';
 import { videoPNG } from '../../media/images_waldo_drowning_video.png.js';
+import { waldoBench copyPNG } from '../../media/images_waldo_drowning_waldo_bench copy.png.js';
 import { waldoBenchPNG } from '../../media/images_waldo_drowning_waldo_bench.png.js';
+import { waldoSeatingBody copyPNG } from '../../media/images_waldo_drowning_waldo_seating_body copy.png.js';
 import { waldoSeatingBodyPNG } from '../../media/images_waldo_drowning_waldo_seating_body.png.js';
 import { waldoSeatingRightHandPNG } from '../../media/images_waldo_drowning_waldo_seating_right_hand.png.js';
+import { waldoStanding copyPNG } from '../../media/images_waldo_drowning_waldo_standing copy.png.js';
 import { waldoStandingPNG } from '../../media/images_waldo_drowning_waldo_standing.png.js';
 import { waldoStandingLeftHandPNG } from '../../media/images_waldo_drowning_waldo_standing_left_hand.png.js';
 import { waldoStandingRightHandPNG } from '../../media/images_waldo_drowning_waldo_standing_right_hand.png.js';
