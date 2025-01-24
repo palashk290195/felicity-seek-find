@@ -603,138 +603,6 @@ export const GAME_LAYOUT = {
             "isVisible": true
           }
         },
-        "2b2b9cd1-f7af-4cc1-ae36-5301b4033055": {
-          "id": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
-          "name": "acid_river",
-          "type": "image",
-          "key": "acid_river",
-          "portrait": {
-            "position": {
-              "reference": "container",
-              "x": 0.8120173446465482,
-              "y": 0.1376196033490355
-            },
-            "size": {
-              "width": 1.5,
-              "height": 1.5
-            },
-            "origin": {
-              "x": 1,
-              "y": 0
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          },
-          "landscape": {
-            "position": {
-              "reference": "container",
-              "x": 0.5022775606572301,
-              "y": -0.12259647238940685
-            },
-            "size": {
-              "width": 1,
-              "height": 1
-            },
-            "origin": {
-              "x": 1,
-              "y": 0
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          }
-        },
-        "6904ba4c-4ce1-4b66-b11a-331df4fa81b4": {
-          "id": "6904ba4c-4ce1-4b66-b11a-331df4fa81b4",
-          "name": "acid_wave",
-          "type": "image",
-          "key": "acid_wave",
-          "portrait": {
-            "position": {
-              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
-              "x": -0.5021373758511736,
-              "y": 0.7051864219393429
-            },
-            "size": {
-              "width": 1,
-              "height": 1
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 0.5
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          },
-          "landscape": {
-            "position": {
-              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
-              "x": -0.49684954472854426,
-              "y": 0.7429176899179556
-            },
-            "size": {
-              "width": 1,
-              "height": 1
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 0.5
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          }
-        },
-        "f9068ef7-4611-4289-a42f-cd011ce39606": {
-          "id": "f9068ef7-4611-4289-a42f-cd011ce39606",
-          "name": "black_tank",
-          "type": "image",
-          "key": "black_tank",
-          "portrait": {
-            "position": {
-              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
-              "x": -0.22651706099251426,
-              "y": 0.7498405751995574
-            },
-            "size": {
-              "width": 0.4234614153563444,
-              "height": 0.3901607022175232
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 1
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          },
-          "landscape": {
-            "position": {
-              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
-              "x": -0.10166039244884413,
-              "y": 0.6647767380141772
-            },
-            "size": {
-              "width": 0.7744477920965437,
-              "height": 0.22188650993024406
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 1
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          }
-        },
         "6425389e-b4e8-4775-a95c-0b8e8b042aa3": {
           "id": "6425389e-b4e8-4775-a95c-0b8e8b042aa3",
           "name": "stream_mask_white2",
@@ -823,6 +691,51 @@ export const GAME_LAYOUT = {
             "isVisible": true
           }
         },
+        "2b2b9cd1-f7af-4cc1-ae36-5301b4033055": {
+          "id": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
+          "name": "acid_river",
+          "type": "image",
+          "key": "acid_river",
+          "portrait": {
+            "position": {
+              "reference": "container",
+              "x": 0.8120173446465482,
+              "y": 0.1376196033490355
+            },
+            "size": {
+              "width": 1.5,
+              "height": 1.5
+            },
+            "origin": {
+              "x": 1,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          },
+          "landscape": {
+            "position": {
+              "reference": "container",
+              "x": 0.5022775606572301,
+              "y": -0.12259647238940685
+            },
+            "size": {
+              "width": 1,
+              "height": 1
+            },
+            "origin": {
+              "x": 1,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
+        },
+
         "50fba31d-ae5d-4350-bfcd-907ac542edae": {
           "id": "50fba31d-ae5d-4350-bfcd-907ac542edae",
           "name": "acid_river2",
@@ -860,6 +773,50 @@ export const GAME_LAYOUT = {
             "origin": {
               "x": 1,
               "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
+        },
+        "6904ba4c-4ce1-4b66-b11a-331df4fa81b4": {
+          "id": "6904ba4c-4ce1-4b66-b11a-331df4fa81b4",
+          "name": "acid_wave",
+          "type": "image",
+          "key": "acid_wave",
+          "portrait": {
+            "position": {
+              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
+              "x": -0.5021373758511736,
+              "y": 0.7051864219393429
+            },
+            "size": {
+              "width": 1,
+              "height": 1
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          },
+          "landscape": {
+            "position": {
+              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
+              "x": -0.49684954472854426,
+              "y": 0.7429176899179556
+            },
+            "size": {
+              "width": 1,
+              "height": 1
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0.5
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,
@@ -912,6 +869,50 @@ export const GAME_LAYOUT = {
           }
         }
       },
+        "f9068ef7-4611-4289-a42f-cd011ce39606": {
+          "id": "f9068ef7-4611-4289-a42f-cd011ce39606",
+          "name": "black_tank",
+          "type": "image",
+          "key": "black_tank",
+          "portrait": {
+            "position": {
+              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
+              "x": -0.22651706099251426,
+              "y": 0.7498405751995574
+            },
+            "size": {
+              "width": 0.4234614153563444,
+              "height": 0.3901607022175232
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 1
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          },
+          "landscape": {
+            "position": {
+              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
+              "x": -0.10166039244884413,
+              "y": 0.6647767380141772
+            },
+            "size": {
+              "width": 0.7744477920965437,
+              "height": 0.22188650993024406
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 1
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
+        },
       "children": {
         "waldo_container": {
           "portrait": {
