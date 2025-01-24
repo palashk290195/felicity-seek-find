@@ -282,7 +282,7 @@ export class Game extends Phaser.Scene {
                     onComplete: () => {
                         // river.x = startX2;
                             totalverticalDistance += verticalDistance
-                            if (totalverticalDistance < river.displayHeight*0.5) {
+                            if (totalverticalDistance < river.displayHeight/2) {
                                 createRiverVerticalTween(river);    
                             }
                             
@@ -324,7 +324,8 @@ export class Game extends Phaser.Scene {
         const acidBubble11 = this.layoutManager.getAsset("acid_bubble11")
         const acidBubble12 = this.layoutManager.getAsset("acid_bubble12")
         
-        
+        acidBubble11.setBlendMode(Phaser.BlendModes.COLOR_DODGE);
+        acidBubble12.setBlendMode(Phaser.BlendModes.COLOR_DODGE);
         // acidRiver2.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
         // acidRiver3.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
         // Initial Y position
@@ -364,7 +365,7 @@ export class Game extends Phaser.Scene {
                 onComplete: () => {
                     // river.x = startX2;
                         totalverticalDistance += verticalDistance
-                        if (totalverticalDistance < river.displayHeight*3) {
+                        if (totalverticalDistance < screenHeight/2) {
                             createRiverVerticalTween(river);    
                         }
                         
@@ -429,13 +430,13 @@ export class Game extends Phaser.Scene {
             const startY = riverY*(1+ randomYOffset);
             
             // Position tank off-screen left
-            tank.x = -tank.displayWidth;
+            tank.x = -4*tank.displayWidth;
             tank.y = startY;
             tank.setScale(0.15)
     
             this.tweens.add({
                 targets: tank,
-                x: screenWidth + tank.displayWidth,
+                x: screenWidth - tank.displayWidth,
                 duration: (screenWidth + 2 * tank.displayWidth) / config.SPEED_HORIZONTAL/screenWidth* 1000,
                 ease: 'Linear',
                 onComplete: () => {

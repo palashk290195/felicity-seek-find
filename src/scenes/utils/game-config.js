@@ -383,18 +383,18 @@ export const GAME_CONFIG = {
       "SPEED_STREAM_WHITE":  0.15,
       
       "RIVER" : {
-        "SPEED_HORIZONTAL":0.1,
+        "SPEED_HORIZONTAL":0.05,
         "SPEED_VERTICAL":0.007,
-        "DISTANCE_VERTICAL":0.3,
+        "DISTANCE_VERTICAL":0.1,
       },
       "WAVE" : {
-          "SPEED_HORIZONTAL":0.15,
+          "SPEED_HORIZONTAL":0.10,
           "SPEED_VERTICAL":0.005,
-          "DISTANCE_VERTICAL":0.5,
+          "DISTANCE_VERTICAL":0.1,
 
       },
       "TANK": {
-        "SPEED_HORIZONTAL": 0.15,
+        "SPEED_HORIZONTAL": 0.10,
         "SPAWN_DELAY_MIN": 300, // 2 seconds 
         "SPAWN_DELAY_MAX": 2000, // 5 seconds
         "Y_OFFSET_MIN": 0.05,  // Offset from river y-coordinate in percentage
