@@ -523,11 +523,11 @@ export const GAME_LAYOUT = {
           "portrait": {
             "position": {
               "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
-              "x": 0.10434785628772052,
-              "y": 0.0965060556091578
+              "x": 0,
+              "y": 0
             },
             "size": {
-              "width": 0.6311851500925912,
+              "width": 1,
               "height": 4.361023384901388
             },
             "origin": {
@@ -542,11 +542,11 @@ export const GAME_LAYOUT = {
           "landscape": {
             "position": {
               "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
-              "x": -0.000874755042160887,
-              "y": 0.08871119092475949
+              "x": 0,
+              "y": 0
             },
             "size": {
-              "width": 0.7006911480158772,
+              "width": 1,
               "height": 3.6763535558235634
             },
             "origin": {
@@ -567,11 +567,11 @@ export const GAME_LAYOUT = {
           "portrait": {
             "position": {
               "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
-              "x": -0.06543594238384452,
-              "y": 0.09552612427257483
+              "x": 0,
+              "y": 0
             },
             "size": {
-              "width": 0.6908570608469681,
+              "width": 1,
               "height": 3.59427739265943
             },
             "origin": {
@@ -586,11 +586,11 @@ export const GAME_LAYOUT = {
           "landscape": {
             "position": {
               "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
-              "x": -0.011274289360720597,
-              "y": 0.08422965435449219
+              "x": 0,
+              "y": 0
             },
             "size": {
-              "width": 0.7776475079684103,
+              "width": 1,
               "height": 3.0985680225961048
             },
             "origin": {
@@ -603,19 +603,19 @@ export const GAME_LAYOUT = {
             "isVisible": true
           }
         },
-        "6425389e-b4e8-4775-a95c-0b8e8b042aa3": {
-          "id": "6425389e-b4e8-4775-a95c-0b8e8b042aa3",
+        "0ad9d601-4c34-4161-85ef-fca80068f5e6": {
+          "id": "0ad9d601-4c34-4161-85ef-fca80068f5e6",
           "name": "stream_mask_white2",
           "type": "image",
           "key": "stream_mask_white",
           "portrait": {
             "position": {
               "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
-              "x": 0.10434785628772052,
-              "y": 0.0965060556091578
+              "x": 0,
+              "y": 0
             },
             "size": {
-              "width": 0.6311851500925912,
+              "width": 1,
               "height": 4.361023384901388
             },
             "origin": {
@@ -630,11 +630,11 @@ export const GAME_LAYOUT = {
           "landscape": {
             "position": {
               "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
-              "x": -0.000874755042160887,
-              "y": 0.08871119092475949
+              "x": 0,
+              "y": 0
             },
             "size": {
-              "width": 0.7006911480158772,
+              "width": 1,
               "height": 3.6763535558235634
             },
             "origin": {
@@ -647,19 +647,19 @@ export const GAME_LAYOUT = {
             "isVisible": true
           }
         },
-        "1527ba8c-8240-41f8-8f79-38391ba06609": {
-          "id": "1527ba8c-8240-41f8-8f79-38391ba06609",
+        "a4024e48-c2d1-4b9d-bb64-55e538ef2f83": {
+          "id": "a4024e48-c2d1-4b9d-bb64-55e538ef2f83",
           "name": "stream_mask_black2",
           "type": "image",
           "key": "stream_mask_black",
           "portrait": {
             "position": {
               "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
-              "x": -0.06543594238384452,
-              "y": 0.09552612427257483
+              "x": 0,
+              "y": 0
             },
             "size": {
-              "width": 0.6908570608469681,
+              "width": 1,
               "height": 3.59427739265943
             },
             "origin": {
@@ -674,11 +674,11 @@ export const GAME_LAYOUT = {
           "landscape": {
             "position": {
               "reference": "adcd1dff-7a18-4a9b-8a13-0594516a8ab8",
-              "x": -0.011274289360720597,
-              "y": 0.08422965435449219
+              "x": 0,
+              "y": 0
             },
             "size": {
-              "width": 0.7776475079684103,
+              "width": 1,
               "height": 3.0985680225961048
             },
             "origin": {
@@ -699,11 +699,11 @@ export const GAME_LAYOUT = {
           "portrait": {
             "position": {
               "reference": "container",
-              "x": 0.8120173446465482,
-              "y": 0.1376196033490355
+              "x": 0.5058468704355545,
+              "y": 0.005983461015175287
             },
             "size": {
-              "width": 1.5,
+              "width": 1.46,
               "height": 1.5
             },
             "origin": {
@@ -718,8 +718,33 @@ export const GAME_LAYOUT = {
           "landscape": {
             "position": {
               "reference": "container",
-              "x": 0.5022775606572301,
-              "y": -0.12259647238940685
+              "x": 0.5082749046650775,
+              "y": -0.192321799130565
+            },
+            "size": {
+              "width": 1.5,
+              "height": 1.5
+            },
+            "origin": {
+              "x": 1,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
+        },
+        "09815790-f4d2-4823-b332-7836dd653b5e": {
+          "id": "09815790-f4d2-4823-b332-7836dd653b5e",
+          "name": "acid_river2",
+          "type": "image",
+          "key": "acid_river",
+          "portrait": {
+            "position": {
+              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
+              "x": -0.997,
+              "y": 0
             },
             "size": {
               "width": 1,
@@ -733,38 +758,12 @@ export const GAME_LAYOUT = {
             "maintainAspectRatio": true,
             "rotation": 0,
             "isVisible": true
-          }
-        },
-
-        "50fba31d-ae5d-4350-bfcd-907ac542edae": {
-          "id": "50fba31d-ae5d-4350-bfcd-907ac542edae",
-          "name": "acid_river2",
-          "type": "image",
-          "key": "acid_river",
-          "portrait": {
-            "position": {
-              "reference": "container",
-              "x": 0.8120173446465482,
-              "y": 0.1376196033490355
-            },
-            "size": {
-              "width": 1.5,
-              "height": 1.5
-            },
-            "origin": {
-              "x": 1,
-              "y": 0
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
           },
           "landscape": {
             "position": {
-              "reference": "container",
-              "x": 0.5022775606572301,
-              "y": -0.12259647238940685
+              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
+              "x": -0.997,
+              "y": 0
             },
             "size": {
               "width": 1,
@@ -788,8 +787,8 @@ export const GAME_LAYOUT = {
           "portrait": {
             "position": {
               "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
-              "x": -0.5021373758511736,
-              "y": 0.7051864219393429
+              "x": -0.5030785482470399,
+              "y": 0.46572954409513656
             },
             "size": {
               "width": 1,
@@ -807,8 +806,8 @@ export const GAME_LAYOUT = {
           "landscape": {
             "position": {
               "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
-              "x": -0.49684954472854426,
-              "y": 0.7429176899179556
+              "x": -0.5068495447285443,
+              "y": 0.48291768991795536
             },
             "size": {
               "width": 1,
@@ -824,16 +823,16 @@ export const GAME_LAYOUT = {
             "isVisible": true
           }
         },
-        "2c79f077-a463-479c-965d-3cf25c398666": {
-          "id": "2c79f077-a463-479c-965d-3cf25c398666",
+        "acc39a6e-7521-4e10-8c45-ff259f378239": {
+          "id": "acc39a6e-7521-4e10-8c45-ff259f378239",
           "name": "acid_wave2",
           "type": "image",
           "key": "acid_wave",
           "portrait": {
             "position": {
-              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
-              "x": -0.5021373758511736,
-              "y": 0.7051864219393429
+              "reference": "09815790-f4d2-4823-b332-7836dd653b5e",
+              "x": -0.5030785482470399,
+              "y": 0.45572954409513655
             },
             "size": {
               "width": 1,
@@ -850,9 +849,9 @@ export const GAME_LAYOUT = {
           },
           "landscape": {
             "position": {
-              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
-              "x": -0.49684954472854426,
-              "y": 0.7429176899179556
+              "reference": "09815790-f4d2-4823-b332-7836dd653b5e",
+              "x": -0.5068495447285443,
+              "y": 0.48291768991795536
             },
             "size": {
               "width": 1,
@@ -876,12 +875,12 @@ export const GAME_LAYOUT = {
           "portrait": {
             "position": {
               "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
-              "x": -0.22651706099251426,
-              "y": 0.7498405751995574
+              "x": -0.8365631418262599,
+              "y": 0.5197467809211845
             },
             "size": {
               "width": 0.4234614153563444,
-              "height": 0.3901607022175232
+              "height": 0.2801607022175231
             },
             "origin": {
               "x": 0.5,
@@ -895,12 +894,12 @@ export const GAME_LAYOUT = {
           "landscape": {
             "position": {
               "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
-              "x": -0.10166039244884413,
-              "y": 0.6647767380141772
+              "x": -0.4431381045531221,
+              "y": 0.4201527982988856
             },
             "size": {
-              "width": 0.7744477920965437,
-              "height": 0.22188650993024406
+              "width": 2.88444779209654,
+              "height": 0.23188650993024407
             },
             "origin": {
               "x": 0.5,
