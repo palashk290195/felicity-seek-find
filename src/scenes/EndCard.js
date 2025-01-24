@@ -68,14 +68,59 @@ export class EndCard extends Phaser.Scene {
     }
 
     createHeader(gameWidth, gameHeight) {
+        // Create a container for the header group
+        const headerGroup = this.add.container(0, 0);
+        
+        // Create game logo with glow effect
+        const logoScale = Math.min(gameWidth, gameHeight) * 0.15;
+        
+        // Add glow effect
+        const glow = this.add.image(0, 0, 'game_logo')
+            .setOrigin(0.5, 0.5)
+            .setBlendMode(Phaser.BlendModes.ADD)
+            .setAlpha(0.4)
+            .setTint(0xffff99)
+            .setDisplaySize(logoScale, logoScale);
+
+        // Add main logo
+        const logo = this.add.image(0, 0, 'game_logo')
+            .setOrigin(0.5, 0.5)
+            .setAlpha(0.9)
+            .setDisplaySize(logoScale * 0.95, logoScale * 0.95);
+
+        // Add seek and find text
         const seekAndFind = this.add.image(
-            gameWidth * 0.5,
-            gameHeight * 0.05,
+            logoScale/2 + 10, // Half logo width + 10px gap
+            0,
             GAME_CONFIG.COMMON_ASSETS.LOGO
-        );
+        ).setOrigin(0, 0.5);
         const seekAndFindScale = Math.min(gameWidth, gameHeight) * GAME_CONFIG.SCENES.END_CARD.LOGO_SCALE_RATIO;
         seekAndFind.setScale(seekAndFindScale);
-        this.header = seekAndFind;
+
+        // Add all elements to the header group
+        headerGroup.add([glow, logo, seekAndFind]);
+
+        // Position the entire header group at center-top
+        headerGroup.setPosition(
+            gameWidth * 0.5,  // Center horizontally
+            gameHeight * 0.07 // 5% from top
+        );
+
+        // Shift the group left by half its width to properly center it
+        const totalWidth = logoScale + 10 + seekAndFind.displayWidth;
+        headerGroup.x -= totalWidth/2;
+
+        // Add pulse animation to glow
+        this.tweens.add({
+            targets: glow,
+            alpha: { from: 0.4, to: 0.6 },
+            duration: 1500,
+            yoyo: true,
+            repeat: -1,
+            ease: 'Sine.easeInOut'
+        });
+
+        this.header = headerGroup;
     }
 
     createPlayButton(gameWidth, gameHeight) {

@@ -4,6 +4,7 @@ import { GAME_CONFIG, getCurrentLanguage, getSceneBackground } from './utils/gam
 import { StartCardLayoutManager } from './utils/startcard-layout-manager.js';
 import { fitImageToContainer, fitTextToContainer, createBackground } from './utils/layout-utils.js';
 import { AudioUtils } from '../utils/audio-utils.js';
+import { ImageFitter } from './utils/image-fitter.js';
 
 export class StartCard extends Phaser.Scene {
     constructor() {
@@ -65,9 +66,43 @@ export class StartCard extends Phaser.Scene {
     }
 
     createLayoutElements() {
-        const { text: textContainer, character: characterContainer } = this.layoutManager.getContainers();
+        const { text: textContainer, character: characterContainer, logo: logoContainer } = this.layoutManager.getContainers();
         const currentLanguage = getCurrentLanguage();
         
+        // Create logo with glow effect
+        const glow = this.add.image(0, 0, 'game_logo');
+        glow.setBlendMode(Phaser.BlendModes.ADD);
+        glow.setAlpha(0.4);
+        glow.setTint(0xffff99); // Warm yellow glow
+        ImageFitter.fitToContainer(glow, logoContainer, {
+            scaleMode: ImageFitter.SCALE_MODE.FIT,
+            maintainAspectRatio: true,
+            widthPercentage: 0.85,
+            heightPercentage: 0.85
+        });
+        
+        const logo = this.add.image(0, 0, 'game_logo');
+        logo.setAlpha(0.9);
+        ImageFitter.fitToContainer(logo, logoContainer, {
+            scaleMode: ImageFitter.SCALE_MODE.FIT,
+            maintainAspectRatio: true,
+            widthPercentage: 0.8,
+            heightPercentage: 0.8
+        });
+
+        // Add both to container
+        logoContainer.add([glow, logo]);
+
+        // Add subtle pulse animation to the glow
+        this.tweens.add({
+            targets: glow,
+            alpha: { from: 0.4, to: 0.6 },
+            duration: 1500,
+            yoyo: true,
+            repeat: -1,
+            ease: 'Sine.easeInOut'
+        });
+
         // Create text
         const titleText = this.add.text(0, 0, currentLanguage.TEXT.TITLE, {
             fontFamily: 'Arial',

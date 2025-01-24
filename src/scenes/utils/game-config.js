@@ -411,7 +411,7 @@ export const GAME_CONFIG = {
     },
     "END_CARD": {
       "BUTTON_SCALE_RATIO": 0.001,
-      "LOGO_SCALE_RATIO": 0.0015
+      "LOGO_SCALE_RATIO": 0.001
     }
   },
   "AUDIO": {

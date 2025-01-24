@@ -1,3 +1,5 @@
+import { .DSStore } from '../../media/.DS_Store.js';
+import { .DSStore } from '../../media/audio_.DS_Store.js';
 import { bounceSoundMP3 } from '../../media/audio_bounce_sound.mp3.js';
 import { duckClickSoundMP3 } from '../../media/audio_duck_click_sound.mp3.js';
 import { seekBgMusicMP3 } from '../../media/audio_seek_bg_music.mp3.js';
@@ -33,11 +35,8 @@ import { SportsCityMapCompressedPNG } from '../../media/images_SportsCity_Map_co
 import { SportsCityMapResizedPNG } from '../../media/images_SportsCity_Map_resized.png.js';
 import { SportsCityMapResized1PNG } from '../../media/images_SportsCity_Map_resized_1.png.js';
 import { VideoBGPNG } from '../../media/images_VideoBG.png.js';
-<<<<<<< HEAD
-=======
 import { VideoBG1PNG } from '../../media/images_VideoBG1.png.js';
 import { .DSStore } from '../../media/images_bear_highquality_.DS_Store.js';
->>>>>>> a3ad84a51120af9789e754d8502a69bc4ea02935
 import { 1PNG } from '../../media/images_bear_highquality_1.png.js';
 import { 2PNG } from '../../media/images_bear_highquality_2.png.js';
 import { 3PNG } from '../../media/images_bear_highquality_3.png.js';
@@ -66,6 +65,7 @@ import { brownBearOutlinedFine5PNG } from '../../media/images_brown_bear_outline
 import { brownBearOutlinedSmooth2PNG } from '../../media/images_brown_bear_outlined_smooth_2.png.js';
 import { brownBearOutlinedSmooth4PNG } from '../../media/images_brown_bear_outlined_smooth_4.png.js';
 import { brownBearOutlinedSmooth5PNG } from '../../media/images_brown_bear_outlined_smooth_5.png.js';
+import { .DSStore } from '../../media/images_brown_bears_.DS_Store.js';
 import { 1PNG } from '../../media/images_brown_bears_1.png.js';
 import { 3PNG } from '../../media/images_brown_bears_3.png.js';
 import { 4PNG } from '../../media/images_brown_bears_4.png.js';
@@ -84,6 +84,7 @@ import { duckColoredPNG } from '../../media/images_duck_colored.png.js';
 import { duckColored1PNG } from '../../media/images_duck_colored1.png.js';
 import { duckOutlinePNG } from '../../media/images_duck_outline.png.js';
 import { duckOutline1PNG } from '../../media/images_duck_outline1.png.js';
+import { iconCatPNG } from '../../media/images_icon_cat.png.js';
 import { map1PNG } from '../../media/images_map1.png.js';
 import { map2PNG } from '../../media/images_map2.png.js';
 import { map3PNG } from '../../media/images_map3.png.js';
@@ -128,6 +129,7 @@ import { retrySVG } from '../../media/images_retry.svg.js';
 import { rugbyOutlinePNG } from '../../media/images_rugby-outline.png.js';
 import { rugbyPNG } from '../../media/images_rugby.png.js';
 import { starPNG } from '../../media/images_star.png.js';
+import { .DSStore } from '../../media/images_tinified_.DS_Store.js';
 import { tinifiedZIP } from '../../media/images_tinified.zip.js';
 import { .DSStore } from '../../media/images_waldo_drowning_.DS_Store.js';
 import { acidBubblePNG } from '../../media/images_waldo_drowning_acid_bubble.png.js';

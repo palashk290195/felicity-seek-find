@@ -55,8 +55,8 @@ import { waldoSeatingRightHandPNG } from '../../media/images_waldo_drowning_wald
 import { waldoStandingPNG } from '../../media/images_waldo_drowning_waldo_standing.png.js';
 import { waldoStandingLeftHandPNG } from '../../media/images_waldo_drowning_waldo_standing_left_hand.png.js';
 import { waldoStandingRightHandPNG } from '../../media/images_waldo_drowning_waldo_standing_right_hand.png.js';
-//import { wallStairsPNG } from '../../media/images_waldo_drowning_wall_stairs.png.js';
-import { wallStairsWEBP } from '../../media/images_waldo_drowning_wall_stairs.webp.js';
+import { wallStairsPNG } from '../../media/images_waldo_drowning_wall_stairs.png.js';
+//import { wallStairsWEBP } from '../../media/images_waldo_drowning_wall_stairs.webp.js';
 import MapVideoWEBM from '../../public/assets/videos/MapVideo.webm';
 import { benchGlowPNG } from '../../media/images_waldo_drowning_bench_glow.png.js';
 import { waldoStandingStartCardPNG } from '../../media/images_waldo_drowning_waldo_standing_start_card.png.js';
@@ -68,6 +68,7 @@ import { playerFallMP3 } from '../../media/audio_waldo_audio_playerFall.mp3.js';
 import { playerFallBGMP3 } from '../../media/audio_waldo_audio_playerFallBG.mp3.js';
 import { userTapMP3 } from '../../media/audio_waldo_audio_userTap.mp3.js';
 import { woodBlockFlyingMP3 } from '../../media/audio_waldo_audio_woodBlockFlying.mp3.js';
+import { iconCatPNG } from '../../media/images_icon_cat.png.js';
 
 
 
@@ -170,10 +171,11 @@ export class Preloader extends Phaser.Scene
         this.load.image('acid_wave', acidWavePNG);
         this.load.image('acid_bubble', acidBubblePNG);
         this.load.image('black_tank', blackTankPNG);
-        this.load.image('wall_stairs', wallStairsWEBP);
+        this.load.image('wall_stairs', wallStairsPNG);
         this.load.image('hand', handPNG);
         this.load.image('bench_glow', benchGlowPNG);
         this.load.image('save_waldo', waldoStandingStartCardPNG);
+        this.load.image('game_logo', iconCatPNG);
         
     }
 

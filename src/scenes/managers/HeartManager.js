@@ -10,6 +10,10 @@ export class HeartManager {
 
         // Set depths to ensure heart bg is above mask
         this.heartBg.setDepth(100); // Higher depth than mask
+        this.heartMask.setDepth(99);
+
+        this.currentBgScale = this.heartBg.scale;
+        this.currentMaskScale = this.heartMask.scale;
 
         // Set initial mask properties
         this.heartMask.setOrigin(0.5, 1); // Set origin to bottom center for bottom-up reveal
@@ -63,14 +67,11 @@ export class HeartManager {
 
     pulseHeart() {
         // Get current scales
-        const currentBgScale = this.heartBg.scale;
-        console.log("HeartManager ", currentBgScale);
-        const currentMaskScale = this.heartMask.scale;
 
         // Create pulse animation for background
         this.scene.tweens.add({
             targets: this.heartBg,
-            scale: {from: currentBgScale, to: currentBgScale * 1.2},
+            scale: {from: this.currentBgScale, to: this.currentBgScale * 1.2},
             duration: 1000,
             yoyo: true,
             ease: 'Quad.easeInOut'
@@ -79,7 +80,7 @@ export class HeartManager {
         // Create pulse animation for mask
         this.scene.tweens.add({
             targets: this.heartMask,
-            scale: {from: currentMaskScale, to: currentMaskScale * 1.2},
+            scale: {from: this.currentMaskScale, to: this.currentMaskScale * 1.2},
             duration: 1000,
             yoyo: true,
             ease: 'Quad.easeInOut',

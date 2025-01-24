@@ -21,7 +21,7 @@ export class StartCardLayoutManager {
         console.log('[StartCardLayoutManager] Creating containers');
         
         // Create containers for text and character
-        const elements = ['text', 'character'];
+        const elements = ['text', 'character', 'logo'];
         elements.forEach(element => {
             this.containers[element] = this.scene.add.container(0, 0);
             console.log(`[StartCardLayoutManager] Created ${element} container`);
@@ -64,6 +64,19 @@ export class StartCardLayoutManager {
     applyPortraitLayout(width, height) {
         const { TEXT, CHARACTER } = GAME_CONFIG.SCENES.START_CARD;
         
+        // Logo container
+        const logoContainer = this.containers.logo;
+        if (logoContainer) {
+            logoContainer.setPosition(
+                width * 0.5,
+                height * 0.1
+            );
+            logoContainer.setSize(
+                width * 0.5,
+                height * 0.15
+            );
+        }
+
         // Text container
         const textContainer = this.containers.text;
         if (textContainer) {
@@ -96,12 +109,25 @@ export class StartCardLayoutManager {
     applyLandscapeLayout(width, height) {
         const { TEXT, CHARACTER } = GAME_CONFIG.SCENES.START_CARD;
         
+        // Logo container
+        const logoContainer = this.containers.logo;
+        if (logoContainer) {
+            logoContainer.setPosition(
+                width * 0.5,
+                height * 0.1
+            );
+            logoContainer.setSize(
+                width * 0.5,
+                height * 0.2
+            );
+        }
+
         // Text container
         const textContainer = this.containers.text;
         if (textContainer) {
             textContainer.setPosition(
                 width * 0.5,
-                height * TEXT.LANDSCAPE.Y
+                height * (TEXT.LANDSCAPE.Y + 0.15)
             );
             textContainer.setSize(
                 width * TEXT.LANDSCAPE.WIDTH,
@@ -114,7 +140,7 @@ export class StartCardLayoutManager {
         if (characterContainer) {
             characterContainer.setPosition(
                 width * CHARACTER.LANDSCAPE.X,
-                height * CHARACTER.LANDSCAPE.Y
+                height * (CHARACTER.LANDSCAPE.Y + 0.15)
             );
             characterContainer.setSize(
                 width * CHARACTER.LANDSCAPE.WIDTH,
@@ -130,7 +156,8 @@ export class StartCardLayoutManager {
         
         const colors = {
             text: 0xff9999,     // Light red
-            character: 0x99ff99  // Light green
+            character: 0x99ff99,  // Light green
+            logo: 0x9999ff      // Light blue
         };
 
         Object.entries(this.containers).forEach(([key, container]) => {
