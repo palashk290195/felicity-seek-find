@@ -79,45 +79,6 @@ export class WaldoManager {
         });
     }
 
-    setEye(eyeKey) {
-        if (!this.idleParts?.eyes?.length) return;
-        
-        const eye4Asset = this.layoutManager.getAsset('eye4');
-        
-        // If eyeKey is a number, treat it as an index
-        if (typeof eyeKey === 'number') {
-            // Hide eye4 when using numbered eyes
-            if (eye4Asset) {
-                eye4Asset.setVisible(false);
-            }
-            this.showOnlyFrame(this.idleParts.eyes, eyeKey);
-            return;
-        }
-
-        // Otherwise, find the eye by key and show only that one
-        if (eyeKey === 'eye4' && eye4Asset) {
-            // Hide all regular eyes
-            this.idleParts.eyes.forEach(eye => {
-                if (eye) {
-                    eye.setVisible(false);
-                }
-            });
-            // Show eye4
-            eye4Asset.setVisible(true);
-        } else {
-            // Hide eye4
-            if (eye4Asset) {
-                eye4Asset.setVisible(false);
-            }
-            // Show the specified regular eye
-            this.idleParts.eyes.forEach(eye => {
-                if (eye) {
-                    eye.setVisible(eye.texture.key === eyeKey);
-                }
-            });
-        }
-    }
-
     startIdleAnimations() {
         // Only start animations if we have the required assets
         if (this.idleParts?.hand) {
@@ -212,24 +173,13 @@ export class WaldoManager {
         const blink = async () => {
             if (!this.idleParts?.eyes?.length) return;
 
-            // Don't blink if eye4 is active (during speaking)
-            if (this.idleParts.eyes.some(eye => eye.texture.key === 'eye4' && eye.visible)) {
-                // Schedule next check
-                const interval = Phaser.Math.Between(
-                    config.INTERVAL.MIN,
-                    config.INTERVAL.MAX
-                );
-                this.scene.time.delayedCall(interval, blink);
-                return;
-            }
-
             for (let i = 0; i < this.idleParts.eyes.length; i++) {
-                this.setEye(i);
+                this.showOnlyFrame(this.idleParts.eyes, i);
                 await this.delay(config.FRAME_DURATION);
             }
 
             // Return to first frame
-            this.setEye(0);
+            this.showOnlyFrame(this.idleParts.eyes, 0);
 
             // Schedule next blink
             const interval = Phaser.Math.Between(
@@ -252,20 +202,13 @@ export class WaldoManager {
 
             AudioUtils.playSound(this.scene, config.SOUND);
 
-            // Set eye4 before starting mouth animation
-            this.setEye(config.EYE.FRAME);
-
             for (let i = 0; i < this.idleParts.mouths.length; i++) {
                 this.showOnlyFrame(this.idleParts.mouths, i);
                 await this.delay(config.FRAME_DURATION);
             }
 
-            // Return to first frame for mouth
+            // Return to first frame
             this.showOnlyFrame(this.idleParts.mouths, 0);
-
-            // Wait for eye duration then return to normal eye
-            await this.delay(config.EYE.DURATION);
-            this.setEye(0);
 
             // Schedule next speak
             const interval = Phaser.Math.Between(
@@ -322,14 +265,24 @@ export class WaldoManager {
         const startX = container.x;
         const startY = container.y;
 
-        // Calculate movement per second
+        // Calculate movement per second and max displacement
         const rightMovement = gameWidth * config.MOVEMENT.RIGHT_SPEED;
         const upMovement = gameHeight * config.MOVEMENT.UP_SPEED;
+        const maxXDisplacement = gameWidth * config.MOVEMENT.MAX_X_DISPLACEMENT;
+        const maxYDisplacement = gameHeight * config.MOVEMENT.MAX_Y_DISPLACEMENT;
 
         // Create continuous movement function
         const move = () => {
-            container.x += rightMovement/100; //per 100 ms
-            container.y -= upMovement/100; //per 100 ms
+            const proposedX = container.x + rightMovement/100; // per 100 ms
+            const proposedY = container.y - upMovement/100; // per 100 ms
+
+            // Check if proposed position is within bounds
+            if (Math.abs(proposedX - startX) <= maxXDisplacement) {
+                container.x = proposedX;
+            }
+            if (Math.abs(proposedY - startY) <= maxYDisplacement) {
+                container.y = proposedY;
+            }
 
             // Schedule next movement
             this.scene.time.delayedCall(10, move);
@@ -399,5 +352,44 @@ export class WaldoManager {
 
     destroy() {
         this.scene.tweens.killAll();
+    }
+
+    setEye(eyeKey) {
+        if (!this.idleParts?.eyes?.length) return;
+        
+        const eye4Asset = this.layoutManager.getAsset('eye4');
+        
+        // If eyeKey is a number, treat it as an index
+        if (typeof eyeKey === 'number') {
+            // Hide eye4 when using numbered eyes
+            if (eye4Asset) {
+                eye4Asset.setVisible(false);
+            }
+            this.showOnlyFrame(this.idleParts.eyes, eyeKey);
+            return;
+        }
+
+        // Otherwise, find the eye by key and show only that one
+        if (eyeKey === 'eye4' && eye4Asset) {
+            // Hide all regular eyes
+            this.idleParts.eyes.forEach(eye => {
+                if (eye) {
+                    eye.setVisible(false);
+                }
+            });
+            // Show eye4
+            eye4Asset.setVisible(true);
+        } else {
+            // Hide eye4
+            if (eye4Asset) {
+                eye4Asset.setVisible(false);
+            }
+            // Show the specified regular eye
+            this.idleParts.eyes.forEach(eye => {
+                if (eye) {
+                    eye.setVisible(eye.texture.key === eyeKey);
+                }
+            });
+        }
     }
 } 

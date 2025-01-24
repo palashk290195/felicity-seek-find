@@ -127,6 +127,7 @@ import { tinifiedZIP } from '../../media/images_tinified.zip.js';
 import { acidRiverPNG } from '../../media/images_waldo_drowning_acid_river.png.js';
 import { acidStreamPNG } from '../../media/images_waldo_drowning_acid_stream.png.js';
 import { acidWavePNG } from '../../media/images_waldo_drowning_acid_wave.png.js';
+import { benchGlowPNG } from '../../media/images_waldo_drowning_bench_glow.png.js';
 import { blackTankPNG } from '../../media/images_waldo_drowning_black_tank.png.js';
 import { eye1PNG } from '../../media/images_waldo_drowning_eye1.png.js';
 import { eye2PNG } from '../../media/images_waldo_drowning_eye2.png.js';
@@ -149,6 +150,7 @@ import { waldoSeatingRightHandPNG } from '../../media/images_waldo_drowning_wald
 import { waldoStandingPNG } from '../../media/images_waldo_drowning_waldo_standing.png.js';
 import { waldoStandingLeftHandPNG } from '../../media/images_waldo_drowning_waldo_standing_left_hand.png.js';
 import { waldoStandingRightHandPNG } from '../../media/images_waldo_drowning_waldo_standing_right_hand.png.js';
+import { waldoStandingStartCardPNG } from '../../media/images_waldo_drowning_waldo_standing_start_card.png.js';
 import { wallStairsPNG } from '../../media/images_waldo_drowning_wall_stairs.png.js';
 import { pixelJSON } from '../../media/spine_pixel.json.js';
 import { pixelPNG } from '../../media/spine_pixel.png.js';

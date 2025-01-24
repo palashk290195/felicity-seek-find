@@ -98,9 +98,8 @@ export class Game extends Phaser.Scene {
     }
 
     handleResize() {
+        // First update the layout
         this.layoutManager.updateLayout();
-        // Emit event for managers to handle layout changes
-        this.events.emit('layout-updated');
     }
 
     handleWin() {
@@ -109,7 +108,9 @@ export class Game extends Phaser.Scene {
     }
 
     handleLose() {
-        // TODO: Implement lose state handling
+        setTimeout(() => {
+            this.scene.start('EndCard');
+        }, 2000);
         console.log('Game Lost!');
     }
 
