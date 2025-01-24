@@ -8,45 +8,24 @@ export class BenchInteractionManager {
         this.clickedCount = 0;
         this.requiredClicks = 5;
         
-        // Store original container references
-        this.benchContainers = benches.map(bench => bench.parentContainer);
+        // Get glow references
+        this.benchGlows = benches.map((bench, index) => {
+            const glowNumber = index + 1;
+            return this.scene.layoutManager.getAsset(`bench_glow${glowNumber}`);
+        });
         
         this.setupBenches();
-        
-        // Listen for layout updates
-        this.scene.events.on('layout-updated', this.handleLayoutUpdate, this);
     }
 
     setupBenches() {
         this.benches.forEach((bench, index) => {
             if (!bench || !bench.active) return; // Skip if bench is destroyed or inactive
             
-            // Get the current world position before reparenting
-            const worldMatrix = bench.getWorldTransformMatrix();
-            const worldX = worldMatrix.tx;
-            const worldY = worldMatrix.ty;
-            const worldScaleX = bench.scaleX;
-            const worldScaleY = bench.scaleY;
-
-            // Remove from current container and add directly to scene
-            bench.removeFromDisplayList();
-            this.scene.add.existing(bench);
-
-            // Restore world position and scale
-            bench.setPosition(worldX, worldY);
-            bench.setScale(worldScaleX, worldScaleY);
-            
             // Set up interaction
             bench.setInteractive();
-            bench.setDepth(1000); // Set high depth to ensure benches are above other elements
-            bench.on('pointerdown', () => this.handleBenchClick(bench));
+            bench.on('pointerdown', () => this.handleBenchClick(bench, this.benchGlows[index]));
             bench.active = true; // Set initial active state
         });
-    }
-
-    handleLayoutUpdate = () => {
-        // Reapply our changes after layout update
-        this.setupBenches();
     }
 
     getHeartWorldPosition() {
@@ -60,15 +39,29 @@ export class BenchInteractionManager {
         return { x: worldX, y: worldY };
     }
 
-    handleBenchClick(bench) {
+    handleBenchClick(bench, glow) {
         // Prevent multiple clicks on same bench
         if (!bench.active) return;
         bench.active = false;
         bench.removeInteractive();
 
         // Play tap sound using AudioUtils
-        AudioUtils.playSound(this.scene, 'user_tap_audio');
-        AudioUtils.playSound(this.scene, 'wood_block_flying_audio');
+        AudioUtils.playSound(this.scene, 'user_tap_audio', { volume: 1 });
+        AudioUtils.playSound(this.scene, 'wood_block_flying_audio', { volume: 1 });
+
+        // Get current world position before removing from container
+        const benchWorldMatrix = bench.getWorldTransformMatrix();
+        const benchWorldX = benchWorldMatrix.tx;
+        const benchWorldY = benchWorldMatrix.ty;
+        const benchWorldScaleX = bench.scaleX;
+        const benchWorldScaleY = bench.scaleY;
+
+        // Remove from container and add to scene
+        bench.removeFromDisplayList();
+        this.scene.add.existing(bench);
+        bench.setPosition(benchWorldX, benchWorldY);
+        bench.setScale(benchWorldScaleX, benchWorldScaleY);
+        bench.setDepth(1000);
 
         // Increment click counter
         this.clickedCount++;
@@ -96,10 +89,14 @@ export class BenchInteractionManager {
                 // Pulse heart
                 this.scene.heartManager.pulseHeart();
                 
-                // Remove from benches array
+                // Remove from benches array and destroy glow
                 const index = this.benches.indexOf(bench);
                 if (index > -1) {
                     this.benches[index] = null;
+                    if (glow) {
+                        glow.destroy();
+                        this.benchGlows[index] = null;
+                    }
                 }
                 
                 // Destroy bench
@@ -120,7 +117,7 @@ export class BenchInteractionManager {
 
     reset() {
         this.clickedCount = 0;
-        this.benches.forEach(bench => {
+        this.benches.forEach((bench, index) => {
             if (bench) {
                 bench.active = true;
                 bench.setInteractive();
@@ -129,6 +126,11 @@ export class BenchInteractionManager {
     }
 
     destroy() {
-        this.scene.events.off('layout-updated', this.handleLayoutUpdate, this);
+        // Clean up all benches and glows
+        this.benches.forEach((bench, index) => {
+            if (bench) bench.destroy();
+            const glow = this.benchGlows[index];
+            if (glow) glow.destroy();
+        });
     }
 } 

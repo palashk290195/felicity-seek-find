@@ -32,7 +32,7 @@ export const GAME_CONFIG = {
       "pixel_blue",
       "pixel_red"
     ],
-    "CHARACTER": "duck_colored",
+    "CHARACTER": "save_waldo",
     "CHARACTER_OUTLINE": "duck_outline",
     "DUCK_CLICK_SOUND": "duck_click_sound",
     "BG_MUSIC": "seek_bg_music"
@@ -45,8 +45,7 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_english_voiceover"
       },
       "TEXT": {
-        "TITLE": "The Hunt is On! Search for the Legendary Ball!",
-        "HEADER": "\"I've tried 353 times but still can't find all 100 Rugby Balls\""
+        "TITLE": "Save Waldo from drowning",
       }
     },
     "ru": {
@@ -56,8 +55,7 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_russian_voiceover"
       },
       "TEXT": {
-        "TITLE": "Охота началась! Ищи легендарный мяч!",
-        "HEADER": "\"Я пытался 353 раза, но всё ещё не могу найти все 100 регбийных мячей\""
+        "TITLE": "Спасите Вальдо от утопления",
       }
     },
     "ja": {
@@ -67,8 +65,7 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_japanese_voiceover"
       },
       "TEXT": {
-        "TITLE": "狩りが始まった！伝説のボールを探せ！",
-        "HEADER": "「353回挑戦したけど、まだ100個のラグビーボールを全部見つけられない」"
+        "TITLE": "ウォーリーを溺れから救え",
       }
     },
     "de": {
@@ -78,8 +75,7 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_german_voiceover"
       },
       "TEXT": {
-        "TITLE": "Die Jagd beginnt! Suche den legendären Ball!",
-        "HEADER": "\"Ich habe es 353 Mal versucht, aber ich kann immer noch nicht alle 100 Rugbybälle finden.\""
+        "TITLE": "Rette Waldo vor dem Ertrinken",
       }
     }
   },
@@ -96,13 +92,13 @@ export const GAME_CONFIG = {
       "EXIT_DURATION": 2000,
       "CHARACTER": {
         "PORTRAIT": {
-          "WIDTH": 0.9,
-          "HEIGHT": 0.7,
+          "WIDTH": 0.4,
+          "HEIGHT": 0.4,
           "X": 0.5,
           "Y": 0.6
         },
         "LANDSCAPE": {
-          "WIDTH": 0.6,
+          "WIDTH": 0.3,
           "HEIGHT": 0.5,
           "X": 0.5,
           "Y": 0.5
@@ -461,7 +457,9 @@ export const GAME_CONFIG = {
         },
         "MOVEMENT": {
           "RIGHT_SPEED": 0.01, // * gamewidth per second
-          "UP_SPEED": 0.005 // * gameheight per second
+          "UP_SPEED": 0.005, // * gameheight per second
+          "MAX_X_DISPLACEMENT": 0.3, // 50% of game width
+          "MAX_Y_DISPLACEMENT": 0.15  // 20% of game height
         }
       }
     },

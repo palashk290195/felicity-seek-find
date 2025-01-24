@@ -265,14 +265,24 @@ export class WaldoManager {
         const startX = container.x;
         const startY = container.y;
 
-        // Calculate movement per second
+        // Calculate movement per second and max displacement
         const rightMovement = gameWidth * config.MOVEMENT.RIGHT_SPEED;
         const upMovement = gameHeight * config.MOVEMENT.UP_SPEED;
+        const maxXDisplacement = gameWidth * config.MOVEMENT.MAX_X_DISPLACEMENT;
+        const maxYDisplacement = gameHeight * config.MOVEMENT.MAX_Y_DISPLACEMENT;
 
         // Create continuous movement function
         const move = () => {
-            container.x += rightMovement/100; //per 100 ms
-            container.y -= upMovement/100; //per 100 ms
+            const proposedX = container.x + rightMovement/100; // per 100 ms
+            const proposedY = container.y - upMovement/100; // per 100 ms
+
+            // Check if proposed position is within bounds
+            if (Math.abs(proposedX - startX) <= maxXDisplacement) {
+                container.x = proposedX;
+            }
+            if (Math.abs(proposedY - startY) <= maxYDisplacement) {
+                container.y = proposedY;
+            }
 
             // Schedule next movement
             this.scene.time.delayedCall(10, move);
@@ -342,5 +352,44 @@ export class WaldoManager {
 
     destroy() {
         this.scene.tweens.killAll();
+    }
+
+    setEye(eyeKey) {
+        if (!this.idleParts?.eyes?.length) return;
+        
+        const eye4Asset = this.layoutManager.getAsset('eye4');
+        
+        // If eyeKey is a number, treat it as an index
+        if (typeof eyeKey === 'number') {
+            // Hide eye4 when using numbered eyes
+            if (eye4Asset) {
+                eye4Asset.setVisible(false);
+            }
+            this.showOnlyFrame(this.idleParts.eyes, eyeKey);
+            return;
+        }
+
+        // Otherwise, find the eye by key and show only that one
+        if (eyeKey === 'eye4' && eye4Asset) {
+            // Hide all regular eyes
+            this.idleParts.eyes.forEach(eye => {
+                if (eye) {
+                    eye.setVisible(false);
+                }
+            });
+            // Show eye4
+            eye4Asset.setVisible(true);
+        } else {
+            // Hide eye4
+            if (eye4Asset) {
+                eye4Asset.setVisible(false);
+            }
+            // Show the specified regular eye
+            this.idleParts.eyes.forEach(eye => {
+                if (eye) {
+                    eye.setVisible(eye.texture.key === eyeKey);
+                }
+            });
+        }
     }
 } 

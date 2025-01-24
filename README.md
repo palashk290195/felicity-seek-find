@@ -263,12 +263,17 @@ To do
 3  Hand movement anti clockwise: Done
 4. Lose state handling: Done
 5. waldo container rotation and upward sidewards movement: done
-6. Fix how assets are looking
-6. Compression and asset resizing (especially video)
+6. Fix how assets are looking: Done
+6. Compression and asset resizing (especially video): done
 7. Ad networks testing (Applovin)
-8. Tween benches / add bench glow (check opacity)
+8. Tween benches / add bench glow (check opacity): Done
 9. Add delay before moving to mid card
 10. After 5 minutes if no interaction, move to end card
-11. Start Card
+11. Start Card: to do
 12. video should start from bottom to mid
-13. remove unused assets
+13. remove unused assets: to do
+14. waldo upward and sidewards movement limits: to do
+15. Hand pointer and benches getting removed on resize: done
+16. Change eyes
+17. Add acid bubble: done
+18. Hand improvement: done

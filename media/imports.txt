@@ -124,6 +124,7 @@ import { acidRiverPNG } from '../../media/images_waldo_drowning_acid_river.png.j
 import { acidRiverNewPNG } from '../../media/images_waldo_drowning_acid_river_new.png.js';
 import { acidStreamPNG } from '../../media/images_waldo_drowning_acid_stream.png.js';
 import { acidWavePNG } from '../../media/images_waldo_drowning_acid_wave.png.js';
+import { benchGlowPNG } from '../../media/images_waldo_drowning_bench_glow.png.js';
 import { blackTankPNG } from '../../media/images_waldo_drowning_black_tank.png.js';
 import { eye1 copyPNG } from '../../media/images_waldo_drowning_eye1 copy.png.js';
 import { eye1PNG } from '../../media/images_waldo_drowning_eye1.png.js';
@@ -131,6 +132,7 @@ import { eye2 copyPNG } from '../../media/images_waldo_drowning_eye2 copy.png.js
 import { eye2PNG } from '../../media/images_waldo_drowning_eye2.png.js';
 import { eye3 copyPNG } from '../../media/images_waldo_drowning_eye3 copy.png.js';
 import { eye3PNG } from '../../media/images_waldo_drowning_eye3.png.js';
+import { eye4PNG } from '../../media/images_waldo_drowning_eye4.png.js';
 import { handPNG } from '../../media/images_waldo_drowning_hand.png.js';
 import { heartBgPNG } from '../../media/images_waldo_drowning_heart_bg.png.js';
 import { heartMaskPNG } from '../../media/images_waldo_drowning_heart_mask.png.js';
@@ -154,6 +156,7 @@ import { waldoStanding copyPNG } from '../../media/images_waldo_drowning_waldo_s
 import { waldoStandingPNG } from '../../media/images_waldo_drowning_waldo_standing.png.js';
 import { waldoStandingLeftHandPNG } from '../../media/images_waldo_drowning_waldo_standing_left_hand.png.js';
 import { waldoStandingRightHandPNG } from '../../media/images_waldo_drowning_waldo_standing_right_hand.png.js';
+import { waldoStandingStartCardPNG } from '../../media/images_waldo_drowning_waldo_standing_start_card.png.js';
 import { wallStairsPNG } from '../../media/images_waldo_drowning_wall_stairs.png.js';
 import { pixelJSON } from '../../media/spine_pixel.json.js';
 import { pixelPNG } from '../../media/spine_pixel.png.js';
