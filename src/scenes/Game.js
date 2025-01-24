@@ -148,9 +148,9 @@ export class Game extends Phaser.Scene {
         const position = this.layoutManager.getAbsolutePosition(baseAcid);
         const streams = {
             whiteMask1: this.layoutManager.getAsset("stream_mask_white"),
-            whiteMask2: this.layoutManager.getAsset("stream_mask_white_2"),
+            whiteMask2: this.layoutManager.getAsset("stream_mask_white2"),
             blackMask1: this.layoutManager.getAsset("stream_mask_black"),
-            blackMask2: this.layoutManager.getAsset("stream_mask_black_2")
+            blackMask2: this.layoutManager.getAsset("stream_mask_black2")
         };
 
         // Create mask matching baseAcid
@@ -183,7 +183,7 @@ export class Game extends Phaser.Scene {
             stream.setDisplaySize(width, height);
             stream.setRotation(position.rotation);
             stream.setScale(position.scale.x, position.scale.y);
-            stream.setBlendMode(Phaser.BlendModes.ADD);
+            // stream.setBlendMode(Phaser.BlendModes.SCREEN);
             stream.setMask(mask);
         });
         
@@ -228,7 +228,7 @@ export class Game extends Phaser.Scene {
 
     setupRiver() {
         const acidRiver1 = this.layoutManager.getAsset("acid_river")
-        const acidRiver2 = this.layoutManager.getAsset("acid_river_2")
+        const acidRiver2 = this.layoutManager.getAsset("acid_river2")
         acidRiver1.setDepth(100)
         acidRiver2.setDepth(100)
         acidRiver2.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
@@ -238,11 +238,13 @@ export class Game extends Phaser.Scene {
         acidRiver1.y = initialY;
         acidRiver2.y = initialY;
         
+        acidRiver2.x = acidRiver2.x+10;
+        
         const RIVER_FLOW_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_HORIZONTAL;
         const VERTICAL_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_VERTICAL;
         const startX1 = acidRiver1.x;
-        const startX2 = startX1 - acidRiver1.displayWidth + 27;
-        const endX = startX1 + acidRiver1.displayWidth - 27;
+        const startX2 = startX1 - acidRiver1.displayWidth + 28;
+        const endX = startX1 + acidRiver1.displayWidth - 28;
         
         const verticalDistance = GAME_CONFIG.SCENES.GAME.RIVER.DISTANCE_VERTICAL; // Keep movement distance constant
         const createRiverVerticalTween = (river) => {
@@ -252,10 +254,10 @@ export class Game extends Phaser.Scene {
                 duration: (verticalDistance / VERTICAL_SPEED) * 1000, // Convert to milliseconds
                 ease: 'Linear',
                 // repeat: -1,
-                onComplete: () => {
-                    // river.x = startX2;
-                    createRiverVerticalTween(river);
-                }
+                // onComplete: () => {
+                //     // river.x = startX2;
+                //     createRiverVerticalTween(river);
+                // }
             });
         };
         const createRiverTween = (river, startX, endX, flowSpeed) => {
@@ -279,7 +281,7 @@ export class Game extends Phaser.Scene {
 
     setupWave() {
         const acidRiver1 = this.layoutManager.getAsset("acid_wave")
-        const acidRiver2 = this.layoutManager.getAsset("acid_wave_2")
+        const acidRiver2 = this.layoutManager.getAsset("acid_wave2")
         acidRiver1.setDepth(100)
         acidRiver2.setDepth(100)
         acidRiver2.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
@@ -292,8 +294,8 @@ export class Game extends Phaser.Scene {
         const RIVER_FLOW_SPEED = GAME_CONFIG.SCENES.GAME.WAVE.SPEED_HORIZONTAL;
         const VERTICAL_SPEED = GAME_CONFIG.SCENES.GAME.WAVE.SPEED_VERTICAL;
         const startX1 = acidRiver1.x;
-        const startX2 = startX1 - acidRiver1.displayWidth + 27;
-        const endX = startX1 + acidRiver1.displayWidth - 27;
+        const startX2 = startX1 - acidRiver1.displayWidth + 28;
+        const endX = startX1 + acidRiver1.displayWidth - 28;
         
         const verticalDistance = GAME_CONFIG.SCENES.GAME.WAVE.DISTANCE_VERTICAL; // Keep movement distance constant
         const createRiverVerticalTween = (river) => {
@@ -303,10 +305,10 @@ export class Game extends Phaser.Scene {
                 duration: (verticalDistance / VERTICAL_SPEED) * 1000, // Convert to milliseconds
                 ease: 'Linear',
                 // repeat: -1,
-                onComplete: () => {
-                    // river.x = startX2;
-                    createRiverVerticalTween(river);
-                }
+                // onComplete: () => {
+                //     // river.x = startX2;
+                //     createRiverVerticalTween(river);
+                // }
             });
         };
 

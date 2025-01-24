@@ -394,7 +394,7 @@ export const GAME_CONFIG = {
       "WAVE" : {
           "SPEED_HORIZONTAL":30,
           "SPEED_VERTICAL":20,
-          "DISTANCE_VERTICAL":50,
+          "DISTANCE_VERTICAL":30,
 
       }
     },
