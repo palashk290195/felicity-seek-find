@@ -384,7 +384,7 @@ export const GAME_CONFIG = {
         "BOUNCE_SOUND": "bounce_sound"
       },
       "SPEED_STREAM_BLACK": 100,
-      "SPEED_STREAM_WHITE": 120,
+      "SPEED_STREAM_WHITE": 150,
       
       "RIVER" : {
         "SPEED_HORIZONTAL":50,

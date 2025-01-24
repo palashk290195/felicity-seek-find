@@ -780,7 +780,7 @@ export const GAME_LAYOUT = {
           }
         },
         "09815790-f4d2-4823-b332-7836dd652b5e": {
-          "id": "09815790-f4d2-4823-b332-7836dd653b5e",
+          "id": "09815790-f4d2-4823-b332-7836dd652b5e",
           "name": "acid_river3",
           "type": "image",
           "key": "acid_river",

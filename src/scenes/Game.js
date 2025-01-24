@@ -148,69 +148,52 @@ export class Game extends Phaser.Scene {
         const position = this.layoutManager.getAbsolutePosition(baseAcid);
         const streams = {
             whiteMask1: this.layoutManager.getAsset("stream_mask_white"),
-            whiteMask2: this.layoutManager.getAsset("stream_mask_white2"),
+            whiteMask2: this.layoutManager.getAsset("stream_mask_white2"), 
             blackMask1: this.layoutManager.getAsset("stream_mask_black"),
             blackMask2: this.layoutManager.getAsset("stream_mask_black2")
         };
-
-        // Create mask matching baseAcid
+    
+        // Create mask
         const maskGraphics = this.make.graphics();
-        const width = baseAcid.displayWidth*.99;
+        const width = baseAcid.displayWidth * 0.99;
         const height = baseAcid.displayHeight;
-        const startX = position.x; // Adjust for origin
-        const startY = position.y;
-        // console.log(startX,startY)
-        // console.log("width,height",width,height)
+        
         maskGraphics.beginPath();
         maskGraphics.fillStyle(0xffffff, 1);
-        // maskGraphics.fillRect(startX, startY + height/4, width, height*3/4);
-        maskGraphics.fillRect(position.x, position.y+ width/2, width, height);
+        maskGraphics.fillRect(position.x, position.y + width/2, width, height);
         maskGraphics.arc(position.x + width/2, position.y + width/2, width/2, Math.PI, 0, false);
-
-
-        // maskGraphics.setPosition(position.x, position.y);
         maskGraphics.setRotation(position.rotation);
-        // maskGraphics.fillRect(position.x, position.y, width, height);
-                // maskGraphics.fillStyle(0xffffff, 1); // White color for visibility
-        maskGraphics.fillPath(); // Fill the path
-        maskGraphics.lineStyle(2, 0xff0000); // Red line for visibility
-        maskGraphics.strokePath(); // Stroke the path
-        // this.add.existing(maskGraphics);
+        maskGraphics.fillPath();
+        
         const mask = new Phaser.Display.Masks.BitmapMask(this, maskGraphics);
-
-        // Position streams with transforms
+    
+        // Position streams
         Object.values(streams).forEach(stream => {
-            // stream.setDisplaySize(width, height);
             stream.setRotation(position.rotation);
             stream.setScale(position.scale.x, position.scale.y);
-            // stream.setBlendMode(Phaser.BlendModes.SCREEN);
             stream.setMask(mask);
         });
         
-        // Animation setup (keeping existing speeds)
         const FLOW_SPEED_BLACK = GAME_CONFIG.SCENES.GAME.SPEED_STREAM_BLACK;
         const FLOW_SPEED_WHITE = GAME_CONFIG.SCENES.GAME.SPEED_STREAM_WHITE;
+        
+        // Adjust initial positions for continuous flow
         const startY1 = baseAcid.y;
         streams.blackMask1.y = startY1;
         streams.whiteMask1.y = startY1;
-        console.log("streams.blackMask1.y",streams.blackMask1.y);
-        console.log("streams.whiteMask1.y",streams.whiteMask1.y);
-        console.log("streams.blackMask1.displayHeight",streams.blackMask1.displayHeight);
-        console.log("streams.whiteMask1.displayHeight",streams.whiteMask1.displayHeight);
-        const startY2 = streams.blackMask1.y - streams.blackMask1.displayHeight;
-        const startY3 = streams.whiteMask1.y - streams.whiteMask1.displayHeight;
-        const endY2 = streams.blackMask1.y + streams.blackMask1.displayHeight;
-        const endY3 = streams.whiteMask1.y + streams.whiteMask1.displayHeight;
-        // Set initial positions
-        streams.blackMask2.y = startY2;
-        streams.whiteMask2.y = startY3;
-        console.log("streams.whiteMask2.y",streams.whiteMask2.y);
-        console.log("streams.blackMask2.y",streams.blackMask2.y);
+        
+        // Ensure masks overlap at transition points
+        streams.blackMask2.y = startY1 - streams.blackMask1.displayHeight;
+        streams.whiteMask2.y = startY1 - streams.whiteMask1.displayHeight;
+        
+        const endY = streams.blackMask1.y + streams.blackMask1.displayHeight;
     
+        // Set depths
         [baseAcid, ...Object.values(streams)].forEach((obj, i) => {
             obj.setDepth(i);
         });
     
+        // Create continuous tween
         const createTween = (mask, initialY, endY, FLOW_SPEED) => {
             return this.tweens.add({
                 targets: mask,
@@ -218,18 +201,22 @@ export class Game extends Phaser.Scene {
                 duration: (endY - initialY) / FLOW_SPEED * 1000,
                 ease: 'Linear',
                 onComplete: () => {
-                    mask.y = startY2+1;
-                    createTween(mask, startY2, endY, FLOW_SPEED);
+                    // Reset without gap
+                    mask.y = startY1 - mask.displayHeight*0.995;
+                    createTween(mask, mask.y, endY, FLOW_SPEED);
                 }
             });
         };
     
+        // Start animations
         [streams.blackMask1, streams.blackMask2].forEach(stream => {
-            createTween(stream, stream.y, endY2, FLOW_SPEED_BLACK);
+            stream.setBlendMode(Phaser.BlendModes.SCREEN);
+            createTween(stream, stream.y, endY, FLOW_SPEED_BLACK);
         });
         
         [streams.whiteMask1, streams.whiteMask2].forEach(stream => {
-            createTween(stream, stream.y, endY3, FLOW_SPEED_WHITE);
+            stream.setBlendMode(Phaser.BlendModes.COLOR_DODGE);
+            createTween(stream, stream.y, endY, FLOW_SPEED_WHITE);
         });
     }
 
@@ -237,9 +224,7 @@ export class Game extends Phaser.Scene {
         const acidRiver1 = this.layoutManager.getAsset("acid_river")
         const acidRiver2 = this.layoutManager.getAsset("acid_river2")
         const acidRiver3 = this.layoutManager.getAsset("acid_river3")
-
-        acidRiver2.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
-        acidRiver3.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
+        
         // Initial Y position
         const initialY = acidRiver1.y;
         acidRiver1.y = initialY;
@@ -248,14 +233,14 @@ export class Game extends Phaser.Scene {
         
         // acidRiver2.x = acidRiver2.x;
         
-        const RIVER_FLOW_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_HORIZONTAL;
+        const RIVER_FLOW_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_HORIZONTAL*5;
         const VERTICAL_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_VERTICAL;
         const startX1 = acidRiver1.x;
         // const startX2 = startX1 - acidRiver1.displayWidth;
         // const startX3 = startX2 - acidRiver2.displayWidth;
         const startX2 = acidRiver2.x
         const startX3 = acidRiver3.x
-        const endX = startX1 + acidRiver1.displayWidth;
+        const endX = startX1 + acidRiver1.displayWidth*0.995;
         
         const verticalDistance = GAME_CONFIG.SCENES.GAME.RIVER.DISTANCE_VERTICAL; // Keep movement distance constant
         
@@ -288,7 +273,7 @@ export class Game extends Phaser.Scene {
                 duration: (endX-startX) / flowSpeed * 1000,
                 ease: 'Linear',
                 onComplete: () => {
-                    river.x = startX3+10;
+                    river.x = startX3;
                     createRiverTween(river, startX3, endX, flowSpeed);
                 }
             });
