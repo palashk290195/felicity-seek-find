@@ -867,8 +867,7 @@ export const GAME_LAYOUT = {
             "rotation": 0,
             "isVisible": true
           }
-        }
-      },
+        },
         "f9068ef7-4611-4289-a42f-cd011ce39606": {
           "id": "f9068ef7-4611-4289-a42f-cd011ce39606",
           "name": "black_tank",
@@ -912,7 +911,8 @@ export const GAME_LAYOUT = {
             "rotation": 0,
             "isVisible": true
           }
-        },
+        }
+      },
       "children": {
         "waldo_container": {
           "portrait": {
