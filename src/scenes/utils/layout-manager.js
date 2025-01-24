@@ -389,6 +389,69 @@ export class LayoutManager {
         return assetData?.gameObject;
     }
 
+    getAbsolutePosition(gameObject) {
+        if (!gameObject) return { x: 0, y: 0 };
+    
+        // Start with object's position adjusted for origin
+        let x = gameObject.x - (gameObject.originX * gameObject.displayWidth);
+        let y = gameObject.y - (gameObject.originY * gameObject.displayHeight);
+        let currentContainer = gameObject.parentContainer;
+        let currentScale = { x: gameObject.scaleX, y: gameObject.scaleY };
+        let currentRotation = gameObject.rotation;
+    
+        while (currentContainer) {
+            // Apply container transformations
+            const containerScale = { 
+                x: currentContainer.scaleX, 
+                y: currentContainer.scaleY 
+            };
+            
+            // Transform position through container hierarchy
+            const transformedPoint = this.transformPoint(
+                x, y, 
+                currentContainer.x, 
+                currentContainer.y,
+                containerScale,
+                currentContainer.rotation
+            );
+            
+            x = transformedPoint.x;
+            y = transformedPoint.y;
+            
+            // Accumulate transformations
+            currentScale.x *= containerScale.x;
+            currentScale.y *= containerScale.y;
+            currentRotation += currentContainer.rotation;
+            
+            currentContainer = currentContainer.parentContainer;
+        }
+    
+        return { x, y, scale: currentScale, rotation: currentRotation };
+    }
+    
+    // Add helper function
+    transformPoint(x, y, containerX, containerY, scale, rotation) {
+        // Apply scale
+        x *= scale.x;
+        y *= scale.y;
+        
+        // Apply rotation
+        if (rotation !== 0) {
+            const cos = Math.cos(rotation);
+            const sin = Math.sin(rotation);
+            const rx = x * cos - y * sin;
+            const ry = x * sin + y * cos;
+            x = rx;
+            y = ry;
+        }
+        
+        // Add container offset
+        return {
+            x: x + containerX,
+            y: y + containerY
+        };
+    }
+    
     destroy() {
         this.containers.forEach(({container}) => {
             container.destroy();

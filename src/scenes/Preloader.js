@@ -70,6 +70,7 @@ import { seekJapaneseVoiceoverMP3 } from '../../media/audio_seek_japanese_voiceo
 import { seekRussianVoiceoverMP3 } from '../../media/audio_seek_russian_voiceover.mp3.js';
 import { bounceSoundMP3 } from '../../media/audio_bounce_sound.mp3.js';
 import { acidRiverPNG } from '../../media/images_waldo_drowning_acid_river.png.js';
+import { acidRiverNewPNG } from '../../media/images_waldo_drowning_acid_river_new.png.js';
 import { acidStreamPNG } from '../../media/images_waldo_drowning_acid_stream.png.js';
 import { acidWavePNG } from '../../media/images_waldo_drowning_acid_wave.png.js';
 import { blackTankPNG } from '../../media/images_waldo_drowning_black_tank.png.js';
@@ -183,7 +184,9 @@ export class Preloader extends Phaser.Scene
         this.load.image('acid_stream', acidStreamPNG);
         this.load.image('stream_mask_white', streamMaskWhitePNG);
         this.load.image('stream_mask_black', streamMaskBlackPNG);
-        this.load.image('acid_river', acidRiverPNG);
+        this.load.image('stream_mask_white_2', streamMaskWhitePNG);
+        this.load.image('stream_mask_black_2', streamMaskBlackPNG);
+        this.load.image('acid_river', acidRiverNewPNG);
         this.load.image('acid_wave', acidWavePNG);
         this.load.image('black_tank', blackTankPNG);
         this.load.image('wall_stairs', wallStairsPNG);

@@ -382,6 +382,20 @@ export const GAME_CONFIG = {
         "BOUNCE_DECAY": 0.7,
         "BOUNCE_COUNT": 3,
         "BOUNCE_SOUND": "bounce_sound"
+      },
+      "SPEED_STREAM_BLACK": 100,
+      "SPEED_STREAM_WHITE": 120,
+      
+      "RIVER" : {
+        "SPEED_HORIZONTAL":50,
+        "SPEED_VERTICAL":20,
+        "DISTANCE_VERTICAL":40,
+      },
+      "WAVE" : {
+          "SPEED_HORIZONTAL":30,
+          "SPEED_VERTICAL":20,
+          "DISTANCE_VERTICAL":50,
+
       }
     },
     "MID_CARD": {
