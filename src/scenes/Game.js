@@ -87,6 +87,7 @@ export class Game extends Phaser.Scene {
         // river
         this.setupRiver()
         this.setupWave()
+        this.setupTank()
         
 
         AudioUtils.playSound(this, 'acid_flowing_audio', {
@@ -103,6 +104,9 @@ export class Game extends Phaser.Scene {
     handleResize() {
         // First update the layout
         this.layoutManager.updateLayout();
+        this.setupRiver();
+        this.setupStream();
+        this.setupStream();
     }
 
     handleWin() {
@@ -158,7 +162,7 @@ export class Game extends Phaser.Scene {
     
         // Create mask
         const maskGraphics = this.make.graphics();
-        const width = baseAcid.displayWidth * 0.99;
+        const width = baseAcid.displayWidth;
         const height = baseAcid.displayHeight;
         
         maskGraphics.beginPath();
@@ -173,6 +177,7 @@ export class Game extends Phaser.Scene {
         // Position streams
         Object.values(streams).forEach(stream => {
             stream.setRotation(position.rotation);
+            // stream.setScale(0.45)
             stream.setScale(position.scale.x, position.scale.y);
             stream.setMask(mask);
         });
@@ -181,15 +186,17 @@ export class Game extends Phaser.Scene {
         const FLOW_SPEED_WHITE = GAME_CONFIG.SCENES.GAME.SPEED_STREAM_WHITE;
         
         // Adjust initial positions for continuous flow
-        const startY1 = baseAcid.y;
-        streams.blackMask1.y = startY1;
-        streams.whiteMask1.y = startY1;
+        const startY1 = streams.blackMask1.y;
+        // streams.blackMask1.y = streams.blackMask1.y;
+        // streams.whiteMask1.y = streams.whiteMask1.y;
         
         // Ensure masks overlap at transition points
-        streams.blackMask2.y = startY1 - streams.blackMask1.displayHeight;
-        streams.whiteMask2.y = startY1 - streams.whiteMask1.displayHeight;
+        // streams.blackMask2.y = streams.blackMask1.y - streams.blackMask1.displayHeight*.997;
+        // streams.whiteMask2.y = streams.whiteMask1.y - streams.whiteMask1.displayHeight*.997;
         
-        const endY = streams.blackMask1.y + streams.blackMask1.displayHeight;
+        streams.blackMask2.y = streams.blackMask1.y - streams.blackMask1.displayHeight*.997;
+        streams.whiteMask2.y = streams.whiteMask1.y - streams.whiteMask1.displayHeight*.997;
+        const endY = streams.blackMask1.y + streams.blackMask1.displayHeight*.997;
     
         // Set depths
         [baseAcid, ...Object.values(streams)].forEach((obj, i) => {
@@ -205,7 +212,7 @@ export class Game extends Phaser.Scene {
                 ease: 'Linear',
                 onComplete: () => {
                     // Reset without gap
-                    mask.y = startY1 - mask.displayHeight*0.995;
+                    mask.y = startY1 - mask.displayHeight*.997;
                     createTween(mask, mask.y, endY, FLOW_SPEED);
                 }
             });
@@ -236,13 +243,13 @@ export class Game extends Phaser.Scene {
         
         // acidRiver2.x = acidRiver2.x;
         
-        const RIVER_FLOW_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_HORIZONTAL*5;
+        const RIVER_FLOW_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_HORIZONTAL;
         const VERTICAL_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_VERTICAL;
         const startX1 = acidRiver1.x;
-        // const startX2 = startX1 - acidRiver1.displayWidth;
-        // const startX3 = startX2 - acidRiver2.displayWidth;
-        const startX2 = acidRiver2.x
-        const startX3 = acidRiver3.x
+        const startX2 = startX1 - acidRiver1.displayWidth*0.995;
+        const startX3 = startX1 - 2*acidRiver1.displayWidth*0.995;
+        // const startX2 = acidRiver2.x
+        // const startX3 = acidRiver3.x
         const endX = startX1 + acidRiver1.displayWidth*0.995;
         
         const verticalDistance = GAME_CONFIG.SCENES.GAME.RIVER.DISTANCE_VERTICAL; // Keep movement distance constant
@@ -276,8 +283,8 @@ export class Game extends Phaser.Scene {
                 duration: (endX-startX) / flowSpeed * 1000,
                 ease: 'Linear',
                 onComplete: () => {
-                    river.x = startX3;
-                    createRiverTween(river, startX3, endX, flowSpeed);
+                    river.x = startX1- 2*river.displayWidth*.995;
+                    createRiverTween(river, river.x, endX, flowSpeed);
                 }
             });
         };
@@ -350,5 +357,11 @@ export class Game extends Phaser.Scene {
         createRiverVerticalTween(acidRiver1);
         createRiverVerticalTween(acidRiver2);
         createRiverVerticalTween(acidRiver3);
+    }
+
+    setupTank() {
+        const tank = this.layoutManager.getAsset("black_tank")
+        tank.x = 50
+        tank.y = 50
     }
 }
