@@ -1131,6 +1131,94 @@ export const GAME_LAYOUT = {
             "isVisible": true
           }
         },
+        "77ceff62-a3ee-4588-91e3-e884c9a50b91": {
+          "id": "77ceff62-a3ee-4588-91e3-e884c9a50b91",
+          "name": "acid_bubble11",
+          "type": "image",
+          "key": "acid_bubble",
+          "portrait": {
+            "position": {
+              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
+              "x": 0,
+              "y": 0.5
+            },
+            "size": {
+              "width": 1,
+              "height": 1
+            },
+            "origin": {
+              "x": 1,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          },
+          "landscape": {
+            "position": {
+              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
+              "x": 0,
+              "y": 0.4076084555905917
+            },
+            "size": {
+              "width": 1,
+              "height": 1
+            },
+            "origin": {
+              "x": 1,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
+        },
+        "2e194881-185b-474b-8acf-c7d69f28a1aa": {
+          "id": "2e194881-185b-474b-8acf-c7d69f28a1aa",
+          "name": "acid_bubble12",
+          "type": "image",
+          "key": "acid_bubble",
+          "portrait": {
+            "position": {
+              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
+              "x": 0,
+              "y": 0.65
+            },
+            "size": {
+              "width": 1,
+              "height": 1
+            },
+            "origin": {
+              "x": 1,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          },
+          "landscape": {
+            "position": {
+              "reference": "2b2b9cd1-f7af-4cc1-ae36-5301b4033055",
+              "x": 0,
+              "y": 0.65
+            },
+            "size": {
+              "width": 1,
+              "height": 1
+            },
+            "origin": {
+              "x": 1,
+              "y": 0
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
+        },
         "6904ba4c-4ce1-4b66-b11a-331df4fa81b4": {
           "id": "6904ba4c-4ce1-4b66-b11a-331df4fa81b4",
           "name": "acid_wave",
@@ -1306,7 +1394,8 @@ export const GAME_LAYOUT = {
             "rotation": 0,
             "isVisible": true
           }
-        }
+        },
+        
       },
       "children": {
         "waldo_container": {

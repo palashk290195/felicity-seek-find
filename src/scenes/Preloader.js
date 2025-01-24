@@ -35,6 +35,7 @@ import { acidRiverPNG } from '../../media/images_waldo_drowning_acid_river.png.j
 import { acidRiverNewPNG } from '../../media/images_waldo_drowning_acid_river_new.png.js';
 import { acidStreamPNG } from '../../media/images_waldo_drowning_acid_stream.png.js';
 import { acidWavePNG } from '../../media/images_waldo_drowning_acid_wave.png.js';
+import { acidBubblePNG } from '../../media/images_waldo_drowning_acid_bubble.png.js';
 import { blackTankPNG } from '../../media/images_waldo_drowning_black_tank.png.js';
 import { eye1PNG } from '../../media/images_waldo_drowning_eye1.png.js';
 import { eye2PNG } from '../../media/images_waldo_drowning_eye2.png.js';
@@ -169,6 +170,7 @@ export class Preloader extends Phaser.Scene
         this.load.image('stream_mask_black_2', streamMaskBlackPNG);
         this.load.image('acid_river', acidRiverPNG);
         this.load.image('acid_wave', acidWavePNG);
+        this.load.image('acid_bubble', acidBubblePNG);
         this.load.image('black_tank', blackTankPNG);
         this.load.image('wall_stairs', wallStairsPNG);
         this.load.image('hand', handPNG);

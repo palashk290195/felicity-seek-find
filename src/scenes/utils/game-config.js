@@ -379,19 +379,26 @@ export const GAME_CONFIG = {
         "BOUNCE_COUNT": 3,
         "BOUNCE_SOUND": "bounce_sound"
       },
-      "SPEED_STREAM_BLACK": 50,
-      "SPEED_STREAM_WHITE": 80,
+      "SPEED_STREAM_BLACK":  0.1,
+      "SPEED_STREAM_WHITE":  0.15,
       
       "RIVER" : {
-        "SPEED_HORIZONTAL":50,
-        "SPEED_VERTICAL":5,
-        "DISTANCE_VERTICAL":40,
+        "SPEED_HORIZONTAL":0.1,
+        "SPEED_VERTICAL":0.007,
+        "DISTANCE_VERTICAL":0.3,
       },
       "WAVE" : {
-          "SPEED_HORIZONTAL":30,
-          "SPEED_VERTICAL":1,
-          "DISTANCE_VERTICAL":30,
+          "SPEED_HORIZONTAL":0.15,
+          "SPEED_VERTICAL":0.005,
+          "DISTANCE_VERTICAL":0.5,
 
+      },
+      "TANK": {
+        "SPEED_HORIZONTAL": 0.15,
+        "SPAWN_DELAY_MIN": 300, // 2 seconds 
+        "SPAWN_DELAY_MAX": 2000, // 5 seconds
+        "Y_OFFSET_MIN": 0.05,  // Offset from river y-coordinate in percentage
+        "Y_OFFSET_MAX": .15,
       }
     },
     "MID_CARD": {

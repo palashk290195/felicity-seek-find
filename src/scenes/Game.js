@@ -103,10 +103,18 @@ export class Game extends Phaser.Scene {
 
     handleResize() {
         // First update the layout
+        this.tweens.killAll();
+        // Clear all masks 
+        this.game.scene.scenes.forEach(scene => {
+            scene.children.list
+            .filter(child => child instanceof Phaser.Display.Masks.BitmapMask)
+            .forEach(mask => mask.destroy());
+        });
         this.layoutManager.updateLayout();
         this.setupRiver();
         this.setupStream();
-        this.setupStream();
+        this.setupWave();
+        this.setupTank();
     }
 
     handleWin() {
@@ -151,6 +159,9 @@ export class Game extends Phaser.Scene {
     }
 
     setupStream() {
+        const screenWidth = this.scale.width;
+        const screenHeight = this.scale.height;
+
         const baseAcid = this.layoutManager.getAsset('acid_stream');
         const position = this.layoutManager.getAbsolutePosition(baseAcid);
         const streams = {
@@ -182,8 +193,8 @@ export class Game extends Phaser.Scene {
             stream.setMask(mask);
         });
         
-        const FLOW_SPEED_BLACK = GAME_CONFIG.SCENES.GAME.SPEED_STREAM_BLACK;
-        const FLOW_SPEED_WHITE = GAME_CONFIG.SCENES.GAME.SPEED_STREAM_WHITE;
+        const FLOW_SPEED_BLACK = GAME_CONFIG.SCENES.GAME.SPEED_STREAM_BLACK*screenHeight;
+        const FLOW_SPEED_WHITE = GAME_CONFIG.SCENES.GAME.SPEED_STREAM_WHITE*screenHeight;
         
         // Adjust initial positions for continuous flow
         const startY1 = streams.blackMask1.y;
@@ -231,6 +242,9 @@ export class Game extends Phaser.Scene {
     }
 
     setupRiver() {
+        const screenWidth = this.scale.width;
+        const screenHeight = this.scale.height;
+
         const acidRiver1 = this.layoutManager.getAsset("acid_river")
         const acidRiver2 = this.layoutManager.getAsset("acid_river2")
         const acidRiver3 = this.layoutManager.getAsset("acid_river3")
@@ -243,8 +257,8 @@ export class Game extends Phaser.Scene {
         
         // acidRiver2.x = acidRiver2.x;
         
-        const RIVER_FLOW_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_HORIZONTAL;
-        const VERTICAL_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_VERTICAL;
+        const RIVER_FLOW_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_HORIZONTAL*screenWidth;
+        const VERTICAL_SPEED = GAME_CONFIG.SCENES.GAME.RIVER.SPEED_VERTICAL*screenHeight;
         const startX1 = acidRiver1.x;
         const startX2 = startX1 - acidRiver1.displayWidth*0.995;
         const startX3 = startX1 - 2*acidRiver1.displayWidth*0.995;
@@ -252,7 +266,7 @@ export class Game extends Phaser.Scene {
         // const startX3 = acidRiver3.x
         const endX = startX1 + acidRiver1.displayWidth*0.995;
         
-        const verticalDistance = GAME_CONFIG.SCENES.GAME.RIVER.DISTANCE_VERTICAL; // Keep movement distance constant
+        const verticalDistance = GAME_CONFIG.SCENES.GAME.RIVER.DISTANCE_VERTICAL*screenHeight; // Keep movement distance constant
         
         let totalverticalDistance = 0
         const createRiverVerticalTween = (river) => {
@@ -299,30 +313,50 @@ export class Game extends Phaser.Scene {
     };
 
     setupWave() {
+        const screenWidth = this.scale.width;
+        const screenHeight = this.scale.height;
+
+
         const acidRiver1 = this.layoutManager.getAsset("acid_wave")
         const acidRiver2 = this.layoutManager.getAsset("acid_wave2")
         const acidRiver3 = this.layoutManager.getAsset("acid_wave3")
+
+        const acidBubble11 = this.layoutManager.getAsset("acid_bubble11")
+        const acidBubble12 = this.layoutManager.getAsset("acid_bubble12")
         
-        acidRiver2.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
-        acidRiver3.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
+        
+        // acidRiver2.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
+        // acidRiver3.setOrigin(acidRiver1.originX, acidRiver1.originY).setBlendMode(Phaser.BlendModes.COLOR_DODGE);
         // Initial Y position
         const initialY = acidRiver1.y;
         acidRiver1.y = initialY;
         acidRiver2.y = initialY;
         acidRiver3.y = initialY;
         
-        const RIVER_FLOW_SPEED = GAME_CONFIG.SCENES.GAME.WAVE.SPEED_HORIZONTAL;
-        const VERTICAL_SPEED = GAME_CONFIG.SCENES.GAME.WAVE.SPEED_VERTICAL;
+        const RIVER_FLOW_SPEED = GAME_CONFIG.SCENES.GAME.WAVE.SPEED_HORIZONTAL*screenWidth;
+        const VERTICAL_SPEED = GAME_CONFIG.SCENES.GAME.WAVE.SPEED_VERTICAL*screenHeight;
         const startX1 = acidRiver1.x;
-        const startX2 = startX1 - acidRiver1.displayWidth + 1;
-        const startX3 = startX2 - acidRiver2.displayWidth + 1;
+        const startX2 = startX1 - acidRiver1.displayWidth;
+        const startX3 = startX1 - 2*acidRiver2.displayWidth;
         const endX = startX1 + acidRiver1.displayWidth;
         
-        const verticalDistance = GAME_CONFIG.SCENES.GAME.WAVE.DISTANCE_VERTICAL; // Keep movement distance constant
+        // acidBubble11.x = -acidBubble11.displayWidth
+        // acidBubble11.y = acidRiver1.y
+        // acidBubble12.x = acidBubble12.displayWidth
+        // acidBubble12.y = acidRiver1.y
+
+        acidBubble11.x = screenWidth/2
+        acidBubble11.y = acidRiver1.y
+        acidBubble12.x = acidBubble11.x - acidBubble12.displayWidth/2
+        acidBubble12.y = acidRiver2.y 
+        const startacidBubble = acidBubble12.x
+        const endacidBubble = screenWidth + acidBubble12.displayWidth
+
+        const verticalDistance = GAME_CONFIG.SCENES.GAME.WAVE.DISTANCE_VERTICAL*screenHeight; // Keep movement distance constant
         let totalverticalDistance = 0
         const createRiverVerticalTween = (river) => {
             this.tweens.add({
-                targets: [acidRiver1, acidRiver2, acidRiver3],
+                targets: [acidRiver1, acidRiver2, acidRiver3,acidBubble11,acidBubble12],
                 y: `-=${verticalDistance}`,
                 duration: (verticalDistance / VERTICAL_SPEED) * 1000, // Convert to milliseconds
                 ease: 'Linear',
@@ -330,12 +364,25 @@ export class Game extends Phaser.Scene {
                 onComplete: () => {
                     // river.x = startX2;
                         totalverticalDistance += verticalDistance
-                        if (totalverticalDistance < river.displayHeight) {
+                        if (totalverticalDistance < river.displayHeight*3) {
                             createRiverVerticalTween(river);    
                         }
                         
                     }
                 });
+        };
+
+        const createBubbleTween = (river, startX, endX, flowSpeed) => {
+            this.tweens.add({
+                targets: river,
+                x: { from: startX, to: endX },
+                duration: (endX-startX) / flowSpeed * 1000,
+                ease: 'Linear',
+                onComplete: () => {
+                    river.x = startacidBubble;
+                    createRiverTween(river, startacidBubble, endX, flowSpeed);
+                }
+            });
         };
 
         const createRiverTween = (river, startX, endX, flowSpeed) => {
@@ -354,14 +401,50 @@ export class Game extends Phaser.Scene {
         createRiverTween(acidRiver1, startX1, endX, RIVER_FLOW_SPEED);
         createRiverTween(acidRiver2, startX2, endX, RIVER_FLOW_SPEED);
         createRiverTween(acidRiver3, startX3, endX, RIVER_FLOW_SPEED);
+        
+        createBubbleTween(acidBubble11, acidBubble11.x, endacidBubble, RIVER_FLOW_SPEED);
+        createBubbleTween(acidBubble12, acidBubble12.x, endacidBubble, RIVER_FLOW_SPEED);
+        
         createRiverVerticalTween(acidRiver1);
         createRiverVerticalTween(acidRiver2);
         createRiverVerticalTween(acidRiver3);
+        createRiverVerticalTween(acidBubble11);
+        createRiverVerticalTween(acidBubble12);
+        // acidBubble11.x = 50
+        // acidBubble11.y = 50
     }
 
     setupTank() {
-        const tank = this.layoutManager.getAsset("black_tank")
-        tank.x = 50
-        tank.y = 50
+        const screenWidth = this.scale.width;
+        const screenHeight = this.scale.height;
+        const tank = this.layoutManager.getAsset("black_tank");
+        const river = this.layoutManager.getAsset("acid_river");
+        
+        const config = GAME_CONFIG.SCENES.GAME.TANK;
+        
+        const createTankAnimation = () => {
+            // Random y position near river
+            const riverY = tank.y;
+            const randomYOffset = Phaser.Math.Between(config.Y_OFFSET_MIN, config.Y_OFFSET_MAX);
+            const startY = riverY*(1+ randomYOffset);
+            
+            // Position tank off-screen left
+            tank.x = -tank.displayWidth;
+            tank.y = startY;
+            tank.setScale(0.15)
+    
+            this.tweens.add({
+                targets: tank,
+                x: screenWidth + tank.displayWidth,
+                duration: (screenWidth + 2 * tank.displayWidth) / config.SPEED_HORIZONTAL/screenWidth* 1000,
+                ease: 'Linear',
+                onComplete: () => {
+                    const delay = Phaser.Math.Between(config.SPAWN_DELAY_MIN, config.SPAWN_DELAY_MAX);
+                    this.time.delayedCall(delay, createTankAnimation);
+                }
+            });
+        };
+    
+        createTankAnimation();
     }
 }
