@@ -18,17 +18,17 @@ import { pixelJSON } from '../../media/spine_pixel.json.js';
 import { pixelPNG } from '../../media/spine_pixel.png.js';
 
 import { playbtnEnPNG } from '../../media/images_playbtn-en.png.js';
-// import { playbtnRuPNG } from '../../media/images_playbtn-ru.png.js';
-// import { playbtnDePNG } from '../../media/images_playbtn_de.png.js';
-// import { playbtnJaPNG } from '../../media/images_playbtn_ja.png.js';
+import { playbtnRuPNG } from '../../media/images_playbtn-ru.png.js';
+import { playbtnDePNG } from '../../media/images_playbtn_de.png.js';
+import { playbtnJaPNG } from '../../media/images_playbtn_ja.png.js';
 import { PlayNowEnPNG } from '../../media/images_PlayNow-en.png.js';
-// import { PlayNowRuPNG } from '../../media/images_PlayNow-ru.png.js';
-// import { PlayNowDePNG } from '../../media/images_PlayNow_de.png.js';
-// import { PlayNowJaPNG } from '../../media/images_PlayNow_ja.png.js';
+import { PlayNowRuPNG } from '../../media/images_PlayNow-ru.png.js';
+import { PlayNowDePNG } from '../../media/images_PlayNow_de.png.js';
+import { PlayNowJaPNG } from '../../media/images_PlayNow_ja.png.js';
 import { seekEnglishVoiceoverMP3 } from '../../media/audio_seek_english_voiceover.mp3.js';
-// import { seekGermanVoiceoverMP3 } from '../../media/audio_seek_german_voiceover.mp3.js';
-// import { seekJapaneseVoiceoverMP3 } from '../../media/audio_seek_japanese_voiceover.mp3.js';
-// import { seekRussianVoiceoverMP3 } from '../../media/audio_seek_russian_voiceover.mp3.js';
+import { seekGermanVoiceoverMP3 } from '../../media/audio_seek_german_voiceover.mp3.js';
+import { seekJapaneseVoiceoverMP3 } from '../../media/audio_seek_japanese_voiceover.mp3.js';
+import { seekRussianVoiceoverMP3 } from '../../media/audio_seek_russian_voiceover.mp3.js';
 import { acidRiverPNG } from '../../media/images_waldo_drowning_acid_river.png.js';
 import { acidRiverNewPNG } from '../../media/images_waldo_drowning_acid_river_new.png.js';
 import { acidStreamPNG } from '../../media/images_waldo_drowning_acid_stream.png.js';
@@ -94,9 +94,9 @@ export class Preloader extends Phaser.Scene
 
         LoadBase64Audio(this, [
             { key: 'seek_english_voiceover', data: seekEnglishVoiceoverMP3 },
-            // { key: 'seek_german_voiceover', data: seekGermanVoiceoverMP3 },
-            // { key: 'seek_japanese_voiceover', data: seekJapaneseVoiceoverMP3 },
-            // { key: 'seek_russian_voiceover', data: seekRussianVoiceoverMP3 },
+            { key: 'seek_german_voiceover', data: seekGermanVoiceoverMP3 },
+            { key: 'seek_japanese_voiceover', data: seekJapaneseVoiceoverMP3 },
+            { key: 'seek_russian_voiceover', data: seekRussianVoiceoverMP3 },
             {key: 'help_audio', data: helpMP3},
             {key: 'user_tap_audio', data:userTapMP3},
             {key: 'wood_block_flying_audio', data:woodBlockFlyingMP3},
@@ -120,13 +120,13 @@ export class Preloader extends Phaser.Scene
         this.load.image("retryIcon", retrySVG);
 
         this.load.image('playbtn_en', playbtnEnPNG);
-        // this.load.image('playbtn_ru', playbtnRuPNG);
-        // this.load.image('playbtn_de', playbtnDePNG);
-        // this.load.image('playbtn_ja', playbtnJaPNG);
+        this.load.image('playbtn_ru', playbtnRuPNG);
+        this.load.image('playbtn_de', playbtnDePNG);
+        this.load.image('playbtn_ja', playbtnJaPNG);
         this.load.image('playnow_en', PlayNowEnPNG);
-        // this.load.image('playnow_ru', PlayNowRuPNG);
-        // this.load.image('playnow_de', PlayNowDePNG);
-        // this.load.image('playnow_ja', PlayNowJaPNG);
+        this.load.image('playnow_ru', PlayNowRuPNG);
+        this.load.image('playnow_de', PlayNowDePNG);
+        this.load.image('playnow_ja', PlayNowJaPNG);
 
         // Load Waldo drowning animation assets
         this.load.video('video', MapVideoWEBM, 'loadeddata', true);
