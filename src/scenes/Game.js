@@ -13,6 +13,7 @@ import { BenchInteractionManager } from './managers/BenchInteractionManager.js';
 import { TutorialManager } from './managers/TutorialManager.js';
 import { ImageFitter } from './utils/image-fitter.js';
 import { WaldoManager } from './managers/WaldoManager.js';
+import { MaskManager } from './managers/MaskManager.js';
 
 
 export class Game extends Phaser.Scene {
@@ -24,6 +25,7 @@ export class Game extends Phaser.Scene {
         this.benchManager = null;
         this.tutorialManager = null;
         this.waldoManager = null;
+        this.maskManager = null;
     }
 
     create() {
@@ -55,9 +57,8 @@ export class Game extends Phaser.Scene {
         this.heartManager = new HeartManager(this, heartMask);
         this.benchManager = new BenchInteractionManager(this, benches, heartBg);
         this.tutorialManager = new TutorialManager(this, hand);
-
-        // Initialize Waldo manager (animations start immediately)
         this.waldoManager = new WaldoManager(this, this.layoutManager);
+        this.maskManager = new MaskManager(this, this.layoutManager);
 
         // Setup state change handlers
         this.gameStateManager.onStateChange(GameState.PLAYING, () => {
@@ -115,6 +116,11 @@ export class Game extends Phaser.Scene {
         this.setupStream();
         this.setupWave();
         this.setupTank();
+        
+        // Update mask overlay
+        if (this.maskManager) {
+            this.maskManager.handleResize();
+        }
     }
 
     handleWin() {
@@ -132,6 +138,9 @@ export class Game extends Phaser.Scene {
     destroy() {
         if (this.waldoManager) {
             this.waldoManager.destroy();
+        }
+        if (this.maskManager) {
+            this.maskManager.destroy();
         }
         this.layoutManager.destroy();
         super.destroy();

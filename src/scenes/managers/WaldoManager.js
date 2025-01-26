@@ -200,7 +200,7 @@ export class WaldoManager {
         const speak = async () => {
             if (!this.idleParts?.mouths?.length) return;
 
-            AudioUtils.playSound(this.scene, config.SOUND);
+            AudioUtils.playSound(this.scene, config.SOUND, false);
 
             for (let i = 0; i < this.idleParts.mouths.length; i++) {
                 this.showOnlyFrame(this.idleParts.mouths, i);

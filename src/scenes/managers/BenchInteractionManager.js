@@ -1,4 +1,5 @@
 import { AudioUtils } from '../../utils/audio-utils.js';
+import * as Phaser from '../../phaser/phaser-3.87.0-core.js';
 
 export class BenchInteractionManager {
     constructor(scene, benches, heartBg) {
@@ -23,6 +24,9 @@ export class BenchInteractionManager {
             
             // Set up interaction
             bench.setInteractive();
+            bench.setBlendMode(Phaser.BlendModes.MULTIPLY);
+            bench.setAlpha(0.6);
+            this.benchGlows[index].setAlpha(0.4);
             bench.on('pointerdown', () => this.handleBenchClick(bench, this.benchGlows[index]));
             bench.active = true; // Set initial active state
         });
@@ -44,6 +48,7 @@ export class BenchInteractionManager {
         if (!bench.active) return;
         bench.active = false;
         bench.removeInteractive();
+        bench.setAlpha(1);
 
         // Play tap sound using AudioUtils
         AudioUtils.playSound(this.scene, 'user_tap_audio', { volume: 1 });

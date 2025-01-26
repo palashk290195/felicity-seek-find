@@ -45,7 +45,7 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_english_voiceover"
       },
       "TEXT": {
-        "TITLE": "Save Waldo from drowning",
+        "TITLE": "Find ❤️ to \nSave Walter!"
       }
     },
     "ru": {
@@ -55,7 +55,7 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_russian_voiceover"
       },
       "TEXT": {
-        "TITLE": "Спасите Вальдо от утопления",
+        "TITLE": "Найди ❤️ чтобы \nспасти Вальтера!"
       }
     },
     "ja": {
@@ -65,7 +65,7 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_japanese_voiceover"
       },
       "TEXT": {
-        "TITLE": "ウォーリーを溺れから救え",
+        "TITLE": "❤️を見つけて\nウォルターを救おう!"
       }
     },
     "de": {
@@ -75,7 +75,7 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_german_voiceover"
       },
       "TEXT": {
-        "TITLE": "Rette Waldo vor dem Ertrinken",
+        "TITLE": "Finde ❤️ um \nWalter zu retten!"
       }
     }
   },
@@ -379,30 +379,28 @@ export const GAME_CONFIG = {
         "BOUNCE_COUNT": 3,
         "BOUNCE_SOUND": "bounce_sound"
       },
-      "SPEED_STREAM_BLACK":  0.1,
-      "SPEED_STREAM_WHITE":  0.15,
-      
-      "RIVER" : {
-        "SPEED_HORIZONTAL":0.05,
-        "SPEED_VERTICAL":0.007,
-        "DISTANCE_VERTICAL":0.05,
+      "SPEED_STREAM_BLACK": 0.1,
+      "SPEED_STREAM_WHITE": 0.15,
+      "RIVER": {
+        "SPEED_HORIZONTAL": 0.05,
+        "SPEED_VERTICAL": 0.007,
+        "DISTANCE_VERTICAL": 0.05
       },
-      "WAVE" : {
-          "SPEED_HORIZONTAL":0.10,
-          "SPEED_VERTICAL":0.005,
-          "DISTANCE_VERTICAL":0.05,
-
+      "WAVE": {
+        "SPEED_HORIZONTAL": 0.1,
+        "SPEED_VERTICAL": 0.005,
+        "DISTANCE_VERTICAL": 0.05
       },
       "TANK": {
-        "SPEED_HORIZONTAL": 0.10,
-        "SPAWN_DELAY_MIN": 300, // 2 seconds 
-        "SPAWN_DELAY_MAX": 2000, // 5 seconds
-        "Y_OFFSET_MIN": 0.05,  // Offset from river y-coordinate in percentage
-        "Y_OFFSET_MAX": .15,
+        "SPEED_HORIZONTAL": 0.1,
+        "SPAWN_DELAY_MIN": 300,
+        "SPAWN_DELAY_MAX": 2000,
+        "Y_OFFSET_MIN": 0.05,
+        "Y_OFFSET_MAX": 0.15
       }
     },
     "MID_CARD": {
-      "DURATION": 1000,
+      "DURATION": 1500,
       "PARTICLE_CONFIG": {
         "SPEED": 50,
         "MAX_PARTICLES": 100,
@@ -439,7 +437,11 @@ export const GAME_CONFIG = {
       },
       "FACE": {
         "BLINK": {
-          "FRAMES": ["eye1", "eye2", "eye3"],
+          "FRAMES": [
+            "eye1",
+            "eye2",
+            "eye3"
+          ],
           "FRAME_DURATION": 400,
           "INTERVAL": {
             "MIN": 2000,
@@ -447,7 +449,12 @@ export const GAME_CONFIG = {
           }
         },
         "SPEAK": {
-          "FRAMES": ["mouth1", "mouth2", "mouth3", "mouth4"],
+          "FRAMES": [
+            "mouth1",
+            "mouth2",
+            "mouth3",
+            "mouth4"
+          ],
           "FRAME_DURATION": 200,
           "INTERVAL": {
             "MIN": 3000,
@@ -463,16 +470,20 @@ export const GAME_CONFIG = {
           "PAUSE_DURATION": 2000
         },
         "MOVEMENT": {
-          "RIGHT_SPEED": 0.01, // * gamewidth per second
-          "UP_SPEED": 0.005, // * gameheight per second
-          "MAX_X_DISPLACEMENT": 0.3, // 50% of game width
-          "MAX_Y_DISPLACEMENT": 0.15  // 20% of game height
+          "RIGHT_SPEED": 0.01,
+          "UP_SPEED": 0.005,
+          "MAX_X_DISPLACEMENT": 0.3,
+          "MAX_Y_DISPLACEMENT": 0.15
         }
       }
     },
     "LOSE": {
       "STANDING": {
-        "PARTS": ["waldo_standing", "waldo_standing_left_hand", "waldo_standing_right_hand"],
+        "PARTS": [
+          "waldo_standing",
+          "waldo_standing_left_hand",
+          "waldo_standing_right_hand"
+        ],
         "FALL_DURATION": 2000,
         "HAND_ROTATION_SPEED": 300
       }

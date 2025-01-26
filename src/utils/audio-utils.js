@@ -81,13 +81,15 @@ export const AudioUtils = {
         };
     },
 
-    playSound(scene, key, config = {}) {
+    playSound(scene, key, addToPending = true, config = {}) {
         if (this.hasUserInteracted) {
             console.log(`[AudioUtils] Playing sound: ${key} (user has already interacted)`);
             return scene.sound.play(key, config);
         } else {
             console.log(`[AudioUtils] No user interaction yet, queueing sound: ${key}`);
-            this.pendingSounds.add({ scene, key, config });
+            if (addToPending) {
+                this.pendingSounds.add({ scene, key, config });
+            }
             return null;
         }
     },

@@ -107,7 +107,7 @@ export const GAME_LAYOUT = {
           "id": "508d1143-1761-409e-9054-a1012d083004",
           "name": "object_bench1",
           "type": "image",
-          "key": "object_bench",
+          "key": "heart_mask",
           "portrait": {
             "position": {
               "reference": "b422d95f-9c5d-4f09-a411-69105040fe39",
@@ -415,7 +415,7 @@ export const GAME_LAYOUT = {
           "id": "20bd16d5-7423-4797-bf2e-67a56c329cf0",
           "name": "object_bench2",
           "type": "image",
-          "key": "object_bench",
+          "key": "heart_mask",
           "portrait": {
             "position": {
               "reference": "563b4627-3cd2-4880-a024-a96f053e4dbb",
@@ -459,7 +459,7 @@ export const GAME_LAYOUT = {
           "id": "159e4901-1ab2-402f-b986-8f4f30e7a59d",
           "name": "object_bench3",
           "type": "image",
-          "key": "object_bench",
+          "key": "heart_mask",
           "portrait": {
             "position": {
               "reference": "0f06e5a5-653d-4275-8d56-0831401c571c",
@@ -503,7 +503,7 @@ export const GAME_LAYOUT = {
           "id": "944457b7-60a7-4430-a7cf-2c576dee01db",
           "name": "object_bench4",
           "type": "image",
-          "key": "object_bench",
+          "key": "heart_mask",
           "portrait": {
             "position": {
               "reference": "50cd5297-9ec8-454b-bc76-19a1ce95b68f",
@@ -547,7 +547,7 @@ export const GAME_LAYOUT = {
           "id": "b43d8788-1427-47d1-b927-27cbf792a649",
           "name": "object_bench5",
           "type": "image",
-          "key": "object_bench",
+          "key": "heart_mask",
           "portrait": {
             "position": {
               "reference": "090aa601-dd51-4bd0-a497-0d35265a4351",
@@ -591,7 +591,7 @@ export const GAME_LAYOUT = {
           "id": "6827e161-1107-452d-9761-764909ec3d42",
           "name": "object_bench6",
           "type": "image",
-          "key": "object_bench",
+          "key": "heart_mask",
           "portrait": {
             "position": {
               "reference": "b76b3d97-b666-4fa8-b665-54cd86bb6f52",
@@ -635,7 +635,7 @@ export const GAME_LAYOUT = {
           "id": "2674fc4f-9ca1-437d-b66a-af4ad681fa44",
           "name": "object_bench7",
           "type": "image",
-          "key": "object_bench",
+          "key": "heart_mask",
           "portrait": {
             "position": {
               "reference": "bcdb5c46-8bd0-4a93-a39b-3be3bcda68ea",
@@ -787,7 +787,7 @@ export const GAME_LAYOUT = {
           "portrait": {
             "position": {
               "reference": "22125c4b-d156-48db-83a7-748b0abdb904",
-              "x": 0.06842925186524716,
+              "x": 0.064,
               "y": 0.14558789160536081
             },
             "size": {
@@ -2118,6 +2118,20 @@ export const GAME_LAYOUT = {
             }
           }
         }
+      }
+    },
+    "mask_container": {
+      "portrait": {
+        "x": 0.5,
+        "y": 0.75,
+        "width": 1,
+        "height": 0.5
+      },
+      "landscape": {
+        "x": 0.5,
+        "y": 0.75,
+        "width": 1,
+        "height": 0.5
       }
     }
   }

@@ -129,7 +129,7 @@ export class Preloader extends Phaser.Scene
         // this.load.image('playnow_ja', PlayNowJaPNG);
 
         // Load Waldo drowning animation assets
-        this.load.video('video', MapVideoWEBM, 'loadedmetadata', true);
+        this.load.video('video', MapVideoWEBM, 'loadeddata', true);
         
         // Add video load complete handler
         this.load.on('filecomplete-video-video', () => {
@@ -188,6 +188,6 @@ export class Preloader extends Phaser.Scene
     {
         adReady();
 
-        this.scene.start('StartCard');
+        this.scene.start('Game');
     }
 }
