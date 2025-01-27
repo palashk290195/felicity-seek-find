@@ -25,8 +25,8 @@ export class BenchInteractionManager {
             // Set up interaction
             bench.setInteractive();
             bench.setBlendMode(Phaser.BlendModes.MULTIPLY);
-            bench.setAlpha(0.6);
-            this.benchGlows[index].setAlpha(0.4);
+            bench.setAlpha(0.8);
+            this.benchGlows[index].setAlpha(0.8);
             bench.on('pointerdown', () => this.handleBenchClick(bench, this.benchGlows[index]));
             bench.active = true; // Set initial active state
         });

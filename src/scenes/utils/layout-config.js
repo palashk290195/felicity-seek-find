@@ -115,8 +115,8 @@ export const GAME_LAYOUT = {
               "y": -0.060000000000000005
             },
             "size": {
-              "width": 0.7,
-              "height": 0.7
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
@@ -134,8 +134,8 @@ export const GAME_LAYOUT = {
               "y": -0.03822818554957413
             },
             "size": {
-              "width": 0.5699999999999998,
-              "height": 0.7
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
@@ -423,8 +423,8 @@ export const GAME_LAYOUT = {
               "y": -0.060000000000000005
             },
             "size": {
-              "width": 0.7,
-              "height": 0.7
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
@@ -442,8 +442,8 @@ export const GAME_LAYOUT = {
               "y": -0.03822818554957413
             },
             "size": {
-              "width": 0.5699999999999998,
-              "height": 0.7
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
@@ -467,8 +467,8 @@ export const GAME_LAYOUT = {
               "y": -0.060000000000000005
             },
             "size": {
-              "width": 0.7,
-              "height": 0.7
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
@@ -486,8 +486,8 @@ export const GAME_LAYOUT = {
               "y": -0.03822818554957413
             },
             "size": {
-              "width": 0.5699999999999998,
-              "height": 0.7
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
@@ -511,8 +511,8 @@ export const GAME_LAYOUT = {
               "y": -0.060000000000000005
             },
             "size": {
-              "width": 0.7,
-              "height": 0.7
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
@@ -530,8 +530,8 @@ export const GAME_LAYOUT = {
               "y": -0.03822818554957413
             },
             "size": {
-              "width": 0.5699999999999998,
-              "height": 0.7
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
@@ -555,8 +555,8 @@ export const GAME_LAYOUT = {
               "y": -0.060000000000000005
             },
             "size": {
-              "width": 0.7,
-              "height": 0.7
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
@@ -574,8 +574,8 @@ export const GAME_LAYOUT = {
               "y": -0.03822818554957413
             },
             "size": {
-              "width": 0.5699999999999998,
-              "height": 0.7
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
@@ -599,8 +599,8 @@ export const GAME_LAYOUT = {
               "y": -0.060000000000000005
             },
             "size": {
-              "width": 0.7,
-              "height": 0.7
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
@@ -618,8 +618,8 @@ export const GAME_LAYOUT = {
               "y": -0.03822818554957413
             },
             "size": {
-              "width": 0.5699999999999998,
-              "height": 0.7
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
@@ -643,8 +643,8 @@ export const GAME_LAYOUT = {
               "y": -0.060000000000000005
             },
             "size": {
-              "width": 0.7,
-              "height": 0.7
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
@@ -662,8 +662,8 @@ export const GAME_LAYOUT = {
               "y": -0.03822818554957413
             },
             "size": {
-              "width": 0.5699999999999998,
-              "height": 0.7
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
