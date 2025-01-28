@@ -17,6 +17,27 @@ export class MidCard extends Phaser.Scene {
         this.sceneTransitionTimer = null;
     }
 
+    init() {
+        // Reset state
+        this.state = {
+            sceneStartTime: 0,
+            transitionTimerStarted: false,
+            particlesStarted: false
+        };
+        
+        // Clean up any existing timers
+        if (this.sceneTransitionTimer) {
+            this.sceneTransitionTimer.remove();
+            this.sceneTransitionTimer = null;
+        }
+        
+        // Clean up any existing particles
+        if (this.particles) {
+            this.particles.destroy();
+            this.particles = null;
+        }
+    }
+
     logState(event = 'default') {
         console.log(`[MidCard][${event}]`, {
             state: this.state,
