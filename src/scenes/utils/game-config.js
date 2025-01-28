@@ -45,7 +45,7 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_english_voiceover"
       },
       "TEXT": {
-        "TITLE": "Find ❤️ to \nSave Walter!"
+        "TITLE": "Find 🪵 to \nSave Walter!"
       }
     },
     "ru": {
@@ -55,7 +55,7 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_russian_voiceover"
       },
       "TEXT": {
-        "TITLE": "Найди ❤️ чтобы \nспасти Вальтера!"
+        "TITLE": "Найди 🪵 чтобы \nспасти Вальтера!"
       }
     },
     "ja": {
@@ -65,7 +65,7 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_japanese_voiceover"
       },
       "TEXT": {
-        "TITLE": "❤️を見つけて\nウォルターを救おう!"
+        "TITLE": "🪵を見つけて\nウォルターを救おう!"
       }
     },
     "de": {
@@ -75,7 +75,7 @@ export const GAME_CONFIG = {
         "VOICEOVER": "seek_german_voiceover"
       },
       "TEXT": {
-        "TITLE": "Finde ❤️ um \nWalter zu retten!"
+        "TITLE": "Finde 🪵 um \nWalter zu retten!"
       }
     }
   },

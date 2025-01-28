@@ -8,7 +8,7 @@ import { EndCard } from "./scenes/EndCard";
 import { MidCard } from "./scenes/MidCard";
 import { StartCard } from './scenes/StartCard';
 
-// Enhanced debug logging utility with orientation info
+// Helper function to log game dimensions for debugging
 const logGameDimensions = (game, event = 'default') => {
     const orientation = window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
     console.log(`[Game Dimensions][${event}]`, {
@@ -16,122 +16,120 @@ const logGameDimensions = (game, event = 'default') => {
         height: game.scale.height,
         windowWidth: window.innerWidth,
         windowHeight: window.innerHeight,
-        deviceOrientation: orientation,
-        devicePixelRatio: window.devicePixelRatio,
-        isAndroid: /Android/i.test(navigator.userAgent),
-        isIOS: /iPhone|iPad|iPod/i.test(navigator.userAgent)
+        deviceOrientation: orientation
     });
 };
 
-// Debounce function to prevent multiple rapid resize calls
+// Helper function to prevent rapid-fire resize events
 const debounce = (func, wait) => {
     let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
+    return (...args) => {
         clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
+        timeout = setTimeout(() => func(...args), wait);
     };
 };
 
+// Basic game configuration
 const gameConfig = {
     type: Phaser.AUTO,
     parent: 'ad-container',
     backgroundColor: "#028af8",
-    audio: {
-        disableWebAudio: false
-    },
+    audio: { disableWebAudio: false },
     scale: {
         mode: Phaser.Scale.RESIZE,
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: Math.max(window.innerWidth, 320),    // Minimum width: 320px
+        height: Math.max(window.innerHeight, 480),  // Minimum height: 480px
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        orientation: {
-            forceOrientation: false
-        }
+        orientation: { forceOrientation: false }
     },
-    scene: [Preloader, StartCard, Game, MidCard, EndCard],
+    scene: [Preloader, StartCard, Game, MidCard, EndCard]
 };
 
+// Main function to initialize the Phaser game
 function initializePhaserGame() {
-    const game = new Phaser.Game(gameConfig);
-    let resizeTimeout;
-    
-    // Function to handle actual resize
-    const handleResize = () => {
-        console.log('[Window Resize Event]', {
-            newWidth: window.innerWidth,
-            newHeight: window.innerHeight
-        });
-        
-        // Force a refresh of the game scale
-        game.scale.refresh();
-        
-        // Log dimensions after resize
-        logGameDimensions(game, 'resize');
-    };
+    // Clean up existing game if any
+    if (window.game) {
+        window.game.destroy(true);
+        window.game = null;
+    }
 
-    // Debounced resize handler
-    const debouncedResize = debounce(handleResize, 250);
-    
-    // Handle orientation change specifically
-    const handleOrientationChange = () => {
-        console.log('[Orientation Change Event]');
-        
-        // Clear any pending resize timeout
-        clearTimeout(resizeTimeout);
-        
-        // Wait for the viewport to settle
-        resizeTimeout = setTimeout(() => {
-            // Force game scale update
-            game.scale.refresh();
-            
-            // Update game size explicitly
-            game.scale.resize(window.innerWidth, window.innerHeight);
-            
-            // Log dimensions after orientation change
-            logGameDimensions(game, 'orientation');
-            
-            // Force scene resize
-            const currentScene = game.scene.getScenes(true)[0];
-            if (currentScene && currentScene.handleResize) {
-                const gameSize = {
-                    width: window.innerWidth,
-                    height: window.innerHeight
-                };
-                currentScene.handleResize(gameSize);
-            }
-        }, 100); // Delay to allow viewport to settle
-    };
+    return new Promise((resolve) => {
+        // Main game creation function
+        function createGame() {
+            // Set current dimensions (with minimums)
+            gameConfig.scale.width = Math.max(window.innerWidth, 320);
+            gameConfig.scale.height = Math.max(window.innerHeight, 480);
 
-    // Add event listeners
-    window.addEventListener('resize', debouncedResize);
-    window.addEventListener('orientationchange', handleOrientationChange);
-    
-    // Initial dimensions log
-    console.log('[Game Initialization]');
-    logGameDimensions(game, 'init');
-    
-    // Setup cleanup
-    game.events.on('destroy', () => {
-        window.removeEventListener('resize', debouncedResize);
-        window.removeEventListener('orientationchange', handleOrientationChange);
-        clearTimeout(resizeTimeout);
+            // Create new game instance
+            const game = new Phaser.Game(gameConfig);
+            window.game = game;
+
+            // Set up event handlers for resize and orientation changes
+            setupGameEvents(game);
+            resolve(game);
+        }
+
+        // Set up all game-related event handlers
+        function setupGameEvents(game) {
+            // Handle window resize
+            const handleResize = () => {
+                if (!game || !game.scale) return;
+                
+                const width = Math.max(window.innerWidth, 320);
+                const height = Math.max(window.innerHeight, 480);
+                
+                game.scale.resize(width, height);
+                game.scale.refresh();
+                logGameDimensions(game, 'resize');
+            };
+
+            // Handle device orientation changes
+            const handleOrientation = () => {
+                if (!game || !game.scale) return;
+                
+                const width = Math.max(window.innerWidth, 320);
+                const height = Math.max(window.innerHeight, 480);
+                
+                game.scale.resize(width, height);
+                game.scale.refresh();
+                
+                // Update current scene if it has a resize handler
+                const currentScene = game.scene.getScenes(true)[0];
+                if (currentScene?.handleResize) {
+                    currentScene.handleResize({
+                        width: game.scale.width,
+                        height: game.scale.height
+                    });
+                }
+            };
+
+            // Add event listeners with debounced resize
+            const debouncedResize = debounce(handleResize, 250);
+            window.addEventListener('resize', debouncedResize);
+            window.addEventListener('orientationchange', handleOrientation);
+
+            // Clean up event listeners when game is destroyed
+            game.events.on('destroy', () => {
+                window.removeEventListener('resize', debouncedResize);
+                window.removeEventListener('orientationchange', handleOrientation);
+            });
+        }
+
+        // Wait for next frame before creating game
+        requestAnimationFrame(() => createGame());
     });
-
-    return game;
 }
 
+// Initialize game based on ad network type
 function setupGameInitialization(adNetworkType) {
-    const game = initializePhaserGame();
-
+    const gamePromise = initializePhaserGame();
+    
     if (mraidAdNetworks.has(adNetworkType)) {
-        networkPlugin.initMraid(() => game);
+        networkPlugin.initMraid(() => gamePromise);
     } else {
-        return game;
+        return gamePromise;
     }
 }
 
+// Start the game
 setupGameInitialization(config.adNetworkType);
