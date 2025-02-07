@@ -80,6 +80,8 @@ function getMimeType(ext) {
     atlas: 'text/plain',
     mp3: 'audio/mpeg',
     wav: 'audio/wav',
+    mp4: 'video/mp4',
+    webm: 'video/webm'
   };
   return mimeTypes[ext.toLowerCase()] || 'application/octet-stream';
 }

@@ -80,7 +80,7 @@ export class Game extends Phaser.Scene {
 
         // Get video from layout manager and play it
         const video = this.layoutManager.getAsset('video');
-        video.setScale(video.scaleX / 2.8, video.scaleY / 1.8);
+        video.setScale(video.scaleX / 1.87, video.scaleY / 1.87);
         video.play(true);
 
         //setup stream

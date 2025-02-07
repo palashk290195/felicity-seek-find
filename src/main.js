@@ -7,6 +7,8 @@ import { config } from './config.js';
 import { EndCard } from "./scenes/EndCard";
 import { MidCard } from "./scenes/MidCard";
 import { StartCard } from './scenes/StartCard';
+import { GAME_CONFIG } from './scenes/utils/game-config.js';
+//import { Boot } from './scenes/Boot';
 
 // Helper function to log game dimensions for debugging
 const logGameDimensions = (game, event = 'default') => {
@@ -36,9 +38,9 @@ const gameConfig = {
     backgroundColor: "#028af8",
     audio: { disableWebAudio: false },
     scale: {
-        mode: Phaser.Scale.RESIZE,
-        width: Math.max(window.innerWidth, 320),    // Minimum width: 320px
-        height: Math.max(window.innerHeight, 480),  // Minimum height: 480px
+        mode: Phaser.Scale.ENVELOPE,
+        width: Math.max(window.innerWidth * GAME_CONFIG.display.dpi, GAME_CONFIG.display.minDimensions.width),
+        height: Math.max(window.innerHeight * GAME_CONFIG.display.dpi, GAME_CONFIG.display.minDimensions.height),
         autoCenter: Phaser.Scale.CENTER_BOTH,
         orientation: { forceOrientation: false }
     },
@@ -57,8 +59,8 @@ function initializePhaserGame() {
         // Main game creation function
         function createGame() {
             // Set current dimensions (with minimums)
-            gameConfig.scale.width = Math.max(window.innerWidth, 320);
-            gameConfig.scale.height = Math.max(window.innerHeight, 480);
+            gameConfig.scale.width = Math.max(window.innerWidth * GAME_CONFIG.display.dpi, GAME_CONFIG.display.minDimensions.width);
+            gameConfig.scale.height = Math.max(window.innerHeight * GAME_CONFIG.display.dpi, GAME_CONFIG.display.minDimensions.height);
 
             // Create new game instance
             const game = new Phaser.Game(gameConfig);
@@ -75,8 +77,8 @@ function initializePhaserGame() {
             const handleResize = () => {
                 if (!game || !game.scale) return;
                 
-                const width = Math.max(window.innerWidth, 320);
-                const height = Math.max(window.innerHeight, 480);
+                const width = Math.max(window.innerWidth * GAME_CONFIG.display.dpi, GAME_CONFIG.display.minDimensions.width);
+                const height = Math.max(window.innerHeight * GAME_CONFIG.display.dpi, GAME_CONFIG.display.minDimensions.height);
                 
                 game.scale.resize(width, height);
                 game.scale.refresh();
@@ -87,8 +89,8 @@ function initializePhaserGame() {
             const handleOrientation = () => {
                 if (!game || !game.scale) return;
                 
-                const width = Math.max(window.innerWidth, 320);
-                const height = Math.max(window.innerHeight, 480);
+                const width = Math.max(window.innerWidth * GAME_CONFIG.display.dpi, GAME_CONFIG.display.minDimensions.width);
+                const height = Math.max(window.innerHeight * GAME_CONFIG.display.dpi, GAME_CONFIG.display.minDimensions.height);
                 
                 game.scale.resize(width, height);
                 game.scale.refresh();

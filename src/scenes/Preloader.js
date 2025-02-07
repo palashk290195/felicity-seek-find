@@ -57,7 +57,7 @@ import { waldoStandingLeftHandPNG } from '../../media/images_waldo_drowning_wald
 import { waldoStandingRightHandPNG } from '../../media/images_waldo_drowning_waldo_standing_right_hand.png.js';
 import { wallStairsPNG } from '../../media/images_waldo_drowning_wall_stairs.png.js';
 //import { wallStairsWEBP } from '../../media/images_waldo_drowning_wall_stairs.webp.js';
-import MapVideoWEBM from '../../public/assets/videos/MapVideo.webm';
+import { MapVideoMP4 } from '../../media/videos_MapVideo.mp4.js';
 import { benchGlowPNG } from '../../media/images_waldo_drowning_bench_glow.png.js';
 import { waldoStandingStartCardPNG } from '../../media/images_waldo_drowning_waldo_standing_start_card.png.js';
 
@@ -129,22 +129,7 @@ export class Preloader extends Phaser.Scene
         this.load.image('playnow_ja', PlayNowJaPNG);
 
         // Load Waldo drowning animation assets
-        this.load.video('video', MapVideoWEBM, 'loadeddata', true);
-        
-        // Add video load complete handler
-        this.load.on('filecomplete-video-video', () => {
-            console.log('[Preloader] Video metadata loaded');
-            // Try to get video dimensions
-            const video = this.cache.video.get('video');
-            if (video) {
-                console.log('[Preloader] Video dimensions:', {
-                    videoWidth: video.videoWidth,
-                    videoHeight: video.videoHeight,
-                    width: video.width,
-                    height: video.height
-                });
-            }
-        });
+        this.load.video('video', MapVideoMP4, 'loadeddata', true);
         this.load.image('object_bench', objectBenchPNG);
         this.load.image('heart_bg', heartBgPNG);
         this.load.image('waldo_bench', waldoBenchPNG);

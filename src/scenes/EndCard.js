@@ -207,12 +207,12 @@ export class EndCard extends Phaser.Scene {
     }
 
     createRetryButton(gameWidth, gameHeight) {
-        const padding = 10;
-        const buttonSize = 10;
+        const padding = 10 * GAME_CONFIG.display.dpi;
+        const buttonSize = 10 * GAME_CONFIG.display.dpi;
         
         const retryButton = this.add.image(
             gameWidth - padding - buttonSize/2,
-            padding + buttonSize/2,
+            gameHeight - padding - buttonSize/2,
             GAME_CONFIG.COMMON_ASSETS.RETRY_ICON
         );
         retryButton.setDisplaySize(buttonSize, buttonSize);
