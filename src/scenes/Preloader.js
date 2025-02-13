@@ -18,7 +18,7 @@ import { cat4PNG } from '../../media/images_bright-cat_cat-4.png.js';
 import { cat5HighlightPNG } from '../../media/images_bright-cat_cat-5-highlight.png.js';
 import { cat5PNG } from '../../media/images_bright-cat_cat-5.png.js';
 import { downloadIconPNG } from '../../media/images_bright-cat_download-icon.png.js';
-import { findTextRussianPNG } from '../../media/images_bright-cat_find-text_find-text-russian.png.js';
+import { findTextEnglishPNG } from '../../media/images_bright-cat_find-text_find-text-english.png.js';
 import { highlightPNG } from '../../media/images_bright-cat_highlight.png.js';
 
 import { LogoImagePNG } from '../../media/images_Logo_image.png.js';
@@ -66,7 +66,7 @@ export class Preloader extends Phaser.Scene
         this.load.image('cat-5-highlight', cat5HighlightPNG);
         this.load.image('cat-5', cat5PNG);
         this.load.image('download', downloadIconPNG);
-        this.load.image('find-text', findTextRussianPNG);
+        this.load.image('find-text', findTextEnglishPNG);
         this.load.image('highlight', highlightPNG);
 
         LoadBase64Audio(this, [
