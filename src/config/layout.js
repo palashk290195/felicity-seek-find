@@ -382,8 +382,8 @@ export const GAME_LAYOUT = {
               "height": 1.2800000000000007
             },
             "origin": {
-              "x": 0.5,
-              "y": 0.5
+              "x": 0.535,
+              "y": 0.48
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,
@@ -401,8 +401,8 @@ export const GAME_LAYOUT = {
               "height": 1.21
             },
             "origin": {
-              "x": 0.5,
-              "y": 0.5
+              "x": 0.535,
+              "y": 0.48
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,
