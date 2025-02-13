@@ -4,9 +4,6 @@ import { mraidAdNetworks, networkPlugin } from './networkPlugin.js';
 import { Game } from './scenes/Game';
 import { Preloader } from './scenes/Preloader';
 import { config } from './config.js';
-import { EndCard } from "./scenes/EndCard";
-import { MidCard } from "./scenes/MidCard";
-import { StartCard } from './scenes/StartCard';
 import { GAME_CONFIG } from './scenes/utils/game-config.js';
 //import { Boot } from './scenes/Boot';
 
@@ -44,7 +41,7 @@ const gameConfig = {
         autoCenter: Phaser.Scale.CENTER_BOTH,
         orientation: { forceOrientation: false }
     },
-    scene: [Preloader, StartCard, Game, MidCard, EndCard]
+    scene: [Preloader, Game]
 };
 
 // Main function to initialize the Phaser game
