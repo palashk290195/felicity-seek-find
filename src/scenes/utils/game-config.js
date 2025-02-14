@@ -15,6 +15,15 @@ export const GAME_CONFIG = {
       duration: 500,  // Duration in ms (2x faster than before)
       scaleUp: 1.2,  // Scale multiplier for the tween
       nextObjectDelay: 2000  // Delay in ms before moving to next object
+    },
+    wrongClick: {
+      crossSize: 0.1,  // Size relative to min(width, height)
+      duration: 1000,  // Duration for cross fade
+      shake: {
+        intensity: 0.01,  // Shake distance relative to min(width, height)
+        duration: 200,   // Duration of shake
+        ease: 'Cubic.easeOut'  // Easing function for shake
+      }
     }
   },
   SELECTED_LANGUAGE: "en",

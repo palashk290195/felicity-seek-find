@@ -11,6 +11,7 @@ import { LayoutManager } from './utils/layout-manager.js';
 import { GAME_LAYOUT } from '../config/game-layout.js';
 import { ImageFitter } from './utils/image-fitter.js';
 import { HintManager } from "../managers/hint-manager.js";
+import { WrongClickManager } from "../managers/wrong-click-manager.js";
 
 export class Game extends Phaser.Scene {
     constructor() {
@@ -19,6 +20,7 @@ export class Game extends Phaser.Scene {
         this.objectInteractionManager = null;
         this.gameStateManager = null;
         this.hintManager = null;
+        this.wrongClickManager = null;
         this.modifiedLayout = null;
         this.ctaText = null;
     }
@@ -41,6 +43,9 @@ export class Game extends Phaser.Scene {
 
         // Initialize hint manager after object interaction manager
         this.hintManager = new HintManager(this, this.gameStateManager);
+
+        // Initialize wrong click manager
+        this.wrongClickManager = new WrongClickManager(this);
 
         // Animate shelf and find-key-1 to the left
         const gameWidth = this.scale.width;
@@ -130,6 +135,30 @@ export class Game extends Phaser.Scene {
             });
         }
 
+        // Setup background click handling
+        this.input.on('pointerdown', (pointer) => {
+            // Only handle clicks that weren't on find objects
+            if (!pointer.wasTouch && !this.gameStateManager.isAllObjectsFound()) {
+                // Hide hint temporarily
+                if (this.hintManager) {
+                    this.hintManager.pauseHint();
+                }
+                
+                // Show wrong click effect
+                this.wrongClickManager.showWrongClick(pointer.x, pointer.y);
+
+                // Resume hint after delay
+                this.scene.time.delayedCall(
+                    GAME_CONFIG.animation.hintCircle.nextObjectDelay,
+                    () => {
+                        if (this.hintManager) {
+                            this.hintManager.resumeHint();
+                        }
+                    }
+                );
+            }
+        });
+
         // Make download and play-now assets interactive
         this.setupCtaButtons();
 
@@ -188,31 +217,6 @@ export class Game extends Phaser.Scene {
         
         // Update layout with modified positions
         this.layoutManager.updateLayout();
-
-        // Reposition shelf and find-key-1 based on new dimensions
-        const shelf = this['shelf'];
-        const findKey1 = this['find-key-1'];
-        
-        if (shelf || findKey1) {
-            const moveDistance = GAME_CONFIG.animation.shelfMoveDistance;
-            const isLandscape = this.scale.width > this.scale.height;
-            // Only apply aspect ratio adjustment in landscape mode
-            const aspectRatioAdjustment = isLandscape ? Math.min(this.scale.width, this.scale.height) / Math.max(this.scale.width, this.scale.height) : 1;
-            const pixelMoveDistance = Math.min(this.scale.width, this.scale.height) * moveDistance * aspectRatioAdjustment;
-
-            // Reposition shelf if it exists
-            if (shelf) {
-                const shelfAsset = GAME_LAYOUT.containers['main-container'].assets['ceb4810a-354f-44fd-ba1e-267dbd7a0d31'];
-                const originalX = isLandscape ? shelfAsset.landscape.position.x : shelfAsset.portrait.position.x;
-                const containerWidth = this.scale.width;
-                shelf.x = (originalX - moveDistance * aspectRatioAdjustment) * containerWidth;
-            }
-
-            // Reposition find-key-1 if it exists and not destroyed
-            if (findKey1 && findKey1.visible) {
-                findKey1.x = shelf ? shelf.x : findKey1.x - pixelMoveDistance;
-            }
-        }
         
         // Clear object interaction manager's internal arrays
         // but don't destroy the find objects - they were just repositioned by layout manager
@@ -232,16 +236,9 @@ export class Game extends Phaser.Scene {
             this.hintManager.handleResize();
         }
 
-        // Update CTA text position and size
-        const ctaButton = this['cta'];
-        if (ctaButton && this.ctaText) {
-            const textContainer = {
-                width: ctaButton.displayWidth * 0.5,
-                height: ctaButton.displayHeight * 0.5
-            };
-            
-            fitTextToContainer(this.ctaText, textContainer, this.ctaText.text);
-            this.ctaText.setPosition(ctaButton.x, ctaButton.y);
+        // Handle resize in wrong click manager
+        if (this.wrongClickManager) {
+            this.wrongClickManager.handleResize();
         }
     }
 }
