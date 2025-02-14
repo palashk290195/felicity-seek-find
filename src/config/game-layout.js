@@ -437,8 +437,8 @@ export const GAME_LAYOUT = {
           "landscape": {
             "position": {
               "reference": "container",
-              "x": 0.5827575754606358,
-              "y": 0.714584868855895
+              "x": 0.3527575754606358,
+              "y": 0.554584868855895
             },
             "size": {
               "width": 0.0799999999999997,

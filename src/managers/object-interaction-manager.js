@@ -1,24 +1,79 @@
+import * as Phaser from '../phaser/phaser-3.87.0-core.js';
+
 export class ObjectInteractionManager {
     constructor(scene, gameStateManager) {
         this.scene = scene;
         this.gameStateManager = gameStateManager;
-        this.cats = [];
-        this.highlights = [];
+        this.keys = [];
         this.container = this.scene['main-container'];
-        this.setupCats();
+        this.dragListenerSet = false;
+        this.setupKeys();
     }
 
     setupKeysAndContainer() {
-        // Make container interactive
-        if (this.container) {
-            this.container.setInteractive();
+        // Make container interactive and setup drag
+        if (this.container && !this.dragListenerSet) {
+            console.log('[ObjectInteractionManager] Setting up container drag');
+            
+            this.setupContainerDrag();
+            this.dragListenerSet = true;
         }
 
         // Make all keys interactive and start their animations
         this.startKeyAnimations();
     }
 
+    setupContainerDrag() {
+        // Make container interactive with a larger hit area
+        this.container.setInteractive();
+        
+        // Get background for bounds checking
+        const bg = this.container.getByName('bg');
+        if (!bg) {
+            console.warn('[ObjectInteractionManager] Background not found');
+            return;
+        }
+
+        // Setup drag
+        this.scene.input.setDraggable(this.container);
+        this.scene.input.on('drag', (pointer, gameObject, dragX, dragY) => {
+            
+            if (gameObject !== this.container) {
+                console.log('[Drag] Wrong gameObject, expected container');
+                return;
+            }
+
+            // Get current bounds accounting for scale
+            const bgBounds = {
+                width: bg.width * Math.abs(bg.scaleX),
+                height: bg.height * Math.abs(bg.scaleY)
+            };
+
+            // Calculate center position (where container should be when bg is centered)
+            const centerX = this.scene.scale.width / 2;
+            const centerY = this.scene.scale.height / 2;
+
+            // Calculate bounds with a small buffer to prevent edge cases
+            const leftBound = Math.min(centerX, centerX - (bgBounds.width - this.scene.scale.width) / 2);
+            const rightBound = Math.max(centerX, centerX + (bgBounds.width - this.scene.scale.width) / 2);
+            const topBound = Math.min(centerY, centerY - (bgBounds.height - this.scene.scale.height) / 2);
+            const bottomBound = Math.max(centerY, centerY + (bgBounds.height - this.scene.scale.height) / 2);
+
+            // Apply drag with bounds in both directions
+            const newX = Phaser.Math.Clamp(dragX, leftBound, rightBound);
+            const newY = Phaser.Math.Clamp(dragY, topBound, bottomBound);
+
+            this.container.x = newX;
+            this.container.y = newY;
+        });
+    }
+
     startKeyAnimations(currentKeyIndex = 1) {
+        // If all keys are clicked, stop animations
+        if (this.gameStateManager.isAllKeysClicked()) {
+            return;
+        }
+
         const key = this.scene[`find-key-${currentKeyIndex}`];
         if (!key) {
             // If current key doesn't exist, try starting from beginning
@@ -26,6 +81,14 @@ export class ObjectInteractionManager {
                 return; // If we're already at 1 and it doesn't exist, stop
             }
             this.startKeyAnimations(1);
+            return;
+        }
+
+        // Skip if key was already clicked
+        if (this.gameStateManager.isKeyClicked(currentKeyIndex)) {
+            // Move to next key
+            const nextKeyIndex = currentKeyIndex + 1;
+            this.startKeyAnimations(nextKeyIndex > 4 ? 1 : nextKeyIndex);
             return;
         }
 
@@ -56,8 +119,11 @@ export class ObjectInteractionManager {
                     } else {
                         // Add delay before starting next key
                         this.scene.time.delayedCall(1000, () => {
-                            const nextKeyIndex = currentKeyIndex + 1;
-                            this.startKeyAnimations(nextKeyIndex > 4 ? 1 : nextKeyIndex);
+                            // Check again if all keys are clicked before moving to next
+                            if (!this.gameStateManager.isAllKeysClicked()) {
+                                const nextKeyIndex = currentKeyIndex + 1;
+                                this.startKeyAnimations(nextKeyIndex > 4 ? 1 : nextKeyIndex);
+                            }
                         });
                     }
                 }
@@ -68,101 +134,64 @@ export class ObjectInteractionManager {
         createKeyAnimation();
     }
 
-    setupCats() {
-        // Setup all 5 cats with interaction
-        for (let i = 1; i <= 5; i++) {
-            const catKey = `cat-${i}`;
-            const cat = this.container.getByName(catKey);
-            if (cat) {
-                // Skip if cat was already destroyed
-                if (this.gameStateManager.isCatDestroyed(i)) {
-                    cat.destroy();
-                    continue;
+    setupKeys() {
+        // Setup all 4 keys with interaction
+        for (let i = 1; i <= 4; i++) {
+            // Skip if key was already clicked
+            if (this.gameStateManager.isKeyClicked(i)) {
+                // Make sure the key is destroyed if it exists
+                const existingKey = this.container.getByName(`find-key-${i}`);
+                if (existingKey) {
+                    existingKey.destroy();
                 }
-                
-                cat.setInteractive();
-                cat.on('pointerdown', () => this.handleCatClick(i, cat));
-                this.cats.push(cat);
+                continue;
+            }
+
+            const keyName = `find-key-${i}`;
+            const key = this.container.getByName(keyName);
+            if (key) {
+                key.setInteractive();
+                key.on('pointerdown', () => this.handleKeyClick(i, key));
+                this.keys.push(key);
+            } else {
+                console.log(`KEY_SETUP_MISSING: Key ${i} not found for interaction setup`);
             }
         }
+
     }
 
-    handleCatClick(index, cat) {
-        // Get the cat's position and dimensions
-        const catWidth = cat.displayWidth;
-        const catHeight = cat.displayHeight;
-        const maxDimension = Math.max(catWidth, catHeight);
+    handleKeyClick(index, key) {
+        // Calculate move distance based on game dimensions
+        const moveDistance = Math.min(this.scene.scale.width, this.scene.scale.height) * 0.1;
 
-        // Create rotating highlight effect and scale it to match cat's max dimension
-        const rotatingHighlight = this.scene.add.image(cat.x, cat.y, 'highlight');
-        rotatingHighlight.setOrigin(0.5);
-        // Set initial scale to match cat's max dimension
-        const rotatingHighlightScale = 3 * maxDimension / rotatingHighlight.width;
-        rotatingHighlight.setScale(rotatingHighlightScale);
-        this.container.add(rotatingHighlight);
-
-        // Create cat highlight at the same position
-        const highlightKey = `cat-${index}-highlight`;
-        const highlight = this.scene.add.image(cat.x, cat.y, highlightKey);
-        highlight.setName(highlightKey);
-        // Set initial scale to match cat exactly
-        const highlightScale = catWidth / highlight.width;
-        highlight.setScale(highlightScale);
-        this.container.add(highlight);
-
-        // Scale up animation for both highlights
-        const scaleTween = this.scene.tweens.add({
-            targets: [highlight, rotatingHighlight],
-            scale: `*=1.2`,
-            duration: 200,
-            ease: 'Power2'
-        });
-        
-        // Rotation animation
-        const rotationTween = this.scene.tweens.add({
-            targets: rotatingHighlight,
-            angle: 360,
-            duration: 500,
-            ease: 'Linear'
-        });
-
-        // Mark cat as destroyed in game state
-        this.gameStateManager.markCatDestroyed(index);
-
-        // Destroy the cat immediately to prevent further clicks
-        cat.destroy();
-
-        // Remove from our tracking array
-        this.cats = this.cats.filter(c => c !== cat);
-
-        // Create a counter for completed animations
-        let completedAnimations = 0;
-        const totalAnimations = 2; // scale and rotation tweens
-
-        const checkAnimationsComplete = () => {
-            completedAnimations++;
-            if (completedAnimations === totalAnimations) {
-                // All tweens are complete, now start the destroy timer
-                this.scene.time.delayedCall(500, () => { // Reduced from 1000 to 500 since we're waiting for tweens
-                    highlight.destroy();
-                    rotatingHighlight.destroy();
-                    
-                    // Now check if this was the last cat and trigger win state
-                    if (this.gameStateManager.isAllCatsDestroyed()) {
-                        this.gameStateManager.setGameState('win');
-                    }
-                });
+        // Create move up and fade out animation
+        this.scene.tweens.add({
+            targets: key,
+            y: key.y - moveDistance,
+            alpha: 0,
+            duration: 1000,
+            ease: 'Power2',
+            onComplete: () => {
+                // Mark key as clicked in game state
+                this.gameStateManager.markKeyClicked(index);
+                
+                // Destroy the key
+                key.destroy();
+                
+                // Remove from our tracking array
+                this.keys = this.keys.filter(k => k !== key);
+                
+                // Check if this was the last key and trigger win state
+                if (this.gameStateManager.isAllKeysClicked()) {
+                    this.gameStateManager.setGameState('win');
+                }
             }
-        };
-
-        // Add completion callbacks to both tweens
-        scaleTween.on('complete', checkAnimationsComplete);
-        rotationTween.on('complete', checkAnimationsComplete);
+        });
     }
 
     cleanup() {
-        // Clear cats array
-        this.cats = [];
+        // Clear keys array
+        this.keys = [];
         
         // Kill all tweens
         if (this.scene && this.scene.tweens) {
@@ -174,7 +203,21 @@ export class ObjectInteractionManager {
             this.scene.time.removeAllEvents();
         }
 
-        // Restart key animations
+        // Reset drag functionality
+        if (this.container && this.container.input) {
+            // Only try to remove draggable if the container is still interactive
+            this.scene.input.setDraggable(this.container, false);
+            this.container.disableInteractive();
+        }
+        // Reset the drag listener flag regardless
+        this.dragListenerSet = false;
+
+        // Re-setup container drag and keys
         this.setupKeysAndContainer();
+
+        // Only restart key animations if we haven't clicked all keys
+        if (!this.gameStateManager.isAllKeysClicked()) {
+            this.startKeyAnimations();
+        }
     }
 } 

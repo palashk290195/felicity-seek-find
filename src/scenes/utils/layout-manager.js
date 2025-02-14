@@ -452,7 +452,7 @@ export class LayoutManager {
             y: y + containerY
         };
     }
-    
+
     destroy() {
         this.containers.forEach(({container}) => {
             container.destroy();

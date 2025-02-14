@@ -27,18 +27,6 @@ export class Game extends Phaser.Scene {
         const cleanup = AudioUtils.setup(this);
         this.events.once('shutdown', cleanup);
         
-        // Create modified layout with updated shelf position
-        this.modifiedLayout = JSON.parse(JSON.stringify(GAME_LAYOUT));
-        const shelfAsset = this.modifiedLayout.containers['main-container'].assets['ceb4810a-354f-44fd-ba1e-267dbd7a0d31'];
-        const moveDistance = GAME_CONFIG.animation.shelfMoveDistance;
-        
-        // Update shelf position in both orientations
-        const originalPortraitX = shelfAsset.portrait.position.x;
-        const originalLandscapeX = shelfAsset.landscape.position.x;
-        const aspectRatio = Math.min(this.scale.width, this.scale.height) / Math.max(this.scale.width, this.scale.height);
-        shelfAsset.portrait.position.x = originalPortraitX - moveDistance * aspectRatio;
-        shelfAsset.landscape.position.x = originalLandscapeX - moveDistance * aspectRatio;
-        
         // Use original layout initially
         this.layoutManager = new LayoutManager(this, GAME_LAYOUT);
 
@@ -165,15 +153,39 @@ export class Game extends Phaser.Scene {
         this.tweens.killAll();
         
         // Update layout with modified positions
-        this.layoutManager = new LayoutManager(this, this.modifiedLayout);
         this.layoutManager.updateLayout();
+
+        // Reposition shelf and find-key-1 based on new dimensions
+        const shelf = this['shelf'];
+        const findKey1 = this['find-key-1'];
+        
+        if (shelf || findKey1) {
+            const moveDistance = GAME_CONFIG.animation.shelfMoveDistance;
+            const isLandscape = this.scale.width > this.scale.height;
+            // Only apply aspect ratio adjustment in landscape mode
+            const aspectRatioAdjustment = isLandscape ? Math.min(this.scale.width, this.scale.height) / Math.max(this.scale.width, this.scale.height) : 1;
+            const pixelMoveDistance = Math.min(this.scale.width, this.scale.height) * moveDistance * aspectRatioAdjustment;
+
+            // Reposition shelf if it exists
+            if (shelf) {
+                const shelfAsset = GAME_LAYOUT.containers['main-container'].assets['ceb4810a-354f-44fd-ba1e-267dbd7a0d31'];
+                const originalX = isLandscape ? shelfAsset.landscape.position.x : shelfAsset.portrait.position.x;
+                const containerWidth = this.scale.width;
+                shelf.x = (originalX - moveDistance * aspectRatioAdjustment) * containerWidth;
+            }
+
+            // Reposition find-key-1 if it exists and not destroyed
+            if (findKey1 && findKey1.visible) {
+                findKey1.x = shelf ? shelf.x : findKey1.x - pixelMoveDistance;
+            }
+        }
         
         // Clear object interaction manager's internal arrays
         // but don't destroy the cats - they were just repositioned by layout manager
         if (this.objectInteractionManager) {
             this.objectInteractionManager.cleanup();
             // Re-setup cats - this will only setup non-destroyed cats
-            this.objectInteractionManager.setupCats();
+            this.objectInteractionManager.setupKeys();
         }
 
         // Handle resize in game state manager - this handles win state animations

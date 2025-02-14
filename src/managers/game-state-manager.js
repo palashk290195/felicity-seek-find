@@ -1,23 +1,38 @@
 export class GameStateManager {
     constructor(scene) {
         this.scene = scene;
-        this.destroyedCats = new Set();
+        this.clickedKeys = new Set();
         this.gameState = 'playing'; // 'playing' or 'win'
         this.winAnimations = [];
     }
 
-    markCatDestroyed(catIndex) {
-        this.destroyedCats.add(catIndex);
-        // Remove the automatic win state trigger from here
-        // Let ObjectInteractionManager call setGameState when animations are done
+    markKeyClicked(keyIndex) {
+        this.clickedKeys.add(keyIndex);
+        this.updateShowFoundVisibility();
     }
 
-    isCatDestroyed(catIndex) {
-        return this.destroyedCats.has(catIndex);
+    isKeyClicked(keyIndex) {
+        return this.clickedKeys.has(keyIndex);
     }
 
-    isAllCatsDestroyed() {
-        return this.destroyedCats.size === 5;
+    isAllKeysClicked() {
+        return this.clickedKeys.size === 4;
+    }
+
+    updateShowFoundVisibility() {
+        console.log('[Game state manager show found] Updating show-found visibility based on clicked keys');
+        // Show the appropriate number of show-found elements based on clicked keys
+        for (let i = 1; i <= 4; i++) {
+            const showFound = this.scene[`show-found${i}`];
+            if (showFound) {
+                console.log(`[Game state manager show found] Setting visibility for show-found${i} to ${i <= this.clickedKeys.size}`);
+                showFound.setVisible(i <= this.clickedKeys.size);
+            } else {
+                console.warn(`[Game state manager show found] show-found${i} not found`);
+            }
+        }
+        console.log(`[Game state manager show found] Clicked keys: ${Array.from(this.clickedKeys).join(', ')}`);
+        console.log(`[Game state manager show found] Show-found visibility updated`);
     }
 
     setGameState(state) {
@@ -92,5 +107,7 @@ export class GameStateManager {
         if (this.gameState === 'win') {
             this.startWinAnimations();
         }
+        // Update show-found visibility on resize
+        this.updateShowFoundVisibility();
     }
 } 
