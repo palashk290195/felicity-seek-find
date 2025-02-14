@@ -1,40 +1,34 @@
 import { GAME_LAYOUT } from '../config/game-layout.js';
+import { handleCtaPressed, adRetry } from "../networkPlugin.js";
 
 export class GameStateManager {
     constructor(scene) {
         this.scene = scene;
-        this.clickedKeys = new Set();
+        this.clickedObjects = new Set();
         this.gameState = 'playing'; // 'playing' or 'win'
         this.winAnimations = [];
+        this.bgRabbit = null;
     }
 
-    markKeyClicked(keyIndex) {
-        this.clickedKeys.add(keyIndex);
-        this.updateShowFoundVisibility();
+    markObjectClicked(objectId) {
+        this.clickedObjects.add(objectId);
+        this.updateFoundObjectsCount();
     }
 
-    isKeyClicked(keyIndex) {
-        return this.clickedKeys.has(keyIndex);
+    isObjectClicked(objectId) {
+        return this.clickedObjects.has(objectId);
     }
 
-    isAllKeysClicked() {
-        return this.clickedKeys.size === 4;
+    isAllObjectsFound() {
+        return this.clickedObjects.size === 6; // We need to find 6 objects
     }
 
-    updateShowFoundVisibility() {
-        console.log('[Game state manager show found] Updating show-found visibility based on clicked keys');
-        // Show the appropriate number of show-found elements based on clicked keys
-        for (let i = 1; i <= 4; i++) {
-            const showFound = this.scene[`show-found${i}`];
-            if (showFound) {
-                console.log(`[Game state manager show found] Setting visibility for show-found${i} to ${i <= this.clickedKeys.size}`);
-                showFound.setVisible(i <= this.clickedKeys.size);
-            } else {
-                console.warn(`[Game state manager show found] show-found${i} not found`);
-            }
+    updateFoundObjectsCount() {
+        // Update the counter text if it exists
+        const counterText = this.scene['counter-text'];
+        if (counterText) {
+            counterText.setText(`${this.clickedObjects.size}/6`);
         }
-        console.log(`[Game state manager show found] Clicked keys: ${Array.from(this.clickedKeys).join(', ')}`);
-        console.log(`[Game state manager show found] Show-found visibility updated`);
     }
 
     setGameState(state) {
@@ -63,93 +57,60 @@ export class GameStateManager {
                     duration: 500,
                     ease: 'Power2',
                     onComplete: () => {
-                        // After container is in position, destroy locks in sequence
-                        this.destroyLocksInSequence();
+                        this.startWinAnimations();
                     }
                 });
             }
         }
-    }
-
-    destroyLocksInSequence() {
-        const destroyLock = (index) => {
-            const lock = this.scene[`lock${index}`];
-            if (lock) {
-                // Create fade out and scale up tween
-                this.scene.tweens.add({
-                    targets: lock,
-                    alpha: 0,
-                    scaleX: lock.scaleX * 1.5,
-                    scaleY: lock.scaleY * 1.5,
-                    duration: 300,
-                    ease: 'Power2',
-                    onComplete: () => {
-                        lock.destroy();
-                        // If there are more locks, destroy the next one
-                        if (index < 4) {
-                            // Add a small delay before destroying next lock
-                            this.scene.time.delayedCall(100, () => {
-                                destroyLock(index + 1);
-                            });
-                        } else {
-                            // All locks destroyed, transition to EndCard scene
-                            this.scene.scene.start('EndCard');
-                        }
-                    }
-                });
-            }
-        };
-
-        // Start with the first lock
-        destroyLock(1);
     }
 
     startWinAnimations() {
         // Stop any existing animations
         this.stopWinAnimations();
 
-        const layoutManager = this.scene.layoutManager;
-        
-        // Show win state assets
-        const brightOverlay = layoutManager.getAsset('bright-overlay');
-        const playNow = layoutManager.getAsset('play-now');
-        const logo = layoutManager.getAsset('logo');
-        const seekFindText = layoutManager.getAsset('seek-find-text');
+        // Create and show BG-Rabbit with fall animation
+        this.createBGRabbit();
+    }
 
-        if (brightOverlay) {
-            brightOverlay.setVisible(true);
-            // Create rotating animation
-            const rotationTween = this.scene.tweens.add({
-                targets: brightOverlay,
-                angle: 360,
-                duration: 4000,
-                repeat: -1,
-                ease: 'Linear'
+    createBGRabbit() {
+        // Create BG-Rabbit if it doesn't exist
+        if (!this.bgRabbit) {
+            const isLandscape = this.scene.scale.width > this.scene.scale.height;
+            const gameWidth = this.scene.scale.width;
+            const gameHeight = this.scene.scale.height;
+
+            // Create the rabbit off-screen at the top
+            this.bgRabbit = this.scene.add.sprite(
+                gameWidth * 0.5, // Center horizontally
+                -gameHeight * 0.2, // Start above the screen
+                'bg-rabbit'
+            );
+
+            // Make it interactive
+            this.bgRabbit.setInteractive();
+            this.bgRabbit.on('pointerdown', () => {
+                adRetry();
+                handleCtaPressed();
             });
-            this.winAnimations.push(rotationTween);
+
+            // Add to static container if it exists
+            const staticContainer = this.scene['static-container'];
+            if (staticContainer) {
+                staticContainer.add(this.bgRabbit);
+            }
+
+            // Scale the rabbit appropriately
+            const rabbitScale = Math.min(gameWidth, gameHeight) * 0.002;
+            this.bgRabbit.setScale(rabbitScale);
         }
 
-        if (playNow) {
-            playNow.setVisible(true);
-            // Create scale animation
-            const scaleTween = this.scene.tweens.add({
-                targets: playNow,
-                scale: '*=1.2',
-                duration: 800,
-                yoyo: true,
-                repeat: -1,
-                ease: 'Sine.easeInOut'
-            });
-            this.winAnimations.push(scaleTween);
-        }
-
-        if (logo) {
-            logo.setVisible(true);
-        }
-
-        if (seekFindText) {
-            seekFindText.setVisible(true);
-        }
+        // Animate the rabbit falling
+        this.scene.tweens.add({
+            targets: this.bgRabbit,
+            y: this.scene.scale.height * 0.5, // Fall to center of screen
+            duration: 1000,
+            ease: 'Bounce.Out'
+        });
     }
 
     stopWinAnimations() {
@@ -160,14 +121,29 @@ export class GameStateManager {
             }
         });
         this.winAnimations = [];
+
+        // Destroy BG-Rabbit if it exists
+        if (this.bgRabbit) {
+            this.bgRabbit.destroy();
+            this.bgRabbit = null;
+        }
     }
 
     handleResize() {
-        // If in win state, restart animations after layout update
-        if (this.gameState === 'win') {
-            this.startWinAnimations();
+        // If in win state, reposition and rescale BG-Rabbit
+        if (this.gameState === 'win' && this.bgRabbit) {
+            const gameWidth = this.scene.scale.width;
+            const gameHeight = this.scene.scale.height;
+            
+            // Update position
+            this.bgRabbit.setPosition(
+                gameWidth * 0.5,
+                gameHeight * 0.5
+            );
+
+            // Update scale
+            const rabbitScale = Math.min(gameWidth, gameHeight) * 0.002;
+            this.bgRabbit.setScale(rabbitScale);
         }
-        // Update show-found visibility on resize
-        this.updateShowFoundVisibility();
     }
 } 

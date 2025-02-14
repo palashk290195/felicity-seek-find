@@ -1,26 +1,119 @@
 import * as Phaser from '../phaser/phaser-3.87.0-core.js';
+import { EffectManager } from '../effects/EffectManager.js';
+import { GAME_CONFIG } from '../scenes/utils/game-config.js';
 
 export class ObjectInteractionManager {
     constructor(scene, gameStateManager) {
         this.scene = scene;
         this.gameStateManager = gameStateManager;
-        this.keys = [];
+        this.findObjects = [];
         this.container = this.scene['main-container'];
         this.dragListenerSet = false;
-        this.setupKeys();
+        this.effectManager = new EffectManager(scene);
+        this.setupFindObjects();
     }
 
-    setupKeysAndContainer() {
-        // Make container interactive and setup drag
-        if (this.container && !this.dragListenerSet) {
-            console.log('[ObjectInteractionManager] Setting up container drag');
-            
-            this.setupContainerDrag();
-            this.dragListenerSet = true;
+    setupFindObjects() {
+        // Setup all 6 find-objects with interaction
+        for (let i = 1; i <= 6; i++) {
+            // Skip if object was already clicked
+            if (this.gameStateManager.isObjectClicked(i)) {
+                // Make sure the object is destroyed if it exists
+                const existingObject = this.container.getByName(`find-object${i}`);
+                if (existingObject) {
+                    existingObject.destroy();
+                }
+                continue;
+            }
+
+            const objectName = `find-object${i}`;
+            const findObject = this.container.getByName(objectName);
+            if (findObject) {
+                findObject.setInteractive();
+                findObject.on('pointerdown', () => this.handleObjectClick(i, findObject));
+                this.findObjects.push(findObject);
+            } else {
+                console.log(`OBJECT_SETUP_MISSING: Object ${i} not found for interaction setup`);
+            }
+        }
+    }
+
+    handleObjectClick(index, findObject) {
+        // Hide hint immediately on any object click
+        if (this.scene.hintManager) {
+            this.scene.hintManager.pauseHint();
         }
 
-        // Make all keys interactive and start their animations
-        this.startKeyAnimations();
+        // Get object position relative to scene
+        const worldPos = findObject.getWorldTransformMatrix();
+        const x = worldPos.tx;
+        const y = worldPos.ty;
+
+        // Trigger appropriate effect based on object index
+        this.effectManager.triggerEffect(`object-${index}-effect`, x, y);
+
+        // Create move up and fade out animation
+        this.scene.tweens.add({
+            targets: findObject,
+            y: findObject.y - Math.min(this.scene.scale.width, this.scene.scale.height) * 0.1,
+            alpha: 0,
+            duration: 1000,
+            ease: 'Power2',
+            onComplete: () => {
+                // Mark object as clicked in game state
+                this.gameStateManager.markObjectClicked(index);
+                
+                // Notify hint manager about object click
+                if (this.scene.hintManager) {
+                    this.scene.hintManager.handleObjectClick(index);
+                }
+                
+                // Destroy the object
+                findObject.destroy();
+                
+                // Remove from our tracking array
+                this.findObjects = this.findObjects.filter(obj => obj !== findObject);
+                
+                // Check if this was the last object and trigger win state
+                if (this.gameStateManager.isAllObjectsFound()) {
+                    this.gameStateManager.setGameState('win');
+                } else {
+                    // Schedule hint resume after delay if game is not won
+                    if (this.scene.hintManager) {
+                        this.scene.hintManager.scheduleResume();
+                    }
+                }
+            }
+        });
+    }
+
+    cleanup() {
+        // Clear objects array
+        this.findObjects = [];
+        
+        // Kill all tweens
+        if (this.scene && this.scene.tweens) {
+            this.scene.tweens.killAll();
+        }
+
+        // Clear all pending timers
+        if (this.scene && this.scene.time) {
+            this.scene.time.removeAllEvents();
+        }
+
+        // Reset drag functionality
+        if (this.container && this.container.input) {
+            this.scene.input.setDraggable(this.container, false);
+            this.container.disableInteractive();
+        }
+        this.dragListenerSet = false;
+
+        // Cleanup effects
+        this.effectManager.cleanup();
+
+        // Re-setup container drag and objects
+        this.setupContainerDrag();
+        this.setupFindObjects();
     }
 
     setupContainerDrag() {
@@ -66,158 +159,5 @@ export class ObjectInteractionManager {
             this.container.x = newX;
             this.container.y = newY;
         });
-    }
-
-    startKeyAnimations(currentKeyIndex = 1) {
-        // If all keys are clicked, stop animations
-        if (this.gameStateManager.isAllKeysClicked()) {
-            return;
-        }
-
-        const key = this.scene[`find-key-${currentKeyIndex}`];
-        if (!key) {
-            // If current key doesn't exist, try starting from beginning
-            if (currentKeyIndex === 1) {
-                return; // If we're already at 1 and it doesn't exist, stop
-            }
-            this.startKeyAnimations(1);
-            return;
-        }
-
-        // Skip if key was already clicked
-        if (this.gameStateManager.isKeyClicked(currentKeyIndex)) {
-            // Move to next key
-            const nextKeyIndex = currentKeyIndex + 1;
-            this.startKeyAnimations(nextKeyIndex > 4 ? 1 : nextKeyIndex);
-            return;
-        }
-
-        // Make key interactive if it exists
-        key.setInteractive();
-
-        // Create the combined scale and rotation animation
-        let animationCount = 0;
-        const totalAnimations = 2; // Run animation twice
-
-        const createKeyAnimation = () => {
-            // Scale up and rotate
-            this.scene.tweens.add({
-                targets: key,
-                scaleX: key.scaleX * 1.2,
-                scaleY: key.scaleY * 1.2,
-                angle: '+=45',
-                duration: 300,
-                yoyo: true,
-                ease: 'Quad.easeOut',
-                onComplete: () => {
-                    animationCount++;
-                    if (animationCount < totalAnimations) {
-                        // Add delay before second animation of same key
-                        this.scene.time.delayedCall(1000, () => {
-                            createKeyAnimation();
-                        });
-                    } else {
-                        // Add delay before starting next key
-                        this.scene.time.delayedCall(1000, () => {
-                            // Check again if all keys are clicked before moving to next
-                            if (!this.gameStateManager.isAllKeysClicked()) {
-                                const nextKeyIndex = currentKeyIndex + 1;
-                                this.startKeyAnimations(nextKeyIndex > 4 ? 1 : nextKeyIndex);
-                            }
-                        });
-                    }
-                }
-            });
-        };
-
-        // Start the animation for current key
-        createKeyAnimation();
-    }
-
-    setupKeys() {
-        // Setup all 4 keys with interaction
-        for (let i = 1; i <= 4; i++) {
-            // Skip if key was already clicked
-            if (this.gameStateManager.isKeyClicked(i)) {
-                // Make sure the key is destroyed if it exists
-                const existingKey = this.container.getByName(`find-key-${i}`);
-                if (existingKey) {
-                    existingKey.destroy();
-                }
-                continue;
-            }
-
-            const keyName = `find-key-${i}`;
-            const key = this.container.getByName(keyName);
-            if (key) {
-                key.setInteractive();
-                key.on('pointerdown', () => this.handleKeyClick(i, key));
-                this.keys.push(key);
-            } else {
-                console.log(`KEY_SETUP_MISSING: Key ${i} not found for interaction setup`);
-            }
-        }
-
-    }
-
-    handleKeyClick(index, key) {
-        // Calculate move distance based on game dimensions
-        const moveDistance = Math.min(this.scene.scale.width, this.scene.scale.height) * 0.1;
-
-        // Create move up and fade out animation
-        this.scene.tweens.add({
-            targets: key,
-            y: key.y - moveDistance,
-            alpha: 0,
-            duration: 1000,
-            ease: 'Power2',
-            onComplete: () => {
-                // Mark key as clicked in game state
-                this.gameStateManager.markKeyClicked(index);
-                
-                // Destroy the key
-                key.destroy();
-                
-                // Remove from our tracking array
-                this.keys = this.keys.filter(k => k !== key);
-                
-                // Check if this was the last key and trigger win state
-                if (this.gameStateManager.isAllKeysClicked()) {
-                    this.gameStateManager.setGameState('win');
-                }
-            }
-        });
-    }
-
-    cleanup() {
-        // Clear keys array
-        this.keys = [];
-        
-        // Kill all tweens
-        if (this.scene && this.scene.tweens) {
-            this.scene.tweens.killAll();
-        }
-
-        // Clear all pending timers
-        if (this.scene && this.scene.time) {
-            this.scene.time.removeAllEvents();
-        }
-
-        // Reset drag functionality
-        if (this.container && this.container.input) {
-            // Only try to remove draggable if the container is still interactive
-            this.scene.input.setDraggable(this.container, false);
-            this.container.disableInteractive();
-        }
-        // Reset the drag listener flag regardless
-        this.dragListenerSet = false;
-
-        // Re-setup container drag and keys
-        this.setupKeysAndContainer();
-
-        // Only restart key animations if we haven't clicked all keys
-        if (!this.gameStateManager.isAllKeysClicked()) {
-            this.startKeyAnimations();
-        }
     }
 } 

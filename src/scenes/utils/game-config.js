@@ -9,7 +9,13 @@ export const GAME_CONFIG = {
   },
   animation: {
     shelfMoveDistance: 0.45,  // Relative to min(width, height)
-    containerShakeDistance: 0.1  // Relative to min(width, height)
+    containerShakeDistance: 0.1,  // Relative to min(width, height)
+    hintCircle: {
+      size: 0.8,  // Scale relative to target object size
+      duration: 500,  // Duration in ms (2x faster than before)
+      scaleUp: 1.2,  // Scale multiplier for the tween
+      nextObjectDelay: 2000  // Delay in ms before moving to next object
+    }
   },
   SELECTED_LANGUAGE: "en",
   LANGUAGES: {

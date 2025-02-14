@@ -10,6 +10,7 @@ import { AudioUtils } from '../utils/audio-utils.js';
 import { LayoutManager } from './utils/layout-manager.js';
 import { GAME_LAYOUT } from '../config/game-layout.js';
 import { ImageFitter } from './utils/image-fitter.js';
+import { HintManager } from "../managers/hint-manager.js";
 
 export class Game extends Phaser.Scene {
     constructor() {
@@ -17,6 +18,7 @@ export class Game extends Phaser.Scene {
         this.layoutManager = null;
         this.objectInteractionManager = null;
         this.gameStateManager = null;
+        this.hintManager = null;
         this.modifiedLayout = null;
         this.ctaText = null;
     }
@@ -36,6 +38,9 @@ export class Game extends Phaser.Scene {
 
         // Initialize object interaction manager with game state manager
         this.objectInteractionManager = new ObjectInteractionManager(this, this.gameStateManager);
+
+        // Initialize hint manager after object interaction manager
+        this.hintManager = new HintManager(this, this.gameStateManager);
 
         // Animate shelf and find-key-1 to the left
         const gameWidth = this.scale.width;
@@ -108,7 +113,8 @@ export class Game extends Phaser.Scene {
                                                 
                                                 // Setup keys and container interaction
                                                 if (this.objectInteractionManager) {
-                                                    this.objectInteractionManager.setupKeysAndContainer();
+                                                    this.objectInteractionManager.setupContainerDrag();
+                                                    this.objectInteractionManager.setupFindObjects();
                                                 }
                                             }
                                         });
@@ -209,16 +215,21 @@ export class Game extends Phaser.Scene {
         }
         
         // Clear object interaction manager's internal arrays
-        // but don't destroy the cats - they were just repositioned by layout manager
+        // but don't destroy the find objects - they were just repositioned by layout manager
         if (this.objectInteractionManager) {
             this.objectInteractionManager.cleanup();
-            // Re-setup cats - this will only setup non-destroyed cats
-            this.objectInteractionManager.setupKeys();
+            // Re-setup find objects - this will only setup non-destroyed objects
+            this.objectInteractionManager.setupFindObjects();
         }
 
         // Handle resize in game state manager - this handles win state animations
         if (this.gameStateManager) {
             this.gameStateManager.handleResize();
+        }
+
+        // Handle resize in hint manager
+        if (this.hintManager) {
+            this.hintManager.handleResize();
         }
 
         // Update CTA text position and size
