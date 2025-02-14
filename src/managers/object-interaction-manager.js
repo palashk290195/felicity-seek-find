@@ -8,6 +8,66 @@ export class ObjectInteractionManager {
         this.setupCats();
     }
 
+    setupKeysAndContainer() {
+        // Make container interactive
+        if (this.container) {
+            this.container.setInteractive();
+        }
+
+        // Make all keys interactive and start their animations
+        this.startKeyAnimations();
+    }
+
+    startKeyAnimations(currentKeyIndex = 1) {
+        const key = this.scene[`find-key-${currentKeyIndex}`];
+        if (!key) {
+            // If current key doesn't exist, try starting from beginning
+            if (currentKeyIndex === 1) {
+                return; // If we're already at 1 and it doesn't exist, stop
+            }
+            this.startKeyAnimations(1);
+            return;
+        }
+
+        // Make key interactive if it exists
+        key.setInteractive();
+
+        // Create the combined scale and rotation animation
+        let animationCount = 0;
+        const totalAnimations = 2; // Run animation twice
+
+        const createKeyAnimation = () => {
+            // Scale up and rotate
+            this.scene.tweens.add({
+                targets: key,
+                scaleX: key.scaleX * 1.2,
+                scaleY: key.scaleY * 1.2,
+                angle: '+=45',
+                duration: 300,
+                yoyo: true,
+                ease: 'Quad.easeOut',
+                onComplete: () => {
+                    animationCount++;
+                    if (animationCount < totalAnimations) {
+                        // Add delay before second animation of same key
+                        this.scene.time.delayedCall(1000, () => {
+                            createKeyAnimation();
+                        });
+                    } else {
+                        // Add delay before starting next key
+                        this.scene.time.delayedCall(1000, () => {
+                            const nextKeyIndex = currentKeyIndex + 1;
+                            this.startKeyAnimations(nextKeyIndex > 4 ? 1 : nextKeyIndex);
+                        });
+                    }
+                }
+            });
+        };
+
+        // Start the animation for current key
+        createKeyAnimation();
+    }
+
     setupCats() {
         // Setup all 5 cats with interaction
         for (let i = 1; i <= 5; i++) {
@@ -101,9 +161,20 @@ export class ObjectInteractionManager {
     }
 
     cleanup() {
-        // We don't need to destroy cats on cleanup anymore
-        // Layout manager will handle repositioning
-        // Just clear our reference array
+        // Clear cats array
         this.cats = [];
+        
+        // Kill all tweens
+        if (this.scene && this.scene.tweens) {
+            this.scene.tweens.killAll();
+        }
+
+        // Clear all pending timers
+        if (this.scene && this.scene.time) {
+            this.scene.time.removeAllEvents();
+        }
+
+        // Restart key animations
+        this.setupKeysAndContainer();
     }
 } 

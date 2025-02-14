@@ -243,7 +243,7 @@ export const GAME_LAYOUT = {
             "position": {
               "reference": "977537e8-1297-4059-bf51-e983ecb7a4a0",
               "x": -0.1460029985007496,
-              "y": -0.009745127436281859
+              "y": 0.015
             },
             "size": {
               "width": 0.5,
@@ -262,7 +262,7 @@ export const GAME_LAYOUT = {
             "position": {
               "reference": "977537e8-1297-4059-bf51-e983ecb7a4a0",
               "x": -0.1701649175412294,
-              "y": -0.023733133433283378
+              "y": 0.015
             },
             "size": {
               "width": 0.54,
@@ -278,6 +278,198 @@ export const GAME_LAYOUT = {
             "isVisible": true
           }
         },
+        "a70358ed-ec2d-4239-aa31-814dc736fe63": {
+          "id": "a70358ed-ec2d-4239-aa31-814dc736fe63",
+          "name": "find-key-1",
+          "type": "image",
+          "key": "find-key-1",
+          "portrait": {
+            "position": {
+              "reference": "ceb4810a-354f-44fd-ba1e-267dbd7a0d31",
+              "x": 0.28435516718764803,
+              "y": -0.2683658170914541
+            },
+            "size": {
+              "width": 0.31999999999999984,
+              "height": 0.5
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          },
+          "landscape": {
+            "position": {
+              "reference": "ceb4810a-354f-44fd-ba1e-267dbd7a0d31",
+              "x": 0.3058160462252533,
+              "y": -0.26897035353291077
+            },
+            "size": {
+              "width": 0.2599999999999998,
+              "height": 0.5
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
+        },
+        "48e98cef-c2de-4164-8919-f5681c12c1cf": {
+          "id": "48e98cef-c2de-4164-8919-f5681c12c1cf",
+          "name": "find-key-2",
+          "type": "image",
+          "key": "find-key-2",
+          "portrait": {
+            "position": {
+              "reference": "container",
+              "x": 0.1044771062181328,
+              "y": -0.08545727136431767
+            },
+            "size": {
+              "width": 0.1499999999999997,
+              "height": 0.5
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          },
+          "landscape": {
+            "position": {
+              "reference": "container",
+              "x": 0.06743523663005098,
+              "y": -0.1420817978107719
+            },
+            "size": {
+              "width": 0.0799999999999997,
+              "height": 0.5
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
+        },
+        "5c7b20fc-2e3b-4d38-9447-0c70f0ad5402": {
+          "id": "5c7b20fc-2e3b-4d38-9447-0c70f0ad5402",
+          "name": "find-key-3",
+          "type": "image",
+          "key": "find-key-3",
+          "portrait": {
+            "position": {
+              "reference": "container",
+              "x": -0.5061895604485339,
+              "y": 0.33283358320839596
+            },
+            "size": {
+              "width": 0.1499999999999997,
+              "height": 0.5
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          },
+          "landscape": {
+            "position": {
+              "reference": "container",
+              "x": -0.323869111196036,
+              "y": 0.5112515355225614
+            },
+            "size": {
+              "width": 0.0799999999999997,
+              "height": 0.5
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
+        },
+        "eabf4b2c-15a3-4357-928f-478c088a2872": {
+          "id": "eabf4b2c-15a3-4357-928f-478c088a2872",
+          "name": "find-key-4",
+          "type": "image",
+          "key": "find-key-4",
+          "portrait": {
+            "position": {
+              "reference": "container",
+              "x": 0.5831437728847996,
+              "y": 0.3113493253373315
+            },
+            "size": {
+              "width": 0.1499999999999997,
+              "height": 0.5
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          },
+          "landscape": {
+            "position": {
+              "reference": "container",
+              "x": 0.5827575754606358,
+              "y": 0.714584868855895
+            },
+            "size": {
+              "width": 0.0799999999999997,
+              "height": 0.5
+            },
+            "origin": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "scaleMode": "fit",
+            "maintainAspectRatio": true,
+            "rotation": 0,
+            "isVisible": true
+          }
+        }
+      }
+    },
+    "static-container": {
+      "portrait": {
+        "x": 0.5,
+        "y": 0.5,
+        "width": 1,
+        "height": 1
+      },
+      "landscape": {
+        "x": 0.5,
+        "y": 0.5,
+        "width": 1,
+        "height": 1
+      },
+      "assets": {
         "13448727-c03a-429d-9327-cef0c4cfbccd": {
           "id": "13448727-c03a-429d-9327-cef0c4cfbccd",
           "name": "logo",
@@ -804,182 +996,6 @@ export const GAME_LAYOUT = {
             "maintainAspectRatio": true,
             "rotation": 0,
             "isVisible": false
-          }
-        },
-        "a70358ed-ec2d-4239-aa31-814dc736fe63": {
-          "id": "a70358ed-ec2d-4239-aa31-814dc736fe63",
-          "name": "find-key-1",
-          "type": "image",
-          "key": "find-key-1",
-          "portrait": {
-            "position": {
-              "reference": "ceb4810a-354f-44fd-ba1e-267dbd7a0d31",
-              "x": 0.28435516718764803,
-              "y": -0.2683658170914541
-            },
-            "size": {
-              "width": 0.31999999999999984,
-              "height": 0.5
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 0.5
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          },
-          "landscape": {
-            "position": {
-              "reference": "ceb4810a-354f-44fd-ba1e-267dbd7a0d31",
-              "x": 0.3058160462252533,
-              "y": -0.26897035353291077
-            },
-            "size": {
-              "width": 0.2599999999999998,
-              "height": 0.5
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 0.5
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          }
-        },
-        "48e98cef-c2de-4164-8919-f5681c12c1cf": {
-          "id": "48e98cef-c2de-4164-8919-f5681c12c1cf",
-          "name": "find-key-2",
-          "type": "image",
-          "key": "find-key-2",
-          "portrait": {
-            "position": {
-              "reference": "container",
-              "x": 0.1044771062181328,
-              "y": -0.08545727136431767
-            },
-            "size": {
-              "width": 0.1499999999999997,
-              "height": 0.5
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 0.5
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          },
-          "landscape": {
-            "position": {
-              "reference": "container",
-              "x": 0.06743523663005098,
-              "y": -0.1420817978107719
-            },
-            "size": {
-              "width": 0.0799999999999997,
-              "height": 0.5
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 0.5
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          }
-        },
-        "5c7b20fc-2e3b-4d38-9447-0c70f0ad5402": {
-          "id": "5c7b20fc-2e3b-4d38-9447-0c70f0ad5402",
-          "name": "find-key-3",
-          "type": "image",
-          "key": "find-key-3",
-          "portrait": {
-            "position": {
-              "reference": "container",
-              "x": -0.5061895604485339,
-              "y": 0.33283358320839596
-            },
-            "size": {
-              "width": 0.1499999999999997,
-              "height": 0.5
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 0.5
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          },
-          "landscape": {
-            "position": {
-              "reference": "container",
-              "x": -0.323869111196036,
-              "y": 0.5112515355225614
-            },
-            "size": {
-              "width": 0.0799999999999997,
-              "height": 0.5
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 0.5
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          }
-        },
-        "eabf4b2c-15a3-4357-928f-478c088a2872": {
-          "id": "eabf4b2c-15a3-4357-928f-478c088a2872",
-          "name": "find-key-4",
-          "type": "image",
-          "key": "find-key-4",
-          "portrait": {
-            "position": {
-              "reference": "container",
-              "x": 0.5831437728847996,
-              "y": 0.3113493253373315
-            },
-            "size": {
-              "width": 0.1499999999999997,
-              "height": 0.5
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 0.5
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          },
-          "landscape": {
-            "position": {
-              "reference": "container",
-              "x": 0.5827575754606358,
-              "y": 0.714584868855895
-            },
-            "size": {
-              "width": 0.0799999999999997,
-              "height": 0.5
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 0.5
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
           }
         }
       }

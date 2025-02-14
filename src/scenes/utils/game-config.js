@@ -7,6 +7,10 @@ export const GAME_CONFIG = {
     },
     backgroundColor: "#028af8"
   },
+  animation: {
+    shelfMoveDistance: 0.45,  // Relative to min(width, height)
+    containerShakeDistance: 0.1  // Relative to min(width, height)
+  },
   "SELECTED_LANGUAGE": "en"
 };
 
