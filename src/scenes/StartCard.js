@@ -28,7 +28,7 @@ export class StartCard extends Phaser.Scene {
         });
     }
 
-    handleResize() {
+    handleResize(gamSize) {
         // Update layout when resize occurs
         if (this.layoutManager) {
             this.layoutManager.updateLayout();

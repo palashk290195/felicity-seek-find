@@ -11,7 +11,37 @@ export const GAME_CONFIG = {
     shelfMoveDistance: 0.45,  // Relative to min(width, height)
     containerShakeDistance: 0.1  // Relative to min(width, height)
   },
-  "SELECTED_LANGUAGE": "en"
+  SELECTED_LANGUAGE: "en",
+  LANGUAGES: {
+    en: {
+      game_cta: "Play Free!",
+      end_card_cta: "New level!"
+    },
+    fr: {
+      game_cta: "Jouer Gratuitement!",
+      end_card_cta: "Nouveau niveau!"
+    },
+    ko: {
+      game_cta: "무료 플레이!",
+      end_card_cta: "새로운 레벨!"
+    },
+    jp: {
+      game_cta: "無料でプレイ!",
+      end_card_cta: "新しいレベル!"
+    },
+    ru: {
+      game_cta: "Играть бесплатно!",
+      end_card_cta: "Новый уровень!"
+    },
+    pt: {
+      game_cta: "Jogue Grátis!",
+      end_card_cta: "Novo nível!"
+    },
+    de: {
+      game_cta: "Kostenlos Spielen!",
+      end_card_cta: "Neues Level!"
+    }
+  }
 };
 
 // Helper function to get current language config

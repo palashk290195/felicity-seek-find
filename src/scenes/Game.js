@@ -18,6 +18,7 @@ export class Game extends Phaser.Scene {
         this.objectInteractionManager = null;
         this.gameStateManager = null;
         this.modifiedLayout = null;
+        this.ctaText = null;
     }
 
     create() {
@@ -127,28 +128,55 @@ export class Game extends Phaser.Scene {
         this.setupCtaButtons();
 
         // Handle resize
-        this.scale.on('resize', this.handleResize, this);
+        //this.scale.on('resize', this.handleResize, this);
     }
 
     setupCtaButtons() {
-        if (this['download']) {
-            this['download'].setInteractive();
-            this['download'].on('pointerdown', () => {
+        if (this['cta']) {
+            this['cta'].setInteractive();
+            this['cta'].on('pointerdown', () => {
                 adRetry();
                 handleCtaPressed();
             });
+            
+            // Add CTA text
+            this.addCtaText(this['cta']);
         }
 
-        if (this['play-now']) {
-            this['play-now'].setInteractive();
-            this['play-now'].on('pointerdown', () => {
-                adRetry();
-                handleCtaPressed();
-            });
-        }
+
     }
 
-    handleResize() {
+    addCtaText(ctaButton) {
+        // Create text object if it doesn't exist
+        if (!this.ctaText) {
+            this.ctaText = this.add.text(0, 0, '', {
+                fontFamily: 'Arial',
+                fontSize: '32px',
+                color: '#000000'
+            });
+
+            // Add text to main container if it exists
+            const staticContainer = this['static-container'];
+            if (staticContainer) {
+                staticContainer.add(this.ctaText);
+            }
+        }
+        // Get current language text
+        const languageConfig = getCurrentLanguage();
+        const ctaText = languageConfig.game_cta;
+
+        // Create a container for sizing
+        const textContainer = {
+            width: ctaButton.displayWidth * 0.5,
+            height: ctaButton.displayHeight * 0.5
+        };
+
+        // Fit text to container
+        fitTextToContainer(this.ctaText, textContainer, ctaText);
+        this.ctaText.setPosition(ctaButton.x, ctaButton.y);
+    }
+
+    handleResize(gameSize) {
         // First update the layout
         this.tweens.killAll();
         
@@ -191,6 +219,18 @@ export class Game extends Phaser.Scene {
         // Handle resize in game state manager - this handles win state animations
         if (this.gameStateManager) {
             this.gameStateManager.handleResize();
+        }
+
+        // Update CTA text position and size
+        const ctaButton = this['cta'];
+        if (ctaButton && this.ctaText) {
+            const textContainer = {
+                width: ctaButton.displayWidth * 0.5,
+                height: ctaButton.displayHeight * 0.5
+            };
+            
+            fitTextToContainer(this.ctaText, textContainer, this.ctaText.text);
+            this.ctaText.setPosition(ctaButton.x, ctaButton.y);
         }
     }
 }

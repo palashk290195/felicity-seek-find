@@ -1,3 +1,5 @@
+import { GAME_LAYOUT } from '../config/game-layout.js';
+
 export class GameStateManager {
     constructor(scene) {
         this.scene = scene;
@@ -40,8 +42,66 @@ export class GameStateManager {
         
         this.gameState = state;
         if (state === 'win') {
-            this.startWinAnimations();
+            // First move container back to original position
+            const mainContainer = this.scene['main-container'];
+            if (mainContainer) {
+                // Get the original position from layout
+                const isLandscape = this.scene.scale.width > this.scene.scale.height;
+                const containerConfig = GAME_LAYOUT.containers['main-container'];
+                const originalX = isLandscape ? containerConfig.landscape.x : containerConfig.portrait.x;
+                const originalY = isLandscape ? containerConfig.landscape.y : containerConfig.portrait.y;
+                
+                // Convert to pixel coordinates
+                const targetX = originalX * this.scene.scale.width;
+                const targetY = originalY * this.scene.scale.height;
+                
+                // Create tween to move container back
+                this.scene.tweens.add({
+                    targets: mainContainer,
+                    x: targetX,
+                    y: targetY,
+                    duration: 500,
+                    ease: 'Power2',
+                    onComplete: () => {
+                        // After container is in position, destroy locks in sequence
+                        this.destroyLocksInSequence();
+                    }
+                });
+            }
         }
+    }
+
+    destroyLocksInSequence() {
+        const destroyLock = (index) => {
+            const lock = this.scene[`lock${index}`];
+            if (lock) {
+                // Create fade out and scale up tween
+                this.scene.tweens.add({
+                    targets: lock,
+                    alpha: 0,
+                    scaleX: lock.scaleX * 1.5,
+                    scaleY: lock.scaleY * 1.5,
+                    duration: 300,
+                    ease: 'Power2',
+                    onComplete: () => {
+                        lock.destroy();
+                        // If there are more locks, destroy the next one
+                        if (index < 4) {
+                            // Add a small delay before destroying next lock
+                            this.scene.time.delayedCall(100, () => {
+                                destroyLock(index + 1);
+                            });
+                        } else {
+                            // All locks destroyed, transition to EndCard scene
+                            this.scene.scene.start('EndCard');
+                        }
+                    }
+                });
+            }
+        };
+
+        // Start with the first lock
+        destroyLock(1);
     }
 
     startWinAnimations() {

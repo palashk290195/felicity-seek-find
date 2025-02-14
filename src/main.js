@@ -4,6 +4,7 @@ import { mraidAdNetworks, networkPlugin } from './networkPlugin.js';
 import { Game } from './scenes/Game';
 import { Preloader } from './scenes/Preloader';
 import { StartCard } from './scenes/StartCard';
+import { EndCard } from './scenes/EndCard';
 import { config } from './config.js';
 import { GAME_CONFIG } from './scenes/utils/game-config.js';
 //import { Boot } from './scenes/Boot';
@@ -42,7 +43,7 @@ const gameConfig = {
         autoCenter: Phaser.Scale.CENTER_BOTH,
         orientation: { forceOrientation: false }
     },
-    scene: [Preloader, StartCard, Game]
+    scene: [Preloader, StartCard, Game, EndCard]
 };
 
 // Main function to initialize the Phaser game
@@ -81,6 +82,14 @@ function initializePhaserGame() {
                 game.scale.resize(width, height);
                 game.scale.refresh();
                 logGameDimensions(game, 'resize');
+                // Update current scene if it has a resize handler
+                const currentScene = game.scene.getScenes(true)[0];
+                if (currentScene?.handleResize) {
+                    currentScene.handleResize({
+                        width: game.scale.width,
+                        height: game.scale.height
+                    });
+                }
             };
 
             // Handle device orientation changes
