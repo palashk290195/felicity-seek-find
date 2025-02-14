@@ -1,0 +1,1 @@
+export const loaderSpriteJSON = "data:application/json;base64,W3sibmFtZSI6ImluY29tcGxldGUtbG9hZGVyIiwieCI6NCwieSI6NSwid2lkdGgiOjgwNCwiaGVpZ2h0Ijo5MH0seyJuYW1lIjoiY29tcGxldGUtbG9hZGVyIiwieCI6MiwieSI6MTAxLCJ3aWR0aCI6Nzc2LCJoZWlnaHQiOjYyfV0=";

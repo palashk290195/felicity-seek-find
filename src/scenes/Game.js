@@ -8,7 +8,7 @@ import { GAME_CONFIG, getCurrentLanguage } from "./utils/game-config.js";
 import { fitImageToContainer, fitTextToContainer } from "./utils/layout-utils.js";
 import { AudioUtils } from '../utils/audio-utils.js';
 import { LayoutManager } from './utils/layout-manager.js';
-import { GAME_LAYOUT } from '../config/layout.js';
+import { GAME_LAYOUT } from '../config/game-layout.js';
 import { ImageFitter } from './utils/image-fitter.js';
 
 export class Game extends Phaser.Scene {

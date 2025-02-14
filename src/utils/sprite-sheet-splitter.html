@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprite Sheet Splitter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .preview {
+            margin: 20px 0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        #spritePreview {
+            max-width: 100%;
+            height: auto;
+        }
+        .sprites-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .sprite-item {
+            border: 1px solid #ccc;
+            padding: 5px;
+            text-align: center;
+        }
+        .sprite-item canvas {
+            max-width: 100%;
+            height: auto;
+        }
+        .sprite-item button {
+            margin-top: 5px;
+            width: 100%;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .dimensions {
+            font-size: 11px;
+            color: #666;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sprite Sheet Splitter</h1>
+        
+        <div class="input-group">
+            <h3>1. Upload Sprite Sheet Image</h3>
+            <input type="file" id="imageInput" accept="image/*">
+        </div>
+
+        <div class="input-group">
+            <h3>2. Upload JSON Data</h3>
+            <input type="file" id="jsonInput" accept=".json">
+        </div>
+
+        <div class="preview">
+            <h3>Sprite Sheet Preview</h3>
+            <img id="spritePreview" alt="Sprite sheet preview">
+        </div>
+
+        <div id="spritesOutput" class="sprites-container"></div>
+    </div>
+
+    <script>
+        let spriteSheet = null;
+        let jsonData = null;
+
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.onload = function() {
+                        spriteSheet = img;
+                        document.getElementById('spritePreview').src = event.target.result;
+                        if (jsonData) processSpriteSheet();
+                    };
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('jsonInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        jsonData = JSON.parse(event.target.result);
+                        if (spriteSheet) processSpriteSheet();
+                    } catch (error) {
+                        alert('Invalid JSON file');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        function processSpriteSheet() {
+            const container = document.getElementById('spritesOutput');
+            container.innerHTML = '';
+
+            // Process each sprite in the array
+            jsonData.forEach(sprite => {
+                const spriteDiv = document.createElement('div');
+                spriteDiv.className = 'sprite-item';
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = sprite.width;
+                canvas.height = sprite.height;
+                
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(spriteSheet, 
+                    sprite.x, sprite.y, sprite.width, sprite.height,
+                    0, 0, sprite.width, sprite.height
+                );
+
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = 'Download';
+                downloadBtn.onclick = () => downloadSprite(canvas, sprite.name);
+
+                const nameLabel = document.createElement('div');
+                nameLabel.textContent = sprite.name;
+                nameLabel.style.fontSize = '12px';
+                nameLabel.style.marginTop = '5px';
+                nameLabel.style.wordBreak = 'break-all';
+
+                const dimensions = document.createElement('div');
+                dimensions.className = 'dimensions';
+                dimensions.textContent = `${sprite.width}×${sprite.height}`;
+
+                spriteDiv.appendChild(canvas);
+                spriteDiv.appendChild(nameLabel);
+                spriteDiv.appendChild(dimensions);
+                spriteDiv.appendChild(downloadBtn);
+                container.appendChild(spriteDiv);
+            });
+        }
+
+        function downloadSprite(canvas, name) {
+            const link = document.createElement('a');
+            link.download = `${name}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+    </script>
+</div>
+</body>
+</html>
