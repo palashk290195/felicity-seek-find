@@ -5,6 +5,7 @@ import { SpiderEffect } from '../effects/SpiderEffect.js';
 import { LampHighlightEffect } from '../effects/LampHighlightEffect.js';
 import { OrangeLightEffect } from '../effects/OrangeLightEffect.js';
 import { HandEffect } from '../effects/HandEffect.js';
+import { HorrorCharacterEffect } from '../effects/HorrorCharacterEffect.js';
 
 export class ObjectInteractionManager {
     constructor(scene, gameStateManager) {
@@ -19,6 +20,7 @@ export class ObjectInteractionManager {
         this.effectManager.registerEffect('object-1-effect', new OrangeLightEffect(scene));
         this.effectManager.registerEffect('object-2-effect', new HandEffect(scene));
         this.effectManager.registerEffect('object-4-effect', new SpiderEffect(scene));
+        this.effectManager.registerEffect('object-5-effect', new HorrorCharacterEffect(scene));
         this.effectManager.registerEffect('object-6-effect', new LampHighlightEffect(scene));
         
         this.setupFindObjects();

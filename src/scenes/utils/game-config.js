@@ -46,6 +46,12 @@ export const GAME_CONFIG = {
       initialOffset: 0.3,       // Initial Y offset relative to game height
       pendulumDuration: 1000,   // Duration for one complete pendulum swing
       pendulumAngle: 5,        // Maximum angle of swing in degrees
+    },
+    horrorCharacterEffect: {
+      initialDuration: 1000,    // Duration for character movement
+      positionOffset: 0.1,      // Initial X offset relative to character width
+      bloodAlphaDuration: 500,  // Duration for blood alpha animation
+      bloodInitialAlpha: 0.5    // Starting alpha for blood
     }
   },
   SELECTED_LANGUAGE: "en",
