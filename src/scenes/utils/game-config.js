@@ -40,6 +40,12 @@ export const GAME_CONFIG = {
     },
     orangeLightEffect: {
       lightballsDuration: 1000  // Duration for each lightball visibility toggle in ms
+    },
+    handEffect: {
+      initialDuration: 1000,    // Duration for initial upward movement
+      initialOffset: 0.3,       // Initial Y offset relative to game height
+      pendulumDuration: 1000,   // Duration for one complete pendulum swing
+      pendulumAngle: 5,        // Maximum angle of swing in degrees
     }
   },
   SELECTED_LANGUAGE: "en",
