@@ -739,7 +739,7 @@ export const GAME_LAYOUT = {
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,
-            "rotation": 180,
+            "rotation": 0,
             "isVisible": false
           },
           "landscape": {
@@ -758,7 +758,7 @@ export const GAME_LAYOUT = {
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,
-            "rotation": 180,
+            "rotation": 0,
             "isVisible": false
           }
         },
@@ -770,7 +770,7 @@ export const GAME_LAYOUT = {
           "portrait": {
             "position": {
               "reference": "e617f457-3095-4c5f-9930-66461af94d76",
-              "x": -0.3718140929535233,
+              "x": -0.3778140929535233,
               "y": -0.3538230884557721
             },
             "size": {
@@ -783,13 +783,13 @@ export const GAME_LAYOUT = {
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,
-            "rotation": 180,
+            "rotation": 0,
             "isVisible": false
           },
           "landscape": {
             "position": {
               "reference": "e617f457-3095-4c5f-9930-66461af94d76",
-              "x": -0.4587706146926537,
+              "x": -0.3687706146926537,
               "y": -0.2863568215892054
             },
             "size": {
@@ -802,7 +802,7 @@ export const GAME_LAYOUT = {
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,
-            "rotation": 180,
+            "rotation": 0,
             "isVisible": false
           }
         },

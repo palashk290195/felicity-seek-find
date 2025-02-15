@@ -2,6 +2,8 @@ import * as Phaser from '../phaser/phaser-3.87.0-core.js';
 import { EffectManager } from '../effects/EffectManager.js';
 import { GAME_CONFIG } from '../scenes/utils/game-config.js';
 import { SpiderEffect } from '../effects/SpiderEffect.js';
+import { LampHighlightEffect } from '../effects/LampHighlightEffect.js';
+import { OrangeLightEffect } from '../effects/OrangeLightEffect.js';
 
 export class ObjectInteractionManager {
     constructor(scene, gameStateManager) {
@@ -13,7 +15,9 @@ export class ObjectInteractionManager {
         this.effectManager = new EffectManager(scene);
         
         // Register effects
+        this.effectManager.registerEffect('object-1-effect', new OrangeLightEffect(scene));
         this.effectManager.registerEffect('object-4-effect', new SpiderEffect(scene));
+        this.effectManager.registerEffect('object-6-effect', new LampHighlightEffect(scene));
         
         this.setupFindObjects();
     }

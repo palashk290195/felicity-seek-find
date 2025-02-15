@@ -8,7 +8,6 @@ export const GAME_CONFIG = {
     backgroundColor: "#028af8"
   },
   animation: {
-    shelfMoveDistance: 0.45,  // Relative to min(width, height)
     containerShakeDistance: 0.1,  // Relative to min(width, height)
     hintCircle: {
       size: 0.8,  // Scale relative to target object size
@@ -30,6 +29,17 @@ export const GAME_CONFIG = {
       pendulumDuration: 1000,  // Duration for one complete pendulum swing
       pendulumAngle: 20,      // Maximum angle of swing in degrees
       fadeInDuration: 500     // Duration for alpha transitions
+    },
+    lampHighlightEffect: {
+      rotationAngle: 55,      // Rotation angle in degrees
+      flashCount: 10,         // Number of flashes
+      flashDuration: {
+        min: 0,               // Minimum flash duration in ms
+        max: 100             // Maximum flash duration in ms
+      }
+    },
+    orangeLightEffect: {
+      lightballsDuration: 1000  // Duration for each lightball visibility toggle in ms
     }
   },
   SELECTED_LANGUAGE: "en",

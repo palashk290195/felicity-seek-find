@@ -101,10 +101,10 @@ class BaseEffect {
    - [ ] Update position on resize
 
 5. **Spider Effect**
-   - [ ] Show thread first
-   - [ ] Animate spider down thread
-   - [ ] Set as persistent
-   - [ ] Handle thread and spider positioning
+   - [x] Show thread first
+   - [x] Animate spider down thread
+   - [x] Set as persistent
+   - [x] Handle thread and spider positioning
 
 6. **Horror Character**
    - [ ] Implement fade in
