@@ -150,8 +150,9 @@ export class GameStateManager {
         // If in win state, reposition and rescale BG-Rabbit
         if (this.gameState === 'win' && this.bgRabbit) {
             this.bgRabbit.setVisible(true);
+            this.centerFindText();
         }
-        this.centerFindText();
+        
     }
 
     centerFindText() {

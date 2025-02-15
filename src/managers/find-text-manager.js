@@ -51,7 +51,8 @@ export class FindTextManager {
 
     updateText() {
         const language = getCurrentLanguage();
-        const text = language.find_text.replace('{count}', this.remainingCount);
+        const textKey = this.remainingCount === 1 ? 'find_text_singular' : 'find_text';
+        const text = language[textKey].replace('{count}', this.remainingCount);
         
         // Use the fitTextToContainer utility to size the text properly
         fitTextToContainer(this.findText, this.container, text);
