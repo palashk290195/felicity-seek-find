@@ -1,6 +1,9 @@
 import { GAME_LAYOUT } from '../config/game-layout.js';
 import { handleCtaPressed, adRetry } from "../networkPlugin.js";
 import * as Phaser from '../phaser/phaser-3.87.0-core.js';
+import { getCurrentLanguage } from '../scenes/utils/game-config.js';
+import { fitTextToContainer } from '../scenes/utils/layout-utils.js';
+import { GAME_CONFIG } from '../scenes/utils/game-config.js';
 
 export class GameStateManager {
     constructor(scene) {
@@ -10,6 +13,7 @@ export class GameStateManager {
         this.winAnimations = [];
         this.bgRabbit = null;
         this.events = new Phaser.Events.EventEmitter();
+        this.findTextTween = null; // Store the text tween reference
     }
 
     addClickedObject(object) {
@@ -48,6 +52,7 @@ export class GameStateManager {
         
         this.gameState = state;
         if (state === 'win') {
+            
             const mainContainer = this.scene['main-container'];
             if (mainContainer) {
                 // Get the original position from layout
@@ -103,11 +108,24 @@ export class GameStateManager {
             }
 
             // Animate the rabbit falling
+            const textBg = this.scene['text-bg'];
+            const findText = this.scene.findTextManager.findText;
+            if (textBg && findText) {
+                textBg.setVisible(false);
+                findText.setVisible(false);
+            }
             this.scene.tweens.add({
                 targets: this.bgRabbit,
                 y: 0, // Move to center of screen
                 duration: 1000, // 1 second duration
-                ease: 'Bounce.Out'
+                ease: 'Power2',
+                onComplete: () => {
+                    this.centerFindText();
+                    if (textBg && findText) {
+                        textBg.setVisible(true);
+                        findText.setVisible(true);
+                    }
+                }
             });
         }
     }
@@ -133,5 +151,53 @@ export class GameStateManager {
         if (this.gameState === 'win' && this.bgRabbit) {
             this.bgRabbit.setVisible(true);
         }
+        this.centerFindText();
+    }
+
+    centerFindText() {
+        const textBg = this.scene['text-bg'];
+        const findText = this.scene.findTextManager.findText;
+        
+        if (!textBg || !findText) return;
+
+        // Stop existing tween if any
+        if (this.findTextTween) {
+            this.findTextTween.stop();
+            this.findTextTween = null;
+        }
+
+        // Center text-bg
+        const gameWidth = this.scene.scale.width;
+        const gameHeight = this.scene.scale.height;
+        
+        // Set width to game width and scale height proportionally
+        const originalWidth = textBg.width;
+        const originalHeight = textBg.height;
+        const scale = gameWidth / originalWidth;
+        const aspectRatio = originalHeight / originalWidth;
+        
+        textBg.setScale(scale);
+        textBg.setPosition(0,0);
+
+        // Create a container with 80% of text-bg's display dimensions
+        const container = {
+            width: textBg.displayWidth * 0.8,
+            height: textBg.displayHeight * 0.8
+        };
+
+        // Update find text
+        const language = getCurrentLanguage();
+        fitTextToContainer(findText, container, language.find_rabbits);
+        findText.setText(language.find_rabbits);
+
+        // Start tween for findText
+        this.findTextTween = this.scene.tweens.add({
+            targets: findText,
+            scale: 0.8,
+            duration: 1000,
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            repeat: Infinity
+        });
     }
 } 

@@ -89,36 +89,39 @@ export class Game extends Phaser.Scene {
         
         // Update layout with modified positions
         this.layoutManager.updateLayout();
-        
-        // Clear object interaction manager's internal arrays
-        // but don't destroy the find objects - they were just repositioned by layout manager
-        if (this.objectInteractionManager) {
-            this.objectInteractionManager.cleanup();
-            // Re-setup find objects - this will only setup non-destroyed objects
-            this.objectInteractionManager.setupFindObjects();
-        }
 
         // Handle resize in game state manager - this handles win state animations
         if (this.gameStateManager) {
             this.gameStateManager.handleResize();
         }
+        
+        if (this.gameStateManager.gameState !== 'win') {
+            // Clear object interaction manager's internal arrays
+            // but don't destroy the find objects - they were just repositioned by layout manager
+            if (this.objectInteractionManager) {
+                this.objectInteractionManager.cleanup();
+                // Re-setup find objects - this will only setup non-destroyed objects
+                this.objectInteractionManager.setupFindObjects();
+            }
+            // Update find text after layout changes
+            if (this.findTextManager) {
+                const textBg = this['text-bg'];
+                if (textBg) {
+                    this.findTextManager.updateText();
+                }
+            }
 
-        // Handle resize in hint manager
-        if (this.hintManager) {
-            this.hintManager.handleResize();
-        }
+            // Handle resize in hint manager
+            if (this.hintManager) {
+                this.hintManager.handleResize();
+            }
 
-        // Handle resize in wrong click manager
-        if (this.wrongClickManager) {
-            this.wrongClickManager.handleResize();
-        }
-
-        // Update find text after layout changes
-        if (this.findTextManager) {
-            const textBg = this['text-bg'];
-            if (textBg) {
-                this.findTextManager.updateText();
+            // Handle resize in wrong click manager
+            if (this.wrongClickManager) {
+                this.wrongClickManager.handleResize();
             }
         }
+
+        
     }
 }

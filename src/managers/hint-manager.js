@@ -166,12 +166,14 @@ export class HintManager {
 
         // If we're in the pause period (timer exists), restart the timer
         if (this.resumeTimer) {
+            console.log('resuming hint');
             this.scheduleResume();
             return;
         }
 
         // Only update visuals if not paused
-        if (!this.isHintPaused && this.hintCircle) {
+        if (!this.isHintPaused && this.hintCircle && this.currentTargetObject) {
+            console.log('updating hint');
             this.updateHintCircleSize(this.currentTargetObject);
             this.updateHintPosition();
             this.startHintTween();
