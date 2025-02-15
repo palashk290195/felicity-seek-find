@@ -639,7 +639,7 @@ export const GAME_LAYOUT = {
             "position": {
               "reference": "56b9fd65-191d-42a5-8467-6d926015004b",
               "x": 0,
-              "y": 0.8599999999999999
+              "y": 0.6499999999999999
             },
             "size": {
               "width": 1,
@@ -647,7 +647,7 @@ export const GAME_LAYOUT = {
             },
             "origin": {
               "x": 0.5,
-              "y": 0
+              "y": 0.135
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,
@@ -658,7 +658,7 @@ export const GAME_LAYOUT = {
             "position": {
               "reference": "56b9fd65-191d-42a5-8467-6d926015004b",
               "x": 0,
-              "y": 0.8899999999999999
+              "y": 0.6499999999999999
             },
             "size": {
               "width": 1,
@@ -666,7 +666,7 @@ export const GAME_LAYOUT = {
             },
             "origin": {
               "x": 0.5,
-              "y": 0
+              "y": 0.135
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,

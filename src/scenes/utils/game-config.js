@@ -24,6 +24,12 @@ export const GAME_CONFIG = {
         duration: 200,   // Duration of shake
         ease: 'Cubic.easeOut'  // Easing function for shake
       }
+    },
+    spiderEffect: {
+      initialDuration: 1000,  // Duration for initial animation
+      pendulumDuration: 1000,  // Duration for one complete pendulum swing
+      pendulumAngle: 20,      // Maximum angle of swing in degrees
+      fadeInDuration: 500     // Duration for alpha transitions
     }
   },
   SELECTED_LANGUAGE: "en",

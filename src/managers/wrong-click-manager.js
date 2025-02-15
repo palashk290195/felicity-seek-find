@@ -53,7 +53,10 @@ export class WrongClickManager {
     updateInteractiveArea() {
         if (this.mainContainer) {
             // Make container interactive with a larger hit area matching game size
-            this.mainContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, this.scene.scale.width, this.scene.scale.height), Phaser.Geom.Rectangle.Contains);
+            console.log('updateInteractiveArea', this.scene.scale.width, this.scene.scale.height);
+            const maxGameSize = Math.max(this.scene.scale.width, this.scene.scale.height);
+
+            this.mainContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, maxGameSize, maxGameSize), Phaser.Geom.Rectangle.Contains);
         }
     }
 

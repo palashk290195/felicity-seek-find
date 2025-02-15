@@ -35,31 +35,32 @@ Create an engaging hidden object game where players need to find 6 objects in a 
   - [x] Make BG-Rabbit interactive for CTA
   - [x] Ensure correct positioning after resize
 
-### 3. Hint Manager (Priority 3)
+### 3. Hint Manager (Priority 3) ✅
 - **Core Implementation**
-  - [ ] Create `HintManager` class with scene and layout manager references
-  - [ ] Add `hint-circle` to layout config with appropriate size/position
-  - [ ] Implement `moveToNextObject()` to calculate position based on unclicked objects
-  - [ ] Create continuous tween animation (scale 1 -> 1.2 -> 1)
+  - [x] Create `HintManager` class with scene and layout manager references
+  - [x] Add `hint-circle` to layout config with appropriate size/position
+  - [x] Implement `moveToNextObject()` to calculate position based on unclicked objects
+  - [x] Create continuous tween animation (scale 1 -> 1.2 -> 1)
 
 - **State Management**
-  - [ ] Track current hinted object index
-  - [ ] Maintain list of unclicked objects
-  - [ ] Add methods to pause/resume hint animation
-  - [ ] Handle resize by recalculating position relative to current target
+  - [x] Track current hinted object index
+  - [x] Maintain list of unclicked objects
+  - [x] Add methods to pause/resume hint animation
+  - [x] Handle resize by recalculating position relative to current target
 
 ### 4. Cross Manager (Priority 4)
 - **Wrong Click Handling**
-  - [ ] Create `CrossManager` class
-  - [ ] Add cross image to scene with initial invisible state
-  - [ ] Implement `showCrossAt(x, y)` with fade in/out
-  - [ ] Add screen shake effect on container
+  - [x] Create `WrongClickManager` class
+  - [x] Add cross image to scene with initial invisible state
+  - [x] Implement `showCrossAt(x, y)` with fade in/out
+  - [x] Add screen shake effect on container
+  - [x] Fix wrong click area not updating on resize (container's interactive area needs to match new game dimensions)
 
 - **Animation Control**
-  - [ ] Set 1-second duration for cross display
-  - [ ] Handle multiple wrong clicks (queue or cancel previous)
-  - [ ] Pause hint circle during cross animation
-  - [ ] Ensure cross positions correctly on resize
+  - [x] Set 1-second duration for cross display
+  - [x] Handle multiple wrong clicks (queue or cancel previous)
+  - [x] Pause hint circle during cross animation
+  - [x] Ensure cross positions correctly on resize
 
 ### 5. Effect Implementation (Priority 5)
 Each effect should implement:

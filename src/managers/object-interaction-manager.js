@@ -1,6 +1,7 @@
 import * as Phaser from '../phaser/phaser-3.87.0-core.js';
 import { EffectManager } from '../effects/EffectManager.js';
 import { GAME_CONFIG } from '../scenes/utils/game-config.js';
+import { SpiderEffect } from '../effects/SpiderEffect.js';
 
 export class ObjectInteractionManager {
     constructor(scene, gameStateManager) {
@@ -10,6 +11,10 @@ export class ObjectInteractionManager {
         this.container = this.scene['main-container'];
         this.dragListenerSet = false;
         this.effectManager = new EffectManager(scene);
+        
+        // Register effects
+        this.effectManager.registerEffect('object-4-effect', new SpiderEffect(scene));
+        
         this.setupFindObjects();
     }
 
@@ -39,6 +44,8 @@ export class ObjectInteractionManager {
     }
 
     handleObjectClick(index, findObject) {
+        console.log(`Object ${index} clicked`);
+        
         // Hide hint immediately on any object click
         if (this.scene.hintManager) {
             this.scene.hintManager.pauseHint();
@@ -50,6 +57,7 @@ export class ObjectInteractionManager {
         const y = worldPos.ty;
 
         // Trigger appropriate effect based on object index
+        console.log(`Triggering effect: object-${index}-effect`);
         this.effectManager.triggerEffect(`object-${index}-effect`, x, y);
 
         // Create move up and fade out animation
@@ -101,63 +109,9 @@ export class ObjectInteractionManager {
             this.scene.time.removeAllEvents();
         }
 
-        // Reset drag functionality
-        if (this.container && this.container.input) {
-            this.scene.input.setDraggable(this.container, false);
-            this.container.disableInteractive();
-        }
-        this.dragListenerSet = false;
+        // Let effects handle their own restart after resize
+        this.effectManager.handleResize();
 
-        // Cleanup effects
-        this.effectManager.cleanup();
-
-        // Re-setup container drag and objects
-        this.setupContainerDrag();
         this.setupFindObjects();
-    }
-
-    setupContainerDrag() {
-        // Make container interactive with a larger hit area
-        this.container.setInteractive();
-        
-        // Get background for bounds checking
-        const bg = this.container.getByName('bg');
-        if (!bg) {
-            console.warn('[ObjectInteractionManager] Background not found');
-            return;
-        }
-
-        // Setup drag
-        this.scene.input.setDraggable(this.container);
-        this.scene.input.on('drag', (pointer, gameObject, dragX, dragY) => {
-            
-            if (gameObject !== this.container) {
-                console.log('[Drag] Wrong gameObject, expected container');
-                return;
-            }
-
-            // Get current bounds accounting for scale
-            const bgBounds = {
-                width: bg.width * Math.abs(bg.scaleX),
-                height: bg.height * Math.abs(bg.scaleY)
-            };
-
-            // Calculate center position (where container should be when bg is centered)
-            const centerX = this.scene.scale.width / 2;
-            const centerY = this.scene.scale.height / 2;
-
-            // Calculate bounds with a small buffer to prevent edge cases
-            const leftBound = Math.min(centerX, centerX - (bgBounds.width - this.scene.scale.width) / 2);
-            const rightBound = Math.max(centerX, centerX + (bgBounds.width - this.scene.scale.width) / 2);
-            const topBound = Math.min(centerY, centerY - (bgBounds.height - this.scene.scale.height) / 2);
-            const bottomBound = Math.max(centerY, centerY + (bgBounds.height - this.scene.scale.height) / 2);
-
-            // Apply drag with bounds in both directions
-            const newX = Phaser.Math.Clamp(dragX, leftBound, rightBound);
-            const newY = Phaser.Math.Clamp(dragY, topBound, bottomBound);
-
-            this.container.x = newX;
-            this.container.y = newY;
-        });
     }
 } 
