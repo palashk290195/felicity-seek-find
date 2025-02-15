@@ -187,6 +187,7 @@ import { palmShadowPNG } from '../../media/images_playable9-bras_palm-shadow.png
 import { rightPalmPNG } from '../../media/images_playable9-bras_right-palm.png.js';
 import { spiderThreadPNG } from '../../media/images_playable9-bras_spider-thread.png.js';
 import { spiderPNG } from '../../media/images_playable9-bras_spider.png.js';
+import { textBgPNG } from '../../media/images_playable9-bras_text-bg.png.js';
 import { windowMaskPNG } from '../../media/images_playable9-bras_window-mask.png.js';
 import { playbtnEnPNG } from '../../media/images_playbtn-en.png.js';
 import { playbtnRuPNG } from '../../media/images_playbtn-ru.png.js';

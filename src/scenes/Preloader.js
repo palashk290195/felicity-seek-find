@@ -40,6 +40,7 @@ import { palmShadowPNG } from '../../media/images_playable9-bras_palm-shadow.png
 import { rightPalmPNG } from '../../media/images_playable9-bras_right-palm.png.js';
 import { spiderThreadPNG } from '../../media/images_playable9-bras_spider-thread.png.js';
 import { spiderPNG } from '../../media/images_playable9-bras_spider.png.js';
+import { textBgPNG } from '../../media/images_playable9-bras_text-bg.png.js';
 import { windowMaskPNG } from '../../media/images_playable9-bras_window-mask.png.js';
 
 export class Preloader extends Phaser.Scene
@@ -105,6 +106,7 @@ export class Preloader extends Phaser.Scene
         this.load.image('cross', crossPNG);
         this.load.image('hint-circle', hintCirclePNG);
         this.load.image('window-mask', windowMaskPNG);
+        this.load.image('text-bg', textBgPNG);
         
         // Common assets
         this.load.image('seek-find-text', LogoImagePNG);

@@ -1,5 +1,6 @@
 import { GAME_LAYOUT } from '../config/game-layout.js';
 import { handleCtaPressed, adRetry } from "../networkPlugin.js";
+import * as Phaser from '../phaser/phaser-3.87.0-core.js';
 
 export class GameStateManager {
     constructor(scene) {
@@ -8,11 +9,22 @@ export class GameStateManager {
         this.gameState = 'playing'; // 'playing' or 'win'
         this.winAnimations = [];
         this.bgRabbit = null;
+        this.events = new Phaser.Events.EventEmitter();
+    }
+
+    addClickedObject(object) {
+        this.clickedObjects.add(object);
+        this.events.emit('objectFound', object);
+        
+        if (this.isAllObjectsFound()) {
+            this.setGameState('win');
+        }
     }
 
     markObjectClicked(objectId) {
         this.clickedObjects.add(objectId);
         this.updateFoundObjectsCount();
+        this.scene.findTextManager.decrementCount(this.clickedObjects.size);
     }
 
     isObjectClicked(objectId) {
@@ -36,7 +48,6 @@ export class GameStateManager {
         
         this.gameState = state;
         if (state === 'win') {
-            // First move container back to original position
             const mainContainer = this.scene['main-container'];
             if (mainContainer) {
                 // Get the original position from layout
@@ -73,44 +84,32 @@ export class GameStateManager {
     }
 
     createBGRabbit() {
-        // Create BG-Rabbit if it doesn't exist
-        if (!this.bgRabbit) {
-            const isLandscape = this.scene.scale.width > this.scene.scale.height;
-            const gameWidth = this.scene.scale.width;
+        // Get the existing bg-rabbit from the layout
+        this.bgRabbit = this.scene['bg-rabbit'];
+        if (this.bgRabbit) {
             const gameHeight = this.scene.scale.height;
 
-            // Create the rabbit off-screen at the top
-            this.bgRabbit = this.scene.add.sprite(
-                gameWidth * 0.5, // Center horizontally
-                -gameHeight * 0.2, // Start above the screen
-                'bg-rabbit'
-            );
+            // Position it above the screen
+            this.bgRabbit.setPosition(this.bgRabbit.x, -2 * gameHeight);
+            this.bgRabbit.setVisible(true);
 
-            // Make it interactive
-            this.bgRabbit.setInteractive();
-            this.bgRabbit.on('pointerdown', () => {
-                adRetry();
-                handleCtaPressed();
-            });
-
-            // Add to static container if it exists
-            const staticContainer = this.scene['static-container'];
-            if (staticContainer) {
-                staticContainer.add(this.bgRabbit);
+            // Make it interactive if not already
+            if (!this.bgRabbit.input) {
+                this.bgRabbit.setInteractive();
+                this.bgRabbit.on('pointerdown', () => {
+                    adRetry();
+                    handleCtaPressed();
+                });
             }
 
-            // Scale the rabbit appropriately
-            const rabbitScale = Math.min(gameWidth, gameHeight) * 0.002;
-            this.bgRabbit.setScale(rabbitScale);
+            // Animate the rabbit falling
+            this.scene.tweens.add({
+                targets: this.bgRabbit,
+                y: 0, // Move to center of screen
+                duration: 1000, // 1 second duration
+                ease: 'Bounce.Out'
+            });
         }
-
-        // Animate the rabbit falling
-        this.scene.tweens.add({
-            targets: this.bgRabbit,
-            y: this.scene.scale.height * 0.5, // Fall to center of screen
-            duration: 1000,
-            ease: 'Bounce.Out'
-        });
     }
 
     stopWinAnimations() {
@@ -132,18 +131,7 @@ export class GameStateManager {
     handleResize() {
         // If in win state, reposition and rescale BG-Rabbit
         if (this.gameState === 'win' && this.bgRabbit) {
-            const gameWidth = this.scene.scale.width;
-            const gameHeight = this.scene.scale.height;
-            
-            // Update position
-            this.bgRabbit.setPosition(
-                gameWidth * 0.5,
-                gameHeight * 0.5
-            );
-
-            // Update scale
-            const rabbitScale = Math.min(gameWidth, gameHeight) * 0.002;
-            this.bgRabbit.setScale(rabbitScale);
+            this.bgRabbit.setVisible(true);
         }
     }
 } 

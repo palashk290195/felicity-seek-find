@@ -5,7 +5,15 @@ export const GAME_CONFIG = {
         width: 320,  // Minimum width (will be multiplied by DPI)
         height: 480  // Minimum height (will be multiplied by DPI)
     },
-    backgroundColor: "#028af8"
+    backgroundColor: "#028af8",
+    findText: {
+      containerScale: 0.8,  // Scale relative to text-bg
+      style: {
+        fontFamily: 'Arial',
+        fontWeight: 'bold',
+        color: '#FFFFFF'
+      }
+    }
   },
   animation: {
     containerShakeDistance: 0.1,  // Relative to min(width, height)
@@ -52,37 +60,72 @@ export const GAME_CONFIG = {
       positionOffset: 0.1,      // Initial X offset relative to character width
       bloodAlphaDuration: 500,  // Duration for blood alpha animation
       bloodInitialAlpha: 0.5    // Starting alpha for blood
+    },
+    lightningEffect: {
+      mainStroke: {
+        scale: { min: 0.8, max: 1 },
+        rotation: { min: 30, max: 45 },  // Degrees
+        duration: { min: 200, max: 300 }
+      },
+      primaryBranches: {
+        count: { min: 2, max: 3 },
+        scale: { min: 0.5, max: 0.7 },
+        rotation: { min: 15, max: 45 },  // Degrees from main stroke
+        delay: { min: 50, max: 100 },    // ms after main stroke
+        duration: { min: 150, max: 250 }
+      },
+      secondaryBranches: {
+        count: { min: 1, max: 2 },       // Per primary branch
+        scale: { min: 0.3, max: 0.5 },
+        rotation: { min: 20, max: 40 },   // Degrees from primary
+        delay: { min: 30, max: 80 },      // ms after primary
+        duration: { min: 100, max: 200 }
+      },
+      offshoots: {
+        count: { min: 3, max: 5 },        // Total number
+        scale: { min: 0.1, max: 0.2 },
+        rotation: { min: 0, max: 90 },    // Degrees, full range
+        delay: { min: 20, max: 150 },     // ms, random timing
+        duration: { min: 50, max: 150 }
+      }
     }
   },
   SELECTED_LANGUAGE: "en",
   LANGUAGES: {
     en: {
       game_cta: "Play Free!",
-      end_card_cta: "New level!"
+      end_card_cta: "New level!",
+      find_text: "Find {count} bras"
     },
     fr: {
       game_cta: "Jouer Gratuitement!",
-      end_card_cta: "Nouveau niveau!"
+      end_card_cta: "Nouveau niveau!",
+      find_text: "Trouve {count} soutiens-gorge"
     },
     ko: {
       game_cta: "무료 플레이!",
-      end_card_cta: "새로운 레벨!"
+      end_card_cta: "새로운 레벨!",
+      find_text: "{count}개의 브라 찾기"
     },
     jp: {
       game_cta: "無料でプレイ!",
-      end_card_cta: "新しいレベル!"
+      end_card_cta: "新しいレベル!",
+      find_text: "{count}個のブラを見つけて"
     },
     ru: {
       game_cta: "Играть бесплатно!",
-      end_card_cta: "Новый уровень!"
+      end_card_cta: "Новый уровень!",
+      find_text: "Найди {count} бюстгальтера"
     },
     pt: {
       game_cta: "Jogue Grátis!",
-      end_card_cta: "Novo nível!"
+      end_card_cta: "Novo nível!",
+      find_text: "Encontre {count} sutiãs"
     },
     de: {
       game_cta: "Kostenlos Spielen!",
-      end_card_cta: "Neues Level!"
+      end_card_cta: "Neues Level!",
+      find_text: "Finde {count} BHs"
     }
   }
 };

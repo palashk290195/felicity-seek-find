@@ -6,6 +6,7 @@ import { LampHighlightEffect } from '../effects/LampHighlightEffect.js';
 import { OrangeLightEffect } from '../effects/OrangeLightEffect.js';
 import { HandEffect } from '../effects/HandEffect.js';
 import { HorrorCharacterEffect } from '../effects/HorrorCharacterEffect.js';
+import { LightningEffect } from '../effects/LightningEffect.js';
 
 export class ObjectInteractionManager {
     constructor(scene, gameStateManager) {
@@ -19,6 +20,7 @@ export class ObjectInteractionManager {
         // Register effects
         this.effectManager.registerEffect('object-1-effect', new OrangeLightEffect(scene));
         this.effectManager.registerEffect('object-2-effect', new HandEffect(scene));
+        this.effectManager.registerEffect('object-3-effect', new LightningEffect(scene));
         this.effectManager.registerEffect('object-4-effect', new SpiderEffect(scene));
         this.effectManager.registerEffect('object-5-effect', new HorrorCharacterEffect(scene));
         this.effectManager.registerEffect('object-6-effect', new LampHighlightEffect(scene));
@@ -73,7 +75,7 @@ export class ObjectInteractionManager {
             targets: findObject,
             y: findObject.y - Math.min(this.scene.scale.width, this.scene.scale.height) * 0.1,
             alpha: 0,
-            duration: 1000,
+            duration: 0,
             ease: 'Power2',
             onComplete: () => {
                 // Mark object as clicked in game state
