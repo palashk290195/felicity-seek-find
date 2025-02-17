@@ -5,7 +5,7 @@ import { getCurrentLanguage } from '../scenes/utils/game-config.js';
 import { fitTextToContainer } from '../scenes/utils/layout-utils.js';
 import { GAME_CONFIG } from '../scenes/utils/game-config.js';
 import { AudioUtils } from '../utils/audio-utils.js';
-
+import { adEnd } from '../networkPlugin.js';
 export class GameStateManager {
     constructor(scene) {
         this.scene = scene;
@@ -77,6 +77,7 @@ export class GameStateManager {
                     }
                 });
             }
+            adEnd();
         }
     }
 
