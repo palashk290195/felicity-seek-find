@@ -96,49 +96,42 @@ export const GAME_CONFIG = {
       game_cta: "Play Free!",
       end_card_cta: "New level!",
       find_text: "Find {count} bras",
-      find_text_singular: "Find {count} bra",
       find_rabbits: "Find 5 rabbits"
     },
     fr: {
       game_cta: "Jouer Gratuitement!",
       end_card_cta: "Nouveau niveau!",
       find_text: "Trouve {count} soutiens-gorge",
-      find_text_singular: "Trouve {count} soutien-gorge",
       find_rabbits: "Trouve 5 lapins"
     },
     ko: {
       game_cta: "무료 플레이!",
       end_card_cta: "새로운 레벨!",
       find_text: "{count}개의 브라 찾기",
-      find_text_singular: "{count}개의 브라 찾기",
       find_rabbits: "5개의 토끼 찾기"
     },
     jp: {
       game_cta: "無料でプレイ!",
       end_card_cta: "新しいレベル!",
       find_text: "{count}個のブラを見つけて",
-      find_text_singular: "{count}個のブラを見つけて",
       find_rabbits: "5匹のウサギを見つけて"
     },
     ru: {
       game_cta: "Играть бесплатно!",
       end_card_cta: "Новый уровень!",
       find_text: "Найди {count} бюстгальтера",
-      find_text_singular: "Найди {count} бюстгальтер",
       find_rabbits: "Найди 5 кроликов"
     },
     pt: {
       game_cta: "Jogue Grátis!",
       end_card_cta: "Novo nível!",
       find_text: "Encontre {count} sutiãs",
-      find_text_singular: "Encontre {count} sutiã",
       find_rabbits: "Encontre 5 coelhos"
     },
     de: {
       game_cta: "Kostenlos Spielen!",
       end_card_cta: "Neues Level!",
       find_text: "Finde {count} BHs",
-      find_text_singular: "Finde {count} BH",
       find_rabbits: "Finde 5 Hasen"
     }
   }
