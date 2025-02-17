@@ -25,9 +25,6 @@ export class ObjectInteractionManager {
     }
 
     setupContainerDrag() {
-        // Make container interactive with a larger hit area
-        this.container.setInteractive();
-        
         // Get background for bounds checking
         const bg = this.container.getByName('bg');
         if (!bg) {
@@ -35,30 +32,43 @@ export class ObjectInteractionManager {
             return;
         }
 
+        // Make container interactive with a hit area matching background dimensions
+        this.container.setInteractive(new Phaser.Geom.Rectangle(
+            0,
+            0,
+            bg.displayWidth,
+            bg.displayHeight
+        ), Phaser.Geom.Rectangle.Contains);
+
         // Setup drag
         this.scene.input.setDraggable(this.container);
-        this.scene.input.on('drag', (pointer, gameObject, dragX, dragY) => {
-            
+        
+        // Store the drag handler so we can remove it in cleanup
+        this.dragHandler = (pointer, gameObject, dragX, dragY) => {
             if (gameObject !== this.container) {
                 console.log('[Drag] Wrong gameObject, expected container');
                 return;
             }
 
-            // Get current bounds accounting for scale
-            const bgBounds = {
-                width: bg.width * Math.abs(bg.scaleX),
-                height: bg.height * Math.abs(bg.scaleY)
+            // Update the container's hit area to match current background dimensions
+            this.container.input.hitArea.width = bg.displayWidth;
+            this.container.input.hitArea.height = bg.displayHeight;
+
+            // Get the actual display dimensions of the background as it fills the container
+            const displayBounds = {
+                width: this.scene.scale.width,
+                height: this.scene.scale.height
             };
 
             // Calculate center position (where container should be when bg is centered)
-            const centerX = this.scene.scale.width / 2;
-            const centerY = this.scene.scale.height / 2;
+            const centerX = displayBounds.width / 2;
+            const centerY = displayBounds.height / 2;
 
-            // Calculate bounds with a small buffer to prevent edge cases
-            const leftBound = Math.min(centerX, centerX - (bgBounds.width - this.scene.scale.width) / 2);
-            const rightBound = Math.max(centerX, centerX + (bgBounds.width - this.scene.scale.width) / 2);
-            const topBound = Math.min(centerY, centerY - (bgBounds.height - this.scene.scale.height) / 2);
-            const bottomBound = Math.max(centerY, centerY + (bgBounds.height - this.scene.scale.height) / 2);
+            // Calculate bounds based on the background's display dimensions
+            const leftBound = centerX - (bg.displayWidth - displayBounds.width) / 2;
+            const rightBound = centerX + (bg.displayWidth - displayBounds.width) / 2;
+            const topBound = centerY - (bg.displayHeight - displayBounds.height) / 2;
+            const bottomBound = centerY + (bg.displayHeight - displayBounds.height) / 2;
 
             // Apply drag with bounds in both directions
             const newX = Phaser.Math.Clamp(dragX, leftBound, rightBound);
@@ -66,7 +76,9 @@ export class ObjectInteractionManager {
 
             this.container.x = newX;
             this.container.y = newY;
-        });
+        };
+
+        this.scene.input.on('drag', this.dragHandler);
     }
 
     startKeyAnimations(currentKeyIndex = 1) {
@@ -207,14 +219,22 @@ export class ObjectInteractionManager {
             this.scene.time.removeAllEvents();
         }
 
-        // // Reset drag functionality
-        // if (this.container && this.container.input) {
-        //     // Only try to remove draggable if the container is still interactive
-        //     this.scene.input.setDraggable(this.container, false);
-        //     this.container.disableInteractive();
-        // }
-        // // Reset the drag listener flag regardless
-        // this.dragListenerSet = false;
+        // Reset drag functionality
+        if (this.container) {
+            // Remove the drag handler if it exists
+            if (this.dragHandler) {
+                this.scene.input.off('drag', this.dragHandler);
+                this.dragHandler = null;
+            }
+            
+            // Disable dragging and interactivity
+            if (this.container.input) {
+                this.scene.input.setDraggable(this.container, false);
+                this.container.disableInteractive();
+            }
+        }
+        // Reset the drag listener flag
+        this.dragListenerSet = false;
 
         // Re-setup container drag and keys
         this.setupKeysAndContainer();
