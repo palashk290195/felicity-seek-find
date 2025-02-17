@@ -2,6 +2,7 @@ import { .DSStore } from '../../media/.DS_Store.js';
 import { .DSStore } from '../../media/audio_.DS_Store.js';
 import { bounceSoundMP3 } from '../../media/audio_bounce_sound.mp3.js';
 import { duckClickSoundMP3 } from '../../media/audio_duck_click_sound.mp3.js';
+import { objectClickMP3 } from '../../media/audio_object-click.mp3.js';
 import { seekBgMusicMP3 } from '../../media/audio_seek_bg_music.mp3.js';
 import { seekEnglishVoiceoverMP3 } from '../../media/audio_seek_english_voiceover.mp3.js';
 import { seekFrenchVoiceoverMP3 } from '../../media/audio_seek_french_voiceover.mp3.js';
@@ -87,6 +88,7 @@ import { findTextKoreanPNG } from '../../media/images_bright-cat_find-text_find-
 import { findTextPortuguesePNG } from '../../media/images_bright-cat_find-text_find-text-portuguese.png.js';
 import { findTextRussianPNG } from '../../media/images_bright-cat_find-text_find-text-russian.png.js';
 import { highlightPNG } from '../../media/images_bright-cat_highlight.png.js';
+import { .DSStore } from '../../media/images_bright-cat_play-more_.DS_Store.js';
 import { playMoreZIP } from '../../media/images_bright-cat_play-more_play-more.zip.js';
 import { brownBearColoredPNG } from '../../media/images_brown_bear_colored.png.js';
 import { brownBearOutlineWEBP } from '../../media/images_brown_bear_outline.webp.js';
@@ -163,6 +165,7 @@ import { sherlockSpritesJSON } from '../../media/images_playable-8-sherlock_sher
 import { sherlockPNG } from '../../media/images_playable-8-sherlock_sherlock.png.js';
 import { showFindPNG } from '../../media/images_playable-8-sherlock_show-find.png.js';
 import { showFoundPNG } from '../../media/images_playable-8-sherlock_show-found.png.js';
+import { .DSStore } from '../../media/images_playable9-bras_.DS_Store.js';
 import { playbtnEnPNG } from '../../media/images_playbtn-en.png.js';
 import { playbtnRuPNG } from '../../media/images_playbtn-ru.png.js';
 import { playbtnPNG } from '../../media/images_playbtn.png.js';

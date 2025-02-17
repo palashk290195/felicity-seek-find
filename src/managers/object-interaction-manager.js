@@ -1,4 +1,5 @@
 import * as Phaser from '../phaser/phaser-3.87.0-core.js';
+import { AudioUtils } from '../utils/audio-utils.js';
 
 export class ObjectInteractionManager {
     constructor(scene, gameStateManager) {
@@ -161,6 +162,9 @@ export class ObjectInteractionManager {
     }
 
     handleKeyClick(index, key) {
+        // Play click sound
+        AudioUtils.playSound(this.scene, 'object_click', false);
+
         // Calculate move distance based on game dimensions
         const moveDistance = Math.min(this.scene.scale.width, this.scene.scale.height) * 0.1;
 
@@ -203,14 +207,14 @@ export class ObjectInteractionManager {
             this.scene.time.removeAllEvents();
         }
 
-        // Reset drag functionality
-        if (this.container && this.container.input) {
-            // Only try to remove draggable if the container is still interactive
-            this.scene.input.setDraggable(this.container, false);
-            this.container.disableInteractive();
-        }
-        // Reset the drag listener flag regardless
-        this.dragListenerSet = false;
+        // // Reset drag functionality
+        // if (this.container && this.container.input) {
+        //     // Only try to remove draggable if the container is still interactive
+        //     this.scene.input.setDraggable(this.container, false);
+        //     this.container.disableInteractive();
+        // }
+        // // Reset the drag listener flag regardless
+        // this.dragListenerSet = false;
 
         // Re-setup container drag and keys
         this.setupKeysAndContainer();

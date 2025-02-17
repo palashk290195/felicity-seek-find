@@ -28,6 +28,9 @@ export class Game extends Phaser.Scene {
         const cleanup = AudioUtils.setup(this);
         this.events.once('shutdown', cleanup);
         
+        // Start background music
+        AudioUtils.playSound(this, 'seek_bg_music', true, { loop: true });
+        
         // Use original layout initially
         this.layoutManager = new LayoutManager(this, GAME_LAYOUT);
 
