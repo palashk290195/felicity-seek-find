@@ -1,9 +1,10 @@
 import { LayoutManager } from './utils/layout-manager.js';
 import { END_CARD_LAYOUT } from '../config/end-card-layout.js';
-import { handleCtaPressed } from '../networkPlugin.js';
+import { adRetry, adEnd, handleCtaPressed } from '../networkPlugin.js';
 import * as Phaser from '../phaser/phaser-3.87.0-core.js';
 import { getCurrentLanguage } from './utils/game-config.js';
 import { fitTextToContainer } from './utils/layout-utils.js';
+import { AudioUtils } from '../utils/audio-utils.js';
 
 export class EndCard extends Phaser.Scene {
     constructor() {
@@ -20,6 +21,14 @@ export class EndCard extends Phaser.Scene {
     create() {
         // Initialize layout manager with end card layout
         this.layoutManager = new LayoutManager(this, END_CARD_LAYOUT);
+        const cleanup = AudioUtils.setup(this);
+        this.events.once('shutdown', cleanup);
+
+        // Get current language and play voiceover
+        const languageConfig = getCurrentLanguage();
+        if (languageConfig.voiceover_key) {
+            AudioUtils.playSound(this, languageConfig.voiceover_key);
+        }
 
         // Get the background and set initial alpha
         const bg = this.layoutManager.getAsset('end-bg');
@@ -39,6 +48,7 @@ export class EndCard extends Phaser.Scene {
         if (cta) {
             cta.setInteractive();
             cta.on('pointerdown', () => {
+                adRetry();
                 handleCtaPressed();
             });
 
@@ -69,6 +79,7 @@ export class EndCard extends Phaser.Scene {
                 });
             }
         }
+        adEnd();
     }
 
     addCtaText(ctaButton) {

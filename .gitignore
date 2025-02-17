@@ -12,9 +12,11 @@ dist
 dist-zip
 dist-ssr
 *.local
-playable-ad-builds
+playable-ad-builds*
 heart-ad-builds
 wood-log-ad-builds
+dist-inline*
+dist-split*
 
 # Editor directories and files
 .vscode/*

@@ -80,7 +80,7 @@ export const END_CARD_LAYOUT = {
             "scaleMode": "fit",
             "maintainAspectRatio": true,
             "rotation": 0,
-            "isVisible": true
+            "isVisible": false
           },
           "landscape": {
             "position": {
@@ -99,7 +99,7 @@ export const END_CARD_LAYOUT = {
             "scaleMode": "fit",
             "maintainAspectRatio": true,
             "rotation": 0,
-            "isVisible": true
+            "isVisible": false
           }
         },
         "45629f4a-7073-46c6-a0d1-66e52fd3ec1d": {
@@ -110,12 +110,12 @@ export const END_CARD_LAYOUT = {
           "portrait": {
             "position": {
               "reference": "container",
-              "x": -0.292,
-              "y": 0.22263868065967016
+              "x": 0,
+              "y": 0
             },
             "size": {
-              "width": 1.0600000000000005,
-              "height": 0.9500000000000004
+              "width": 0.3,
+              "height": 0.3
             },
             "origin": {
               "x": 0.5,
@@ -129,12 +129,12 @@ export const END_CARD_LAYOUT = {
           "landscape": {
             "position": {
               "reference": "container",
-              "x": -0.23163418290854576,
-              "y": 0.13733333333333334
+              "x": 0,
+              "y": 0
             },
             "size": {
-              "width": 0.52,
-              "height": 1.3500000000000008
+              "width": 0.5,
+              "height": 0.5
             },
             "origin": {
               "x": 0.5,
@@ -155,7 +155,7 @@ export const END_CARD_LAYOUT = {
             "position": {
               "reference": "container",
               "x": 0.009333333333333334,
-              "y": 0.3740629685157421
+              "y": 0.2740629685157421
             },
             "size": {
               "width": 0.7000000000000002,
@@ -199,7 +199,7 @@ export const END_CARD_LAYOUT = {
             "position": {
               "reference": "container",
               "x": 0.006666666666666667,
-              "y": -0.4280359820089955
+              "y": -0.3280359820089955
             },
             "size": {
               "width": 0.19999999999999973,
@@ -243,7 +243,7 @@ export const END_CARD_LAYOUT = {
             "position": {
               "reference": "container",
               "x": 0.012,
-              "y": -0.31259370314842577
+              "y": -0.21259370314842577
             },
             "size": {
               "width": 0.5700000000000001,
