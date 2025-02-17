@@ -45,9 +45,14 @@ export class ObjectInteractionManager {
             const objectName = `find-object${i}`;
             const findObject = this.container.getByName(objectName);
             if (findObject) {
-                findObject.setInteractive({ useHandCursor: true })
+                findObject.setInteractive({ useHandCursor: true });
                     //.setBlendMode(Phaser.BlendModes.ADD)
-                    .setTint(0x8090ff); // Adding a subtle blue tint to blend with the dark background
+                    //.setAlpha(0.7)
+                if (i === 4) {
+                    findObject.setTint(0x8090ff); // Bluish tint for object 4
+                } else {
+                    findObject.setTint(0x000099); // Making the tint slightly less dark than this for all other objects
+                }
                 findObject.on('pointerdown', () => this.handleObjectClick(i, findObject));
                 this.findObjects.push(findObject);
             } else {

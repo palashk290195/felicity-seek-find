@@ -128,7 +128,6 @@ export class GameStateManager {
                     }
                     // Stop background music before playing voiceover
                     AudioUtils.stopSound(this.scene, 'bg_music');
-                    AudioUtils.playSound(this.scene, getCurrentLanguage().voiceoverKey);
                 }
             });
         }

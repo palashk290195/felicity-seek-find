@@ -96,56 +96,56 @@ export const GAME_CONFIG = {
     en: {
       game_cta: "Play Free!",
       end_card_cta: "New level!",
-      find_text: "Find {count} bombs",
-      find_text_singular: "Find {count} bomb",
+      find_text: "Find {count} hats",
+      find_text_singular: "Find {count} hat",
       find_rabbits: "Find 5 rabbits",
       voiceoverKey: "seek_english_voiceover"
     },
     fr: {
       game_cta: "Jouer Gratuitement!",
       end_card_cta: "Nouveau niveau!",
-      find_text: "Trouve {count} bombes",
-      find_text_singular: "Trouve {count} bombe",
+      find_text: "Trouve {count} chapeaux",
+      find_text_singular: "Trouve {count} chapeau",
       find_rabbits: "Trouve 5 lapins",
       voiceoverKey: "seek_french_voiceover"
     },
     ko: {
       game_cta: "무료 플레이!",
       end_card_cta: "새로운 레벨!",
-      find_text: "{count}개의 폭탄 찾기",
-      find_text_singular: "{count}개의 폭탄 찾기",
+      find_text: "{count}개의 모자 찾기",
+      find_text_singular: "{count}개의 모자 찾기",
       find_rabbits: "5개의 토끼 찾기",
       voiceoverKey: "seek_korean_voiceover"
     },
     jp: {
       game_cta: "無料でプレイ!",
       end_card_cta: "新しいレベル!",
-      find_text: "{count}個の爆弾を見つけて",
-      find_text_singular: "{count}個の爆弾を見つけて",
+      find_text: "{count}個の帽子を見つけて",
+      find_text_singular: "{count}個の帽子を見つけて",
       find_rabbits: "5匹のウサギを見つけて",
       voiceoverKey: "seek_japanese_voiceover"
     },
     ru: {
       game_cta: "Играть бесплатно!",
       end_card_cta: "Новый уровень!",
-      find_text: "Найди {count} бомбы",
-      find_text_singular: "Найди {count} бомбу",
+      find_text: "Найди {count} шляпы",
+      find_text_singular: "Найди {count} шляпу",
       find_rabbits: "Найди 5 кроликов",
       voiceoverKey: "seek_russian_voiceover"
     },
     pt: {
       game_cta: "Jogue Grátis!",
       end_card_cta: "Novo nível!",
-      find_text: "Encontre {count} bombas",
-      find_text_singular: "Encontre {count} bomba",
+      find_text: "Encontre {count} chapéus",
+      find_text_singular: "Encontre {count} chapéu",
       find_rabbits: "Encontre 5 coelhos",
       voiceoverKey: "seek_portuguese_voiceover"
     },
     de: {
       game_cta: "Kostenlos Spielen!",
       end_card_cta: "Neues Level!",
-      find_text: "Finde {count} Bomben",
-      find_text_singular: "Finde {count} Bombe",
+      find_text: "Finde {count} Hüte",
+      find_text_singular: "Finde {count} Hut",
       find_rabbits: "Finde 5 Hasen",
       voiceoverKey: "seek_german_voiceover"
     }
