@@ -11,6 +11,10 @@ import { seekEnglishVoiceoverMP3 } from '../../media/audio_seek_english_voiceove
 import { seekGermanVoiceoverMP3 } from '../../media/audio_seek_german_voiceover.mp3.js';
 import { seekJapaneseVoiceoverMP3 } from '../../media/audio_seek_japanese_voiceover.mp3.js';
 import { seekRussianVoiceoverMP3 } from '../../media/audio_seek_russian_voiceover.mp3.js';
+import { seekFrenchVoiceoverMP3 } from '../../media/audio_seek_french_voiceover.mp3.js';
+import { seekKoreanVoiceoverMP3 } from '../../media/audio_seek_korean_voiceover.mp3.js';
+import { seekPortugueseVoiceoverMP3 } from '../../media/audio_seek_portuguese_voiceover.mp3.js';
+import { seekBgMusicMP3 } from '../../media/audio_seek_bg_music.mp3.js';
 
 // Import playable-9-sherlock assets
 import { bgBrightJPEG } from '../../media/images_playable9-bras_bg-bright.jpeg.js';
@@ -64,7 +68,11 @@ export class Preloader extends Phaser.Scene
             { key: 'seek_english_voiceover', data: seekEnglishVoiceoverMP3 },
             { key: 'seek_german_voiceover', data: seekGermanVoiceoverMP3 },
             { key: 'seek_japanese_voiceover', data: seekJapaneseVoiceoverMP3 },
-            { key: 'seek_russian_voiceover', data: seekRussianVoiceoverMP3 }
+            { key: 'seek_russian_voiceover', data: seekRussianVoiceoverMP3 },
+            { key: 'seek_french_voiceover', data: seekFrenchVoiceoverMP3 },
+            { key: 'seek_korean_voiceover', data: seekKoreanVoiceoverMP3 },
+            { key: 'seek_portuguese_voiceover', data: seekPortugueseVoiceoverMP3 },
+            { key: 'bg_music', data: seekBgMusicMP3 }
         ]);
 
         // Load all game assets

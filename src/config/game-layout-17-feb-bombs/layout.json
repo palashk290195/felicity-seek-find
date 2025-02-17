@@ -1,4 +1,4 @@
-export const GAME_LAYOUT = {
+{
   "containers": {
     "main-container": {
       "portrait": {
@@ -639,7 +639,7 @@ export const GAME_LAYOUT = {
             "position": {
               "reference": "56b9fd65-191d-42a5-8467-6d926015004b",
               "x": 0,
-              "y": 0.6499999999999999
+              "y": 0.8599999999999999
             },
             "size": {
               "width": 1,
@@ -647,7 +647,7 @@ export const GAME_LAYOUT = {
             },
             "origin": {
               "x": 0.5,
-              "y": 0.135
+              "y": 0
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,
@@ -658,7 +658,7 @@ export const GAME_LAYOUT = {
             "position": {
               "reference": "56b9fd65-191d-42a5-8467-6d926015004b",
               "x": 0,
-              "y": 0.6499999999999999
+              "y": 0.8899999999999999
             },
             "size": {
               "width": 1,
@@ -666,7 +666,7 @@ export const GAME_LAYOUT = {
             },
             "origin": {
               "x": 0.5,
-              "y": 0.135
+              "y": 0
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,
@@ -739,7 +739,7 @@ export const GAME_LAYOUT = {
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,
-            "rotation": 0,
+            "rotation": 180,
             "isVisible": false
           },
           "landscape": {
@@ -758,7 +758,7 @@ export const GAME_LAYOUT = {
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,
-            "rotation": 0,
+            "rotation": 180,
             "isVisible": false
           }
         },
@@ -770,7 +770,7 @@ export const GAME_LAYOUT = {
           "portrait": {
             "position": {
               "reference": "e617f457-3095-4c5f-9930-66461af94d76",
-              "x": -0.3778140929535233,
+              "x": -0.3718140929535233,
               "y": -0.3538230884557721
             },
             "size": {
@@ -783,13 +783,13 @@ export const GAME_LAYOUT = {
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,
-            "rotation": 0,
+            "rotation": 180,
             "isVisible": false
           },
           "landscape": {
             "position": {
               "reference": "e617f457-3095-4c5f-9930-66461af94d76",
-              "x": -0.3687706146926537,
+              "x": -0.4587706146926537,
               "y": -0.2863568215892054
             },
             "size": {
@@ -802,7 +802,7 @@ export const GAME_LAYOUT = {
             },
             "scaleMode": "fit",
             "maintainAspectRatio": true,
-            "rotation": 0,
+            "rotation": 180,
             "isVisible": false
           }
         },
@@ -814,8 +814,8 @@ export const GAME_LAYOUT = {
           "portrait": {
             "position": {
               "reference": "e617f457-3095-4c5f-9930-66461af94d76",
-              "x": -0.28037781109445278,
-              "y": -0.29394302848575708
+              "x": -0.24437781109445278,
+              "y": -0.18394302848575708
             },
             "size": {
               "width": 0.20000000000000004,
@@ -833,8 +833,8 @@ export const GAME_LAYOUT = {
           "landscape": {
             "position": {
               "reference": "e617f457-3095-4c5f-9930-66461af94d76",
-              "x": -0.38283358320839584,
-              "y": -0.2148950524737631
+              "x": -0.33283358320839584,
+              "y": -0.1998950524737631
             },
             "size": {
               "width": 0.20000000000000004,
@@ -994,8 +994,8 @@ export const GAME_LAYOUT = {
               "y": -0.5097451274362819
             },
             "size": {
-              "width": 0.4,
-              "height": 0.4
+              "width": 0.2,
+              "height": 0.2
             },
             "origin": {
               "x": 0,
@@ -1147,50 +1147,6 @@ export const GAME_LAYOUT = {
             "size": {
               "width": 0.21999999999999995,
               "height": 0.21999999999999995
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 0.5
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          }
-        },
-        "d47892bd-9d18-4c1d-a68c-dd15b8b998b2": {
-          "id": "d47892bd-9d18-4c1d-a68c-dd15b8b998b2",
-          "name": "text-bg",
-          "type": "image",
-          "key": "text-bg",
-          "portrait": {
-            "position": {
-              "reference": "container",
-              "x": 0.112,
-              "y": -0.3538230884557721
-            },
-            "size": {
-              "width": 0.7,
-              "height": 0.7
-            },
-            "origin": {
-              "x": 0.5,
-              "y": 0.5
-            },
-            "scaleMode": "fit",
-            "maintainAspectRatio": true,
-            "rotation": 0,
-            "isVisible": true
-          },
-          "landscape": {
-            "position": {
-              "reference": "container",
-              "x": 0.24737631184407796,
-              "y": -0.328
-            },
-            "size": {
-              "width": 0.5,
-              "height": 0.5
             },
             "origin": {
               "x": 0.5,

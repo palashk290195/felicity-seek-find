@@ -4,6 +4,7 @@ import * as Phaser from '../phaser/phaser-3.87.0-core.js';
 import { getCurrentLanguage } from '../scenes/utils/game-config.js';
 import { fitTextToContainer } from '../scenes/utils/layout-utils.js';
 import { GAME_CONFIG } from '../scenes/utils/game-config.js';
+import { AudioUtils } from '../utils/audio-utils.js';
 
 export class GameStateManager {
     constructor(scene) {
@@ -52,7 +53,6 @@ export class GameStateManager {
         
         this.gameState = state;
         if (state === 'win') {
-            
             const mainContainer = this.scene['main-container'];
             if (mainContainer) {
                 // Get the original position from layout
@@ -125,6 +125,7 @@ export class GameStateManager {
                         textBg.setVisible(true);
                         findText.setVisible(true);
                     }
+                    AudioUtils.playSound(this.scene, getCurrentLanguage().voiceoverKey);
                 }
             });
         }

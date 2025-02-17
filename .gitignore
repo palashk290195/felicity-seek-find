@@ -15,6 +15,7 @@ dist-ssr
 playable-ad-builds
 heart-ad-builds
 wood-log-ad-builds
+playable-ad-builds*
 
 # Editor directories and files
 .vscode/*

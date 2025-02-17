@@ -1,3 +1,4 @@
+import { config } from "../../config.js";
 export const GAME_CONFIG = {
   display: {
     dpi: 3,  // DPI multiplier for high-resolution displays
@@ -90,54 +91,73 @@ export const GAME_CONFIG = {
       }
     }
   },
-  SELECTED_LANGUAGE: "en",
+  SELECTED_LANGUAGE: "en", //not used, just a fallback
   LANGUAGES: {
     en: {
       game_cta: "Play Free!",
       end_card_cta: "New level!",
-      find_text: "Find {count} bras",
-      find_rabbits: "Find 5 rabbits"
+      find_text: "Find {count} bombs",
+      find_text_singular: "Find {count} bomb",
+      find_rabbits: "Find 5 rabbits",
+      voiceoverKey: "seek_english_voiceover"
     },
     fr: {
       game_cta: "Jouer Gratuitement!",
       end_card_cta: "Nouveau niveau!",
-      find_text: "Trouve {count} soutiens-gorge",
-      find_rabbits: "Trouve 5 lapins"
+      find_text: "Trouve {count} bombes",
+      find_text_singular: "Trouve {count} bombe",
+      find_rabbits: "Trouve 5 lapins",
+      voiceoverKey: "seek_french_voiceover"
     },
     ko: {
       game_cta: "무료 플레이!",
       end_card_cta: "새로운 레벨!",
-      find_text: "{count}개의 브라 찾기",
-      find_rabbits: "5개의 토끼 찾기"
+      find_text: "{count}개의 폭탄 찾기",
+      find_text_singular: "{count}개의 폭탄 찾기",
+      find_rabbits: "5개의 토끼 찾기",
+      voiceoverKey: "seek_korean_voiceover"
     },
     jp: {
       game_cta: "無料でプレイ!",
       end_card_cta: "新しいレベル!",
-      find_text: "{count}個のブラを見つけて",
-      find_rabbits: "5匹のウサギを見つけて"
+      find_text: "{count}個の爆弾を見つけて",
+      find_text_singular: "{count}個の爆弾を見つけて",
+      find_rabbits: "5匹のウサギを見つけて",
+      voiceoverKey: "seek_japanese_voiceover"
     },
     ru: {
       game_cta: "Играть бесплатно!",
       end_card_cta: "Новый уровень!",
-      find_text: "Найди {count} бюстгальтера",
-      find_rabbits: "Найди 5 кроликов"
+      find_text: "Найди {count} бомбы",
+      find_text_singular: "Найди {count} бомбу",
+      find_rabbits: "Найди 5 кроликов",
+      voiceoverKey: "seek_russian_voiceover"
     },
     pt: {
       game_cta: "Jogue Grátis!",
       end_card_cta: "Novo nível!",
-      find_text: "Encontre {count} sutiãs",
-      find_rabbits: "Encontre 5 coelhos"
+      find_text: "Encontre {count} bombas",
+      find_text_singular: "Encontre {count} bomba",
+      find_rabbits: "Encontre 5 coelhos",
+      voiceoverKey: "seek_portuguese_voiceover"
     },
     de: {
       game_cta: "Kostenlos Spielen!",
       end_card_cta: "Neues Level!",
-      find_text: "Finde {count} BHs",
-      find_rabbits: "Finde 5 Hasen"
+      find_text: "Finde {count} Bomben",
+      find_text_singular: "Finde {count} Bombe",
+      find_rabbits: "Finde 5 Hasen",
+      voiceoverKey: "seek_german_voiceover"
     }
   }
 };
 
 // Helper function to get current language config
 export const getCurrentLanguage = () => {
-    return GAME_CONFIG.LANGUAGES[GAME_CONFIG.SELECTED_LANGUAGE];
+  // First try to get language from config (environment variable)
+  if (config.language && GAME_CONFIG.LANGUAGES[config.language]) {
+      return GAME_CONFIG.LANGUAGES[config.language];
+  }
+  // Fall back to default selected language if env variable is not set or invalid
+  return GAME_CONFIG.LANGUAGES[GAME_CONFIG.SELECTED_LANGUAGE];
 };
