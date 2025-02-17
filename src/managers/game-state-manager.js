@@ -30,6 +30,7 @@ export class GameStateManager {
         this.gameState = state;
         if (state === 'win') {
             this.startWinAnimations();
+            AudioUtils.playSound(this.scene, getCurrentLanguage().voiceoverKey);
             adEnd();
         }
     }
@@ -37,7 +38,6 @@ export class GameStateManager {
     startWinAnimations() {
         // Stop any existing animations
         this.stopWinAnimations();
-        AudioUtils.playSound(this.scene, getCurrentLanguage().voiceoverKey);
 
         const layoutManager = this.scene.layoutManager;
         

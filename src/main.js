@@ -80,6 +80,14 @@ function initializePhaserGame() {
                 game.scale.resize(width, height);
                 game.scale.refresh();
                 logGameDimensions(game, 'resize');
+                // Update current scene if it has a resize handler
+                const currentScene = game.scene.getScenes(true)[0];
+                if (currentScene?.handleResize) {
+                    currentScene.handleResize({
+                        width: game.scale.width,
+                        height: game.scale.height
+                    });
+                }
             };
 
             // Handle device orientation changes

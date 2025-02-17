@@ -59,7 +59,7 @@ export class Game extends Phaser.Scene {
         }
     }
 
-    handleResize() {
+    handleResize(gameSize) {
         // First update the layout
         this.tweens.killAll();
         
