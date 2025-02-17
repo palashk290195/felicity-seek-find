@@ -2,6 +2,7 @@ import { .DSStore } from '../../media/.DS_Store.js';
 import { .DSStore } from '../../media/audio_.DS_Store.js';
 import { bounceSoundMP3 } from '../../media/audio_bounce_sound.mp3.js';
 import { duckClickSoundMP3 } from '../../media/audio_duck_click_sound.mp3.js';
+import { objectClickMP3 } from '../../media/audio_object-click.mp3.js';
 import { seekBgMusicSuspenseMP3 } from '../../media/audio_seek_bg_music-suspense.mp3.js';
 import { seekBgMusicMP3 } from '../../media/audio_seek_bg_music.mp3.js';
 import { seekEnglishVoiceoverMP3 } from '../../media/audio_seek_english_voiceover.mp3.js';

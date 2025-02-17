@@ -7,6 +7,7 @@ import { OrangeLightEffect } from '../effects/OrangeLightEffect.js';
 import { HandEffect } from '../effects/HandEffect.js';
 import { HorrorCharacterEffect } from '../effects/HorrorCharacterEffect.js';
 import { LightningEffect } from '../effects/LightningEffect.js';
+import { AudioUtils } from '../utils/audio-utils.js';
 
 export class ObjectInteractionManager {
     constructor(scene, gameStateManager) {
@@ -57,6 +58,9 @@ export class ObjectInteractionManager {
 
     handleObjectClick(index, findObject) {
         console.log(`Object ${index} clicked`);
+        
+        // Play click sound
+        AudioUtils.playSound(this.scene, 'object-click', false);
         
         // Hide hint immediately on any object click
         if (this.scene.hintManager) {

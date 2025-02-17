@@ -15,6 +15,7 @@ import { seekFrenchVoiceoverMP3 } from '../../media/audio_seek_french_voiceover.
 import { seekKoreanVoiceoverMP3 } from '../../media/audio_seek_korean_voiceover.mp3.js';
 import { seekPortugueseVoiceoverMP3 } from '../../media/audio_seek_portuguese_voiceover.mp3.js';
 import { seekBgMusicMP3 } from '../../media/audio_seek_bg_music.mp3.js';
+import { objectClickMP3 } from '../../media/audio_object-click.mp3.js';
 
 // Import playable-9-sherlock assets
 import { bgBrightJPEG } from '../../media/images_playable9-bras_bg-bright.jpeg.js';
@@ -72,7 +73,8 @@ export class Preloader extends Phaser.Scene
             { key: 'seek_french_voiceover', data: seekFrenchVoiceoverMP3 },
             { key: 'seek_korean_voiceover', data: seekKoreanVoiceoverMP3 },
             { key: 'seek_portuguese_voiceover', data: seekPortugueseVoiceoverMP3 },
-            { key: 'bg_music', data: seekBgMusicMP3 }
+            { key: 'bg_music', data: seekBgMusicMP3 },
+            { key: 'object-click', data: objectClickMP3 }
         ]);
 
         // Load all game assets
