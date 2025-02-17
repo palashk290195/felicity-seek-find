@@ -126,6 +126,8 @@ export class GameStateManager {
                         textBg.setVisible(true);
                         findText.setVisible(true);
                     }
+                    // Stop background music before playing voiceover
+                    AudioUtils.stopSound(this.scene, 'bg_music');
                     AudioUtils.playSound(this.scene, getCurrentLanguage().voiceoverKey);
                 }
             });

@@ -98,7 +98,7 @@ export class ObjectInteractionManager {
                 if (this.gameStateManager.isAllObjectsFound()) {
                     this.gameStateManager.setGameState('win');
                 } else {
-                    // Schedule hint resume after delay if game is not won
+                    // Schedule hint resume after delay using tween instead of delayedCall
                     if (this.scene.hintManager) {
                         this.scene.hintManager.scheduleResume();
                     }

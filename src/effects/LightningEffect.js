@@ -106,32 +106,45 @@ export class LightningEffect extends EffectHandler {
             return;
         }
 
-        // Create strokes with delay, passing the index for angle selection
-        for (let i = 0; i < 5; i++) {
-            this.scene.time.delayedCall(i * 400, () => {
-                this.createStroke(
-                    mainContainer,
-                    originalLightning.x,
-                    originalLightning.y,
-                    { x: originalLightning.scaleX, y: originalLightning.scaleY },
-                    i  // Pass the index for angle selection
-                );
-            });
-        }
-
-        // Flash effect after all strokes are created
-        this.scene.time.delayedCall(2200, () => {
-            this.scene.tweens.add({
-                targets: this.strokes.map(stroke => stroke.sprite),
-                alpha: { from: 1, to: 0 },
-                duration: 2000,
-                ease: 'Stepped',
-                easeParams: [3],
-                onComplete: () => {
-                    this.strokes.forEach(stroke => stroke.destroy());
-                    this.strokes = [];
+        // Create strokes with delay using tweens
+        const dummyObject = { value: 0 };
+        this.scene.tweens.add({
+            targets: dummyObject,
+            value: 5,
+            duration: 2000,
+            onUpdate: () => {
+                const currentValue = Math.floor(dummyObject.value);
+                if (currentValue > this.strokes.length) {
+                    this.createStroke(
+                        mainContainer,
+                        originalLightning.x,
+                        originalLightning.y,
+                        { x: originalLightning.scaleX, y: originalLightning.scaleY },
+                        this.strokes.length
+                    );
                 }
-            });
+            }
+        });
+
+        // Flash effect after all strokes using tween
+        const flashDummy = { value: 0 };
+        this.scene.tweens.add({
+            targets: flashDummy,
+            value: 1,
+            duration: 2200,
+            onComplete: () => {
+                this.scene.tweens.add({
+                    targets: this.strokes.map(stroke => stroke.sprite),
+                    alpha: { from: 1, to: 0 },
+                    duration: 2000,
+                    ease: 'Stepped',
+                    easeParams: [3],
+                    onComplete: () => {
+                        this.strokes.forEach(stroke => stroke.destroy());
+                        this.strokes = [];
+                    }
+                });
+            }
         });
 
         this.isActive = true;

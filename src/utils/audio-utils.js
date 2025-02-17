@@ -93,4 +93,14 @@ export const AudioUtils = {
             return null;
         }
     },
+
+    stopSound(scene, key) {
+        console.log(`[AudioUtils] Stopping sound: ${key}`);
+        const sounds = scene.sound.getAllPlaying();
+        sounds.forEach(sound => {
+            if (sound.key === key) {
+                sound.stop();
+            }
+        });
+    }
 };

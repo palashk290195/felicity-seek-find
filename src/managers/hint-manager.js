@@ -133,7 +133,7 @@ export class HintManager {
         
         // Clear any existing resume timer
         if (this.resumeTimer) {
-            this.resumeTimer.remove();
+            this.resumeTimer.stop();
             this.resumeTimer = null;
         }
 
@@ -147,18 +147,21 @@ export class HintManager {
     scheduleResume() {
         // Clear any existing timer
         if (this.resumeTimer) {
-            this.resumeTimer.remove();
+            this.resumeTimer.stop();
             this.resumeTimer = null;
         }
 
-        // Create new timer
-        this.resumeTimer = this.scene.time.delayedCall(
-            GAME_CONFIG.animation.hintCircle.nextObjectDelay,
-            () => {
+        // Create new timer using a dummy tween
+        const dummyObject = { value: 0 };
+        this.resumeTimer = this.scene.tweens.add({
+            targets: dummyObject,
+            value: 1,
+            duration: GAME_CONFIG.animation.hintCircle.nextObjectDelay,
+            onComplete: () => {
                 this.resumeTimer = null;
                 this.resumeHint();
             }
-        );
+        });
     }
 
     handleResize() {
@@ -186,11 +189,11 @@ export class HintManager {
             this.hintTween = null;
         }
         if (this.nextObjectTimer) {
-            this.nextObjectTimer.remove();
+            this.nextObjectTimer.stop();
             this.nextObjectTimer = null;
         }
         if (this.resumeTimer) {
-            this.resumeTimer.remove();
+            this.resumeTimer.stop();
             this.resumeTimer = null;
         }
         if (this.hintCircle) {

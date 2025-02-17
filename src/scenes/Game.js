@@ -74,15 +74,18 @@ export class Game extends Phaser.Scene {
                 // Show wrong click effect
                 this.wrongClickManager.showWrongClick(pointer.x, pointer.y);
 
-                // Resume hint after delay
-                this.scene.time.delayedCall(
-                    GAME_CONFIG.animation.hintCircle.nextObjectDelay,
-                    () => {
+                // Resume hint after delay using tween
+                const dummyObject = { value: 0 };
+                this.tweens.add({
+                    targets: dummyObject,
+                    value: 1,
+                    duration: GAME_CONFIG.animation.hintCircle.nextObjectDelay,
+                    onComplete: () => {
                         if (this.hintManager) {
                             this.hintManager.resumeHint();
                         }
                     }
-                );
+                });
             }
         });
 
