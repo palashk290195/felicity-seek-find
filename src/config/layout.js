@@ -1,3 +1,5 @@
+import { getCurrentLanguage } from '../scenes/utils/game-config.js';
+
 export const GAME_LAYOUT = {
   "containers": {
     "main-container": {
@@ -326,7 +328,7 @@ export const GAME_LAYOUT = {
           "id": "ae211c1b-9d30-421f-ad6a-e7e9db422b34",
           "name": "find-text",
           "type": "image",
-          "key": "find-text",
+          "key": getCurrentLanguage().findTextKey,
           "portrait": {
             "position": {
               "reference": "container",
@@ -502,7 +504,7 @@ export const GAME_LAYOUT = {
           "id": "7dc515fc-18d8-49f6-b9e9-23c7b0d6cb0d",
           "name": "play-now",
           "type": "image",
-          "key": "play-now",
+          "key": getCurrentLanguage().playMoreKey,
           "portrait": {
             "position": {
               "reference": "container",

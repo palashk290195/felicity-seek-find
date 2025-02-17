@@ -1,4 +1,3 @@
-import { config } from '../src/config.js';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import { defineConfig } from 'vite';
 import { htmlInjectionPlugin } from 'vite-plugin-html-injection';
@@ -6,14 +5,17 @@ import { viteSingleFile } from 'vite-plugin-singlefile';
 import viteString from 'vite-plugin-string';
 import zipPack from 'vite-plugin-zip-pack';
 
+const adNetworkType = process.env.AD_NETWORK || 'default';
+const language = process.env.LANGUAGE || 'en';
+
 const addNetworkInjection = () => {
-    switch (config.adNetworkType) {
+    switch (adNetworkType) {
       case "google":
         return {
           name: "Google Ads",
-          type: "raw", // raw | js | css
+          type: "raw",
           path: "./src/injections/google.html",
-          injectTo: "head" // head | body | head-prepend | body-prepend
+          injectTo: "head"
         };
       case "tiktok":
         return {
@@ -28,7 +30,6 @@ const addNetworkInjection = () => {
           type: "raw",
           path: "./src/injections/ironsource.html",
           injectTo: "head"
-  
         };
       case "mintegral":
         return {
@@ -86,8 +87,12 @@ export default defineConfig({
   base: '',
   logLevel: 'warning',
   publicDir: false,
+  define: {
+    'process.env.AD_NETWORK': JSON.stringify(adNetworkType),
+    'process.env.LANGUAGE': JSON.stringify(language)
+  },
   build: {
-      outDir: 'dist-inline',
+      outDir: `dist-inline-${adNetworkType}-${language}`,
       assetsInlineLimit: 2097152,
       sourcemap: false,
       minify: 'terser',
@@ -112,8 +117,8 @@ export default defineConfig({
           include: [ "**/*.atlas", "**/*.xml" ]
       }),
       zipPack({
-        inDir: 'dist-inline',
-        outDir: 'dist-inline',
+        inDir: `dist-inline-${adNetworkType}-${language}`,
+        outDir: `dist-inline-${adNetworkType}-${language}`,
         outFileName: 'index.zip'
       }),
       {

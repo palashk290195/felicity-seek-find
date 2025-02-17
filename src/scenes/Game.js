@@ -25,6 +25,7 @@ export class Game extends Phaser.Scene {
 
         const cleanup = AudioUtils.setup(this);
         this.events.once('shutdown', cleanup);
+        AudioUtils.playSound(this, 'cat-bg-audio', true, { loop: true });
         this.layoutManager = new LayoutManager(this, GAME_LAYOUT);
 
         // Initialize game state manager first

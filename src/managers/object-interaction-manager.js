@@ -1,3 +1,5 @@
+import { AudioUtils } from "../utils/audio-utils.js";
+
 export class ObjectInteractionManager {
     constructor(scene, gameStateManager) {
         this.scene = scene;
@@ -28,6 +30,7 @@ export class ObjectInteractionManager {
     }
 
     handleCatClick(index, cat) {
+        AudioUtils.playSound(this.scene, 'cat-click', false);
         // Get the cat's position and dimensions
         const catWidth = cat.displayWidth;
         const catHeight = cat.displayHeight;

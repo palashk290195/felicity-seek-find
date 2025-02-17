@@ -1,3 +1,7 @@
+import { adEnd } from "../networkPlugin";
+import { AudioUtils } from "../utils/audio-utils.js";
+import { getCurrentLanguage } from "../scenes/utils/game-config.js";
+
 export class GameStateManager {
     constructor(scene) {
         this.scene = scene;
@@ -26,12 +30,14 @@ export class GameStateManager {
         this.gameState = state;
         if (state === 'win') {
             this.startWinAnimations();
+            adEnd();
         }
     }
 
     startWinAnimations() {
         // Stop any existing animations
         this.stopWinAnimations();
+        AudioUtils.playSound(this.scene, getCurrentLanguage().voiceoverKey);
 
         const layoutManager = this.scene.layoutManager;
         
